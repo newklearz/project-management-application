@@ -5,6 +5,7 @@ import com.newklearz.projectmanagement.repository.ticketdetails.TicketDetails;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Ticket implements Serializable
 {
@@ -107,13 +108,11 @@ public class Ticket implements Serializable
         this.userRole = userRole;
     }
 
-    public TicketDetails getTicketDetails()
-    {
+    public TicketDetails getTicketDetails() {
         return ticketDetails;
     }
 
-    public void setTicketDetails(TicketDetails ticketDetails)
-    {
+    public void setTicketDetails(TicketDetails ticketDetails) {
         this.ticketDetails = ticketDetails;
     }
 

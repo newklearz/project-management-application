@@ -1,5 +1,7 @@
 package com.newklearz.projectmanagement.repository.ticketdetails;
 
+import com.newklearz.projectmanagement.repository.users.Users;
+
 import java.io.Serializable;
 
 public class TicketDetails implements Serializable
@@ -15,6 +17,7 @@ public class TicketDetails implements Serializable
     public TicketDetails()
     {
     }
+
 
     public Integer getId()
     {
