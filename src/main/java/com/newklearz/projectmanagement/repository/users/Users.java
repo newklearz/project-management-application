@@ -16,44 +16,54 @@ public class Users {
 
     private List<Ticket> ticketList = new ArrayList<>();
 
-    public Users(){
+    public Users()
+    {
 
     }
 
-    public Integer getId() {
+    public Integer getId()
+    {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Integer id)
+    {
         this.id = id;
     }
 
-    public String getUsername() {
+    public String getUsername()
+    {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(String username)
+    {
         this.username = username;
     }
 
-    public String getEmail() {
+    public String getEmail()
+    {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(String email)
+    {
         this.email = email;
     }
 
-    public List<Ticket> getTicketList() {
+    public List<Ticket> getTicketList()
+    {
         return ticketList;
     }
 
-    public void setTicketList(List<Ticket> ticketList) {
+    public void setTicketList(List<Ticket> ticketList)
+    {
         this.ticketList = ticketList;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Users{" +
                 "id=" + id +
                 ", username='" + username + '\'' +

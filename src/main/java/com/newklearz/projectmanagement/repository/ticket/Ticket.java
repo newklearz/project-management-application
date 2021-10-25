@@ -5,8 +5,8 @@ import com.newklearz.projectmanagement.repository.ticketdetails.TicketDetails;
 
 import java.time.LocalDateTime;
 
-public class Ticket {
-
+public class Ticket
+{
     private Integer id;
 
     private String name;
@@ -22,59 +22,87 @@ public class Ticket {
 
     private TicketDetails ticketDetails;
 
-    public Ticket() {
+    public Ticket()
+    {
         this.dateCreated = LocalDateTime.now();
     }
 
-    public Integer getId() {
+    public Integer getId()
+    {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Integer id)
+    {
         this.id = id;
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name)
+    {
         this.name = name;
     }
 
-    public String getTicketType() {
+    public String getTicketType()
+    {
         return ticketType;
     }
 
-    public void setTicketType(String ticketType) {
+    public void setTicketType(String ticketType)
+    {
         this.ticketType = ticketType;
     }
 
-    public LocalDateTime getDateCreated() {
+    public LocalDateTime getDateCreated()
+    {
         return dateCreated;
     }
 
-    public String getDateUpdated() {
+    public String getDateUpdated()
+    {
         return dateUpdated;
     }
 
-    public void setDateUpdated(String dateUpdated) {
+    public void setDateUpdated(String dateUpdated)
+    {
         this.dateUpdated = dateUpdated;
     }
 
-    public String getUserRole() {
+    public String getUserRole()
+    {
         return userRole;
     }
 
-    public void setUserRole(String userRole) {
+    public void setUserRole(String userRole)
+    {
         this.userRole = userRole;
     }
 
-    public TicketDetails getTicketDetails() {
+    public TicketDetails getTicketDetails()
+    {
         return ticketDetails;
     }
 
-    public void setTicketDetails(TicketDetails ticketDetails) {
+    public void setTicketDetails(TicketDetails ticketDetails)
+    {
         this.ticketDetails = ticketDetails;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Ticket{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", ticketType='" + ticketType + '\'' +
+                ", dateCreated=" + dateCreated +
+                ", dateUpdated='" + dateUpdated + '\'' +
+                ", userRole='" + userRole + '\'' +
+                ", ticketDetails=" + ticketDetails +
+                '}';
     }
 }
