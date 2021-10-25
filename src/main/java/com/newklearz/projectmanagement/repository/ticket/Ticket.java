@@ -126,6 +126,8 @@ public class Ticket implements Serializable
                 ", ticketType='" + ticketType + '\'' +
                 ", dateCreated=" + dateCreated +
                 ", dateUpdated='" + dateUpdated + '\'' +
+                ", status='" + status + '\'' +
+                ", resolution='" + resolution + '\'' +
                 ", userRole='" + userRole + '\'' +
                 ", ticketDetails=" + ticketDetails +
                 '}';
