@@ -5,9 +5,8 @@ import com.newklearz.projectmanagement.repository.ticketdetails.TicketDetails;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 
-public class Ticket implements Serializable
+public class Ticket implements Serializable, Cloneable
 {
     private Integer id;
 
@@ -31,6 +30,12 @@ public class Ticket implements Serializable
     public Ticket()
     {
         this.dateCreated = LocalDateTime.now();
+    }
+
+    public Ticket(Integer id, String name, String ticketType, LocalDateTime dateCreated,
+                  String dateUpdated, String status, String resolution, String userRole, TicketDetails ticketDetails)
+    {
+        this();
     }
 
     public String getStatus()
@@ -114,6 +119,18 @@ public class Ticket implements Serializable
 
     public void setTicketDetails(TicketDetails ticketDetails) {
         this.ticketDetails = ticketDetails;
+    }
+    @Override
+    public Object clone()
+    {
+        try
+        {
+            return super.clone();
+        } catch (CloneNotSupportedException e)
+        {
+            return new Ticket(this.getId(), this.getName(), this.getTicketType(), this.getDateCreated(), this.getDateUpdated(),
+                    this.getStatus(), this.getResolution(), this.getUserRole(), this.getTicketDetails());
+        }
     }
 
     @Override

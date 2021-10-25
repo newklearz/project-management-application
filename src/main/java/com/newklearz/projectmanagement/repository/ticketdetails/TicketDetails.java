@@ -1,6 +1,6 @@
 package com.newklearz.projectmanagement.repository.ticketdetails;
 
-import com.newklearz.projectmanagement.repository.users.Users;
+
 
 import java.io.Serializable;
 
