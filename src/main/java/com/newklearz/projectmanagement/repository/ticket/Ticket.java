@@ -3,9 +3,10 @@ package com.newklearz.projectmanagement.repository.ticket;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.newklearz.projectmanagement.repository.ticketdetails.TicketDetails;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Ticket
+public class Ticket implements Serializable
 {
     private Integer id;
 
@@ -18,6 +19,10 @@ public class Ticket
 
     private String dateUpdated;
 
+    private String status;
+
+    private String resolution;
+
     private String userRole;
 
     private TicketDetails ticketDetails;
@@ -25,6 +30,26 @@ public class Ticket
     public Ticket()
     {
         this.dateCreated = LocalDateTime.now();
+    }
+
+    public String getStatus()
+    {
+        return status;
+    }
+
+    public void setStatus(String status)
+    {
+        this.status = status;
+    }
+
+    public String getResolution()
+    {
+        return resolution;
+    }
+
+    public void setResolution(String resolution)
+    {
+        this.resolution = resolution;
     }
 
     public Integer getId()

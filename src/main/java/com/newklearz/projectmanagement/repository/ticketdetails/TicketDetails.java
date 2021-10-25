@@ -1,6 +1,8 @@
 package com.newklearz.projectmanagement.repository.ticketdetails;
 
-public class TicketDetails
+import java.io.Serializable;
+
+public class TicketDetails implements Serializable
 {
     private Integer id;
 
@@ -8,13 +10,10 @@ public class TicketDetails
 
     private String teamName;
 
-    private String status;
-
-    private String resolution;
-
     private String sprintName;
 
-    public TicketDetails() {
+    public TicketDetails()
+    {
     }
 
     public Integer getId()
@@ -47,26 +46,6 @@ public class TicketDetails
         this.teamName = teamName;
     }
 
-    public String getStatus()
-    {
-        return status;
-    }
-
-    public void setStatus(String status)
-    {
-        this.status = status;
-    }
-
-    public String getResolution()
-    {
-        return resolution;
-    }
-
-    public void setResolution(String resolution)
-    {
-        this.resolution = resolution;
-    }
-
     public String getSprintName()
     {
         return sprintName;
@@ -84,8 +63,6 @@ public class TicketDetails
                 "id=" + id +
                 ", description='" + description + '\'' +
                 ", teamName='" + teamName + '\'' +
-                ", status='" + status + '\'' +
-                ", resolution='" + resolution + '\'' +
                 ", sprintName='" + sprintName + '\'' +
                 '}';
     }

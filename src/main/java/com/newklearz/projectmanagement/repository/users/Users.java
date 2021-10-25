@@ -3,10 +3,12 @@ package com.newklearz.projectmanagement.repository.users;
 
 import com.newklearz.projectmanagement.repository.ticket.Ticket;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Users {
+public class Users implements Serializable
+{
 
     private Integer id;
 
