@@ -5,7 +5,6 @@ import com.newklearz.projectmanagement.repository.users.Users;
 import com.newklearz.projectmanagement.repository.users.UsersRepository;
 import org.springframework.stereotype.Service;
 
-
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
@@ -25,14 +24,15 @@ public class UserService
     {
         Optional<Users> optional = usersRepository.findById(userId);
 
-        if(optional.isPresent()) {
+        if (optional.isPresent())
+        {
             return optional.get().getTicketList();
         }
 
         throw new EntityNotFoundException("User with id " + userId + " not found");
     }
 
-    public List <Users> findAll()
+    public List<Users> findAll()
     {
         return usersRepository.findAll();
     }
@@ -51,7 +51,7 @@ public class UserService
     {
         Users theUser = getUserById(id);
 
-        if(!theUser.getId().equals(user.getId()))
+        if (!theUser.getId().equals(user.getId()))
         {
             throw new RuntimeException("Id of entity not the same with path id");
         }
@@ -67,6 +67,6 @@ public class UserService
     private Users getUserById(Integer id)
     {
         Optional<Users> optional = usersRepository.findById(id);
-        return optional.orElseThrow(()->new EntityNotFoundException("User with id " +id + " not found" ));
+        return optional.orElseThrow(() -> new EntityNotFoundException("User with id " + id + " not found"));
     }
 }

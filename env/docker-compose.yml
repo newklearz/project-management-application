@@ -1,0 +1,22 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+  # db:
+    # image: mysql:5.7.23
+    # environment:
+      # MYSQL_ROOT_PASSWORD: admin
+      # MYSQL_USER: admin
+      # MYSQL_DATABASE: pms 
+      # MYSQL_PASSWORD: admin
+    # ports:
+      # - 3306:3306
+    # volumes:
+      # - ./data:/var/lib/mysql
+      
+  oracle-db:
+    image: store/oracle/database-enterprise:12.2.0.1-slim    
+    ports:
+      - 1522:1521
+    volumes:
+      - ./orcldata:/ORCL
