@@ -1,23 +1,34 @@
 package com.newklearz.projectmanagement.repository.ticketdetails;
 
+import com.newklearz.projectmanagement.repository.ticket.Ticket;
 
-
+import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
+@Table(name = "ticketdetails")
 public class TicketDetails implements Serializable
 {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Integer id;
 
+    @Column(name = "description")
     private String description;
 
+    @Column(name = "team_name")
     private String teamName;
 
+    @Column(name = "sprint_name")
     private String sprintName;
+
+    @OneToOne(mappedBy = "ticketDetails")
+    private Ticket ticket;
 
     public TicketDetails()
     {
     }
-
 
     public Integer getId()
     {
@@ -63,10 +74,11 @@ public class TicketDetails implements Serializable
     public String toString()
     {
         return "TicketDetails{" +
-                "id=" + id +
-                ", description='" + description + '\'' +
-                ", teamName='" + teamName + '\'' +
-                ", sprintName='" + sprintName + '\'' +
-                '}';
+            "id=" + id +
+            ", description='" + description + '\'' +
+            ", teamName='" + teamName + '\'' +
+            ", sprintName='" + sprintName + '\'' +
+            ", ticket=" + ticket +
+            '}';
     }
 }
