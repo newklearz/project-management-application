@@ -1,11 +1,19 @@
 package com.newklearz.projectmanagement.repository.ticket;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.newklearz.projectmanagement.repository.ticketdetails.TicketDetails;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.newklearz.projectmanagement.repository.ticketdetails.TicketDetails;
 
 @Entity
 @Table(name = "ticket")

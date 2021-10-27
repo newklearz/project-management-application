@@ -1,9 +1,16 @@
 package com.newklearz.projectmanagement.repository.ticketdetails;
 
-import com.newklearz.projectmanagement.repository.ticket.Ticket;
-
-import javax.persistence.*;
 import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.newklearz.projectmanagement.repository.ticket.Ticket;
 
 @Entity
 @Table(name = "ticketdetails")
