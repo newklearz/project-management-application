@@ -1,7 +1,12 @@
 package com.newklearz.projectmanagement.repository.users;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.Optional;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
 public interface UsersRepository extends JpaRepository<Users, Integer>
 {
+    Optional<Users> findByUserName(String userName);
 }

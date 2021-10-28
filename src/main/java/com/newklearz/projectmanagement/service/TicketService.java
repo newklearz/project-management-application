@@ -1,13 +1,15 @@
 package com.newklearz.projectmanagement.service;
 
+import java.util.List;
+import java.util.Optional;
+
+import javax.persistence.EntityNotFoundException;
+
+import org.springframework.stereotype.Service;
+
 import com.newklearz.projectmanagement.repository.ticket.Ticket;
 import com.newklearz.projectmanagement.repository.ticket.TicketRepository;
 import com.newklearz.projectmanagement.repository.ticketdetails.TicketDetails;
-import org.springframework.stereotype.Service;
-
-import javax.persistence.EntityNotFoundException;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TicketService
