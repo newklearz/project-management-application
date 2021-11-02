@@ -22,6 +22,8 @@ public class MyUserDetailsService implements UserDetailsService
     private final String PASSWORD_PATTERN =
         "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";
     private final Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
+    private final String INVALID_CHARACTERS = "^[^<>'\"/;:+=&`%{}\\]\\[\\\\?]*$";
+    private final Pattern invalidPattern = Pattern.compile(INVALID_CHARACTERS);
 
     public MyUserDetailsService(UsersRepository usersRepository, ApplicationPasswordEncoder applicationPasswordEncoder)
     {
@@ -61,17 +63,8 @@ public class MyUserDetailsService implements UserDetailsService
 
     private boolean invalidCharacters(String password)
     {
-        char[] charArray = {';', '<', '>', '{', '}', '[', ']', '+', '=', '?', '&', ':', '\\'};
-        char[] passwordArray = password.toCharArray();
-
-        for (char c : charArray) {
-            for (char value : passwordArray) {
-                if (c == value) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        Matcher matcher = invalidPattern.matcher(password);
+        return matcher.matches();
 
     }
 
@@ -100,10 +93,10 @@ public class MyUserDetailsService implements UserDetailsService
             throw new UserCredentialsException("PASSWORD_EMPTY");
         }
 
-        if (invalidCharacters(user.getPassword()))
+        if (!invalidCharacters(user.getPassword()))
         {
             throw new UserCredentialsException(
-                "CONTAINS_INVALID_CHARACTER [';', '<', '>', '{', '}', '[', ']', '+', '=', '?', '&', ':', '\\\\']");
+                "CONTAINS_INVALID_CHARACTER [';', '<', '>', '{', '}', '[', ']', '+', '=', '?', '&', ':', '\\','`']");
         }
         if (!isValid(user.getPassword()))
         {
