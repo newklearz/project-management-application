@@ -68,4 +68,13 @@ public class UserController
 
         return ResponseEntity.ok(userService.findAllTicketsByUser(userId));
     }
+
+    @PostMapping("/{id}/update_password")
+    public String changeUserPassword(@PathVariable("id") Integer id, @RequestBody String password)
+    {
+
+        return userService.updatePassword(id, password);
+
+    }
+
 }

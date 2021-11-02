@@ -1,23 +1,28 @@
 package com.newklearz.projectmanagement.service;
 
+import java.util.List;
+import java.util.Optional;
+
+import javax.persistence.EntityNotFoundException;
+
+import org.springframework.stereotype.Service;
+
 import com.newklearz.projectmanagement.repository.ticket.Ticket;
 import com.newklearz.projectmanagement.repository.users.Users;
 import com.newklearz.projectmanagement.repository.users.UsersRepository;
-import org.springframework.stereotype.Service;
-
-import javax.persistence.EntityNotFoundException;
-import java.util.List;
-import java.util.Optional;
+import com.newklearz.projectmanagement.security.MyUserDetailsService;
 
 @Service
 public class UserService
 {
 
     private final UsersRepository usersRepository;
+    private final MyUserDetailsService myUserDetailsService;
 
-    public UserService(UsersRepository usersRepository)
+    public UserService(UsersRepository usersRepository, MyUserDetailsService myUserDetailsService)
     {
         this.usersRepository = usersRepository;
+        this.myUserDetailsService = myUserDetailsService;
     }
 
     public List<Ticket> findAllTicketsByUser(Integer userId)
@@ -68,5 +73,13 @@ public class UserService
     {
         Optional<Users> optional = usersRepository.findById(id);
         return optional.orElseThrow(() -> new EntityNotFoundException("User with id " + id + " not found"));
+    }
+
+    public String updatePassword(Integer id, String password)
+    {
+        Users users = getUserById(id);
+        users.setPassword(password);
+        return myUserDetailsService.changePassword(users);
+
     }
 }
