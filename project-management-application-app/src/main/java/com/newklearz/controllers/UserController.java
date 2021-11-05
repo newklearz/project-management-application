@@ -13,7 +13,6 @@ import com.newklearz.service.UserService;
 @RestController
 public class UserController implements UserResource
 {
-
     private final UserService userService;
 
     public UserController(UserService userService)
@@ -46,10 +45,10 @@ public class UserController implements UserResource
     }
 
     @Override
-    public ResponseEntity<Object> deleteUser(Integer id)
+    public ResponseEntity<Object> deactivateUser(Integer id)
     {
-        userService.deleteUser(id);
-        return ResponseEntity.status(HttpStatus.GONE).build();
+        userService.deactivateUser(id);
+        return ResponseEntity.status(HttpStatus.LOCKED).build();
     }
 
     @Override
@@ -63,5 +62,4 @@ public class UserController implements UserResource
     {
         return userService.updatePassword(id, password);
     }
-
 }

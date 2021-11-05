@@ -41,6 +41,8 @@ public class Users implements Serializable
     @Column(name = "app_user_role")
     private AppUserRole appUserRole;
 
+    private boolean isActive =true;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private List<Ticket> ticketList = new ArrayList<>();
@@ -125,6 +127,14 @@ public class Users implements Serializable
     public void setTicketList(List<Ticket> ticketList)
     {
         this.ticketList = ticketList;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     @Override

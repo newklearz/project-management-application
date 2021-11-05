@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
+import com.newklearz.repository.ticketdetails.TicketDetailsRepository;
 import org.springframework.stereotype.Service;
 
 import com.newklearz.DTO.TicketDTO;
@@ -19,16 +20,17 @@ import com.newklearz.repository.ticketdetails.TicketDetails;
 public class TicketService
 {
     private final TicketRepository ticketRepository;
+    private final TicketDetailsRepository ticketDetailsRepository;
 
-    public TicketService(TicketRepository ticketRepository)
+    public TicketService(TicketRepository ticketRepository, TicketDetailsRepository ticketDetailsRepository)
     {
         this.ticketRepository = ticketRepository;
+        this.ticketDetailsRepository = ticketDetailsRepository;
     }
 
     public List<TicketDTO> findAll()
     {
         return TicketAdapter.toDTOList(ticketRepository.findAll());
-
     }
 
     public TicketDTO findById(Integer id)
@@ -63,25 +65,14 @@ public class TicketService
     private Ticket getTicketById(Integer id)
     {
         Optional<Ticket> optional = ticketRepository.findById(id);
-        return optional.orElseThrow(() -> new EntityNotFoundException("User with id " + id + " not found"));
+        return optional.orElseThrow(() -> new EntityNotFoundException("Ticket with id " + id + " not found"));
     }
 
-    public TicketDetailsDTO addNewDetailsToTicket(Integer id, TicketDetailsDTO ticketDetailsDTO)
+    public TicketDetailsDTO updateTicketDetails(Integer id, TicketDetailsDTO ticketDetailsDTO)
     {
         Ticket ticket = getTicketById(id);
         TicketDetails theDetails = ticket.getTicketDetails();
-
-        if (theDetails != null)
-        {
-            ticket.setTicketDetails(TicketDetailsAdapter.toEntity(ticketDetailsDTO));
-            ticketRepository.save(ticket);
-
-        }
-        else
-        {
-            throw new RuntimeException("The ticket with the id of " + id + " has no details");
-        }
-
+        ticketDetailsRepository.mergeAndFlush(theDetails, ticketDetailsDTO);
         return TicketDetailsAdapter.toDTO(ticket.getTicketDetails());
     }
 
@@ -97,5 +88,4 @@ public class TicketService
         Ticket newTicket = new Ticket((Ticket) ticket.clone());
         return TicketAdapter.toDTO(ticketRepository.save(newTicket));
     }
-
 }

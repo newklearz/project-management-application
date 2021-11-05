@@ -8,7 +8,6 @@ import com.newklearz.repository.ticketdetails.TicketDetails;
 
 public class TicketDetailsAdapter
 {
-
     public static TicketDetailsDTO toDTO(TicketDetails ticketDetails)
     {
         TicketDetailsDTO ticketDetailsDTO = new TicketDetailsDTO();
@@ -28,15 +27,12 @@ public class TicketDetailsAdapter
             ticketDetails.setDescription(ticketDetailsDTO.getDescription());
             ticketDetails.setTeamName(ticketDetailsDTO.getTeamName());
             ticketDetails.setSprintName(ticketDetailsDTO.getSprintName());
-
         }
         else
         {
             return new TicketDetails();
         }
-
         return ticketDetails;
-
     }
 
     public static List<TicketDetailsDTO> toDTOList(List<TicketDetails> ticketDetails)
@@ -54,5 +50,4 @@ public class TicketDetailsAdapter
             .map(TicketDetailsAdapter::toEntity)
             .collect(Collectors.toList());
     }
-
 }

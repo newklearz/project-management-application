@@ -25,6 +25,5 @@ public class RegistrationService
                 request.getEmail(),
                 request.getPassword(),
                 AppUserRole.ADMIN));
-
     }
 }

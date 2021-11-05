@@ -5,18 +5,12 @@ import java.util.List;
 
 public class UsersDTO
 {
-
     private Integer id;
-
     private String userName;
-
     private String email;
-
     private String password;
-
     private AppUserRole appUserRole;
-
-    private List<TicketDTO> ticketDTOList = new ArrayList<>();
+    private List<TicketDTO> ticketList = new ArrayList<>();
 
     public UsersDTO()
     {
@@ -30,7 +24,7 @@ public class UsersDTO
         this.email = email;
         this.password = password;
         this.appUserRole = appUserRole;
-        this.ticketDTOList = ticketDTOList;
+        this.ticketList = ticketDTOList;
     }
 
     public Integer getId()
@@ -83,14 +77,13 @@ public class UsersDTO
         this.appUserRole = appUserRole;
     }
 
-    public List<TicketDTO> getTicketDTOList()
+    public List<TicketDTO> getTicketList()
     {
-        return ticketDTOList;
+        return ticketList;
     }
 
-    public void setTicketDTOList(List<TicketDTO> ticketDTOList)
+    public void setTicketList(List<TicketDTO> ticketList)
     {
-        this.ticketDTOList = ticketDTOList;
+        this.ticketList = ticketList;
     }
-
 }

@@ -10,10 +10,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan(basePackages = {"com.newklearz"})
 public class ProjectManagementApplication
 {
-
     public static void main(String[] args)
     {
         SpringApplication.run(ProjectManagementApplication.class, args);
-
     }
 }

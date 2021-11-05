@@ -3,11 +3,8 @@ package com.newklearz.DTO;
 public class TicketDetailsDTO
 {
     private Integer id;
-
     private String description;
-
     private String teamName;
-
     private String sprintName;
 
     public TicketDetailsDTO()
@@ -61,5 +58,4 @@ public class TicketDetailsDTO
     {
         this.sprintName = sprintName;
     }
-
 }

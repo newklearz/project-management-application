@@ -18,7 +18,6 @@ import com.newklearz.service.exceptions.UserCredentialsException;
 @Service
 public class MyUserDetailsService implements UserDetailsService
 {
-
     private final UsersRepository usersRepository;
     private final ApplicationPasswordEncoder applicationPasswordEncoder;
     private final String PASSWORD_PATTERN =
@@ -53,13 +52,9 @@ public class MyUserDetailsService implements UserDetailsService
             throw new UserCredentialsException("USERNAME_EXISTS");
         }
         validatePassword(user);
-
         String encodedPassword = applicationPasswordEncoder.encode(user.getPassword());
-
         user.setPassword(encodedPassword);
-
         usersRepository.save(user);
-
         return UserAdapter.toDTO(user);
     }
 
@@ -67,7 +62,6 @@ public class MyUserDetailsService implements UserDetailsService
     {
         Matcher matcher = invalidPattern.matcher(password);
         return matcher.matches();
-
     }
 
     private boolean isValid(String password)
@@ -81,15 +75,12 @@ public class MyUserDetailsService implements UserDetailsService
         validatePassword(user);
         String password = user.getPassword();
         user.setPassword(applicationPasswordEncoder.encode(password));
-
         usersRepository.save(user);
-
         return "Password changed successfully";
     }
 
     private void validatePassword(Users user)
     {
-
         if (user.getPassword().trim().isEmpty())
         {
             throw new UserCredentialsException("PASSWORD_EMPTY");
@@ -108,7 +99,5 @@ public class MyUserDetailsService implements UserDetailsService
                 "Password must contain at least one special character like ! @ # & ( )." +
                 "Password must contain a length of at least 8 characters and a maximum of 20 characters.");
         }
-
     }
-
 }

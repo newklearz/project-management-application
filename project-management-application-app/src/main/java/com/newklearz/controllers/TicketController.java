@@ -58,9 +58,9 @@ public class TicketController implements TicketResource
     }
 
     @Override
-    public ResponseEntity<TicketDetailsDTO> addNewDetailsToTicket(Integer id, TicketDetailsDTO ticketDetailsDTO)
+    public ResponseEntity<TicketDetailsDTO> updateTicketDetails(Integer id, TicketDetailsDTO ticketDetailsDTO)
     {
-        return ResponseEntity.ok(ticketService.addNewDetailsToTicket(id, ticketDetailsDTO));
+        return ResponseEntity.ok(ticketService.updateTicketDetails(id, ticketDetailsDTO));
     }
 
     @Override
@@ -68,5 +68,4 @@ public class TicketController implements TicketResource
     {
         return ResponseEntity.ok(ticketService.cloneById(id));
     }
-
 }

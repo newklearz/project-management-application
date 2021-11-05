@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 {
-
     private final ApplicationPasswordEncoder applicationPasswordEncoder;
     private final MyUserDetailsService myUserDetailsService;
 
@@ -31,14 +30,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
             .authorizeRequests()
             .antMatchers("/api/v1/registration").permitAll()
             .anyRequest().authenticated().and().csrf().disable();
-
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception
     {
         auth.authenticationProvider(authenticationProvider());
-
     }
 
     @Bean
@@ -47,8 +44,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(myUserDetailsService);
         provider.setPasswordEncoder(applicationPasswordEncoder);
-
         return provider;
     }
-
 }

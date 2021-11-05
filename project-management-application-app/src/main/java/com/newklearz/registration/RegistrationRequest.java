@@ -11,7 +11,6 @@ public class RegistrationRequest
         this.userName = userName;
         this.email = email;
         this.password = password;
-
     }
 
     public String getUserName()
@@ -28,5 +27,4 @@ public class RegistrationRequest
     {
         return password;
     }
-
 }

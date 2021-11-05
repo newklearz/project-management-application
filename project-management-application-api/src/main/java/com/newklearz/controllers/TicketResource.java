@@ -36,8 +36,7 @@ public interface TicketResource
     ResponseEntity<TicketDetailsDTO> getTicketDetailsForTicket(@PathVariable("id") Integer id);
 
     @PutMapping(TICKET_COMMON_PREFIX + "/{id}/details")
-    ResponseEntity<TicketDetailsDTO> addNewDetailsToTicket(@PathVariable("id") Integer id,
-        @RequestBody TicketDetailsDTO ticketDetailsDTO);
+    ResponseEntity<TicketDetailsDTO> updateTicketDetails(@PathVariable("id") Integer id, @RequestBody TicketDetailsDTO ticketDetailsDTO);
 
     @GetMapping(TICKET_COMMON_PREFIX + "/{id}/clone")
     ResponseEntity<TicketDTO> cloneTicket(@PathVariable("id") Integer id) throws CloneNotSupportedException;

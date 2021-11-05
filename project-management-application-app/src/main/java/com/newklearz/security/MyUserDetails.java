@@ -11,7 +11,6 @@ import com.newklearz.repository.users.Users;
 
 public class MyUserDetails implements UserDetails
 {
-
     private final Users user;
 
     public MyUserDetails(Users user)

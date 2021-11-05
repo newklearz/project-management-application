@@ -30,8 +30,8 @@ public interface UserResource
     ResponseEntity<UsersDTO> updateUser(@PathVariable("id") Integer id,
         @RequestBody UsersDTO usersDTO);
 
-    @DeleteMapping(USER_COMMON_PREFIX + "/{id}")
-    ResponseEntity<Object> deleteUser(@PathVariable("id") Integer id);
+    @PutMapping(USER_COMMON_PREFIX + "/{id}/deactivate")
+    ResponseEntity<Object> deactivateUser(@PathVariable("id") Integer id);
 
     @GetMapping(USER_COMMON_PREFIX + "/{id}/tickets")
     ResponseEntity<List<TicketDTO>> getTicketsForUser(@PathVariable("id") Integer id);

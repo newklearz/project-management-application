@@ -1,41 +1,20 @@
 package com.newklearz.DTO;
 
-public class TicketDTO implements Cloneable
+public class TicketDTO
 {
-
     private Integer id;
-
     private String name;
-
     private String ticketType;
-
     private String dateCreated;
-
     private String dateUpdated;
-
     private String status;
-
     private String resolution;
-
     private String userRole;
-
-    private TicketDetailsDTO ticketDetailsDTO;
+    private TicketDetailsDTO ticketDetails;
 
     public TicketDTO()
     {
 
-    }
-
-    public TicketDTO(TicketDTO ticket)
-    {
-
-        this.name = "cloned " + ticket.getName();
-        this.ticketType = ticket.getTicketType();
-        this.dateUpdated = ticket.getDateUpdated();
-        this.status = ticket.getStatus();
-        this.resolution = ticket.getResolution();
-        this.userRole = ticket.getUserRole();
-        this.ticketDetailsDTO = ticket.getTicketDetailsDTO();
     }
 
     public TicketDTO(Integer id, String name, String ticketType, String dateCreated, String dateUpdated, String status,
@@ -49,12 +28,11 @@ public class TicketDTO implements Cloneable
         this.status = status;
         this.resolution = resolution;
         this.userRole = userRole;
-        this.ticketDetailsDTO = ticketDetailsDTO;
+        this.ticketDetails = ticketDetailsDTO;
     }
 
     public Integer getId()
     {
-
         return id;
     }
 
@@ -134,20 +112,13 @@ public class TicketDTO implements Cloneable
         this.userRole = userRole;
     }
 
-    public TicketDetailsDTO getTicketDetailsDTO()
+    public TicketDetailsDTO getTicketDetails()
     {
-        return ticketDetailsDTO;
+        return ticketDetails;
     }
 
-    public void setTicketDetailsDTO(TicketDetailsDTO ticketDetailsDTO)
+    public void setTicketDetails(TicketDetailsDTO ticketDetails)
     {
-        this.ticketDetailsDTO = ticketDetailsDTO;
+        this.ticketDetails = ticketDetails;
     }
-
-    @Override
-    public Object clone() throws CloneNotSupportedException
-    {
-        return super.clone();
-    }
-
 }

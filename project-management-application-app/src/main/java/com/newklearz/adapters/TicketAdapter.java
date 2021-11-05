@@ -8,7 +8,6 @@ import com.newklearz.repository.ticket.Ticket;
 
 public class TicketAdapter
 {
-
     public static TicketDTO toDTO(Ticket ticket)
     {
         TicketDTO ticketDTO = new TicketDTO();
@@ -20,7 +19,7 @@ public class TicketAdapter
         ticketDTO.setStatus(ticket.getStatus());
         ticketDTO.setResolution(ticket.getResolution());
         ticketDTO.setUserRole(ticket.getUserRole());
-        ticketDTO.setTicketDetailsDTO(TicketDetailsAdapter.toDTO(ticket.getTicketDetails()));
+        ticketDTO.setTicketDetails(TicketDetailsAdapter.toDTO(ticket.getTicketDetails()));
         return ticketDTO;
     }
 
@@ -35,7 +34,7 @@ public class TicketAdapter
         ticket.setStatus(ticketDTO.getStatus());
         ticket.setResolution(ticketDTO.getResolution());
         ticket.setUserRole(ticketDTO.getUserRole());
-        ticket.setTicketDetails(TicketDetailsAdapter.toEntity(ticketDTO.getTicketDetailsDTO()));
+        ticket.setTicketDetails(TicketDetailsAdapter.toEntity(ticketDTO.getTicketDetails()));
         return ticket;
     }
 
@@ -54,5 +53,4 @@ public class TicketAdapter
             .map(TicketAdapter::toEntity)
             .collect(Collectors.toList());
     }
-
 }

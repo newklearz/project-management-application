@@ -18,7 +18,6 @@ import com.newklearz.security.MyUserDetailsService;
 @Service
 public class UserService
 {
-
     private final UsersRepository usersRepository;
     private final MyUserDetailsService myUserDetailsService;
 
@@ -70,9 +69,11 @@ public class UserService
 
     }
 
-    public void deleteUser(Integer id)
+    public void deactivateUser(Integer id)
     {
-        usersRepository.deleteById(id);
+        Users users = getUserById(id);
+        users.setActive(false);
+        usersRepository.save(users);
     }
 
     private Users getUserById(Integer id)
@@ -86,6 +87,5 @@ public class UserService
         Users users = getUserById(id);
         users.setPassword(password);
         return myUserDetailsService.changePassword(users);
-
     }
 }
