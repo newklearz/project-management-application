@@ -1,6 +1,5 @@
 package com.newklearz.registration;
 
-import com.newklearz.DTO.UsersDTO;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +17,7 @@ public class RegistrationController
     }
 
     @PostMapping
-    public UsersDTO register(@RequestBody RegistrationRequest request)
+    public String register(@RequestBody RegistrationRequest request)
     {
         return registrationService.register(request);
     }

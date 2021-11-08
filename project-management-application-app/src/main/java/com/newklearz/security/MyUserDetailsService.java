@@ -9,8 +9,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.newklearz.DTO.UsersDTO;
-import com.newklearz.adapters.UserAdapter;
 import com.newklearz.repository.users.Users;
 import com.newklearz.repository.users.UsersRepository;
 import com.newklearz.service.exceptions.UserCredentialsException;
@@ -43,7 +41,7 @@ public class MyUserDetailsService implements UserDetailsService
         return new MyUserDetails(usersOptional.get());
     }
 
-    public UsersDTO signUpUser(Users user)
+    public String signUpUser(Users user)
 
     {
         boolean userExists = usersRepository.findByUserName(user.getUserName()).isPresent();
@@ -60,7 +58,7 @@ public class MyUserDetailsService implements UserDetailsService
         String encodedPassword = applicationPasswordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         usersRepository.save(user);
-        return UserAdapter.toDTO(user);
+        return "Sign-Up successfully";
     }
 
     private boolean invalidCharacters(String password)
