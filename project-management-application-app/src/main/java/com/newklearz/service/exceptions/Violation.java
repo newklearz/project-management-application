@@ -2,41 +2,46 @@ package com.newklearz.service.exceptions;
 
 import java.io.Serializable;
 
-public class Violation implements Serializable {
-
+public class Violation implements Serializable
+{
     private String field;
-
     private String message;
-
     private String receivedValue;
 
-    public Violation(String field, String message, String receivedValue) {
+    public Violation(String field, String message, String receivedValue)
+    {
         this.field = field;
         this.message = message;
         this.receivedValue = receivedValue;
     }
 
-    public String getField() {
+    public String getField()
+    {
         return field;
     }
 
-    public void setField(String field) {
+    public void setField(String field)
+    {
         this.field = field;
     }
 
-    public String getMessage() {
+    public String getMessage()
+    {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(String message)
+    {
         this.message = message;
     }
 
-    public String getReceivedValue() {
+    public String getReceivedValue()
+    {
         return receivedValue;
     }
 
-    public void setReceivedValue(String receivedValue) {
+    public void setReceivedValue(String receivedValue)
+    {
         this.receivedValue = receivedValue;
     }
 }

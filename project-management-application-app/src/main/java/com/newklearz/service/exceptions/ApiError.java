@@ -12,14 +12,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class ApiError implements Serializable
 {
     private HttpStatus status;
-
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyy HH:mm:ss")
     private final LocalDateTime timestamp;
-
     private String message;
-
     private String debugMessage;
-
     private List<Violation> violations = new ArrayList<>();
 
     public ApiError()

@@ -10,7 +10,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler
 {
-
     @ExceptionHandler(UserCredentialsException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
@@ -19,5 +18,4 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler
         return new ApiError(HttpStatus.EXPECTATION_FAILED, ex.getMessage());
 
     }
-
 }

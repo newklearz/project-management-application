@@ -51,6 +51,11 @@ public class MyUserDetailsService implements UserDetailsService
         {
             throw new UserCredentialsException("USERNAME_EXISTS");
         }
+        boolean emailExists = usersRepository.findByEmail(user.getEmail()).isPresent();
+        if (emailExists)
+        {
+            throw new UserCredentialsException("EMAIL_EXISTS");
+        }
         validatePassword(user);
         String encodedPassword = applicationPasswordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);

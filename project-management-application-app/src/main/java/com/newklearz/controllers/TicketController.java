@@ -48,7 +48,7 @@ public class TicketController implements TicketResource
     public ResponseEntity<Object> deleteTicket(Integer id)
     {
         ticketService.deleteTicket(id);
-        return ResponseEntity.status(HttpStatus.GONE).build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @Override

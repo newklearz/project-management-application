@@ -3,7 +3,6 @@ package com.newklearz.controllers;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,8 +26,7 @@ public interface UserResource
     ResponseEntity<UsersDTO> createUser(@RequestBody UsersDTO usersDTO);
 
     @PutMapping(USER_COMMON_PREFIX + "/{id}")
-    ResponseEntity<UsersDTO> updateUser(@PathVariable("id") Integer id,
-        @RequestBody UsersDTO usersDTO);
+    ResponseEntity<UsersDTO> updateUser(@PathVariable("id") Integer id, @RequestBody UsersDTO usersDTO);
 
     @PutMapping(USER_COMMON_PREFIX + "/{id}/deactivate")
     ResponseEntity<Object> deactivateUser(@PathVariable("id") Integer id);
@@ -38,5 +36,4 @@ public interface UserResource
 
     @PostMapping(USER_COMMON_PREFIX + "/{id}/update_password")
     String changeUserPassword(@PathVariable("id") Integer id, @RequestBody String password);
-
 }

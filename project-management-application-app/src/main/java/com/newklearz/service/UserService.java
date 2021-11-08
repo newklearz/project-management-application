@@ -66,7 +66,6 @@ public class UserService
             throw new RuntimeException("Id of entity not the same with path id");
         }
         return UserAdapter.toDTO(usersRepository.save(UserAdapter.toEntity(userDTO)));
-
     }
 
     public void deactivateUser(Integer id)

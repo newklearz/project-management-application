@@ -49,7 +49,6 @@ public class TicketService
     public TicketDTO updateTicket(Integer id, TicketDTO ticketDTO)
     {
         Ticket ticket = getTicketById(id);
-
         if (!ticket.getId().equals(ticketDTO.getId()))
         {
             throw new RuntimeException("Id of entity not the same with path id");
