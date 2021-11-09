@@ -2,15 +2,143 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <artifactId>project-management-application-parent</artifactId>
-        <groupId>com.newklearz</groupId>
-        <version>0.0.1-SNAPSHOT</version>
-    </parent>
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-    </properties>
-    <artifactId>project-management-application-web</artifactId>
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <artifactId>project-management-application-parent</artifactId>
+    <groupId>com.newklearz</groupId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>project-management-application-web</artifactId>
+
+  <properties>
+    <maven.compiler.source>8</maven.compiler.source>
+    <maven.compiler.target>8</maven.compiler.target>
+  </properties>
+
+  <build>
+    <plugins>
+      <!-- 1.) Create swagger files for REST client artefacts that do not provide swagger.json yet -->
+      <plugin>
+        <groupId>com.github.kongchen</groupId>
+        <artifactId>swagger-maven-plugin</artifactId>
+        <version>${swagger-maven-plugin.version}</version>
+        <dependencies>
+          <dependency>
+            <groupId>com.newklearz</groupId>
+            <artifactId>project-management-application-api</artifactId>
+            <version>${project.version}</version>
+          </dependency>
+        </dependencies>
+        <configuration>
+          <apiSources>
+            <apiSource>
+              <springmvc>true</springmvc>
+              <locations>
+                <location>com.newklearz.DTO</location>
+                <location>com.newklearz.controllers</location>
+              </locations>
+              <info>
+                <title>Project Management Application API</title>
+                <version>v1</version>
+              </info>
+              <swaggerDirectory>${swagger.spec.output}/all</swaggerDirectory>
+            </apiSource>
+          </apiSources>
+        </configuration>
+        <executions>
+          <execution>
+            <id>Generate Swagger JSON (All)</id>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <phase>generate-resources</phase>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>io.swagger</groupId>
+        <artifactId>swagger-codegen-maven-plugin</artifactId>
+        <version>${swagger-codegen-maven-plugin.version}</version>
+        <executions>
+          <execution>
+            <configuration>
+              <language>typescript-angular</language>
+              <templateDirectory>${swagger.ts.templates}</templateDirectory>
+              <inputSpec>${project.build.directory}/swagger/all/swagger.json
+              </inputSpec>
+              <output>${swagger.ts.output}</output>
+              <configOptions>
+                <ngVersion>6</ngVersion>
+              </configOptions>
+            </configuration>
+            <id>Generate TypeScript API (Sales Frontoffice)</id>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <phase>generate-resources</phase>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>com.github.eirslett</groupId>
+        <artifactId>frontend-maven-plugin</artifactId>
+        <version>${frontend-maven-plugin.version}</version>
+        <configuration>
+          <nodeVersion>${frontend-maven-plugin.nodeVersion}</nodeVersion>
+          <npmVersion>${frontend-maven-plugin.npmVersion}</npmVersion>
+        </configuration>
+        <executions>
+          <execution>
+            <id>install node and npm</id>
+            <goals>
+              <goal>install-node-and-npm</goal>
+            </goals>
+            <phase>initialize</phase>
+          </execution>
+          <execution>
+            <id>install npm packages</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <configuration>
+              <!--<arguments>install</arguments>-->
+              <arguments>install</arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>build angular application</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <configuration>
+              <!--<arguments>run build:mvn:prod</arguments>-->
+              <arguments>run build:mvn</arguments>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+    <resources>
+      <!-- filter only index.html, this is where the filtering markers are -->
+      <resource>
+        <directory>dist</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>META-INF/resources/index.html</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>dist</directory>
+        <filtering>false</filtering>
+        <excludes>
+          <exclude>META-INF/resources/index.html</exclude>
+        </excludes>
+        <includes>
+          <include>META-INF/resources/**</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
 </project>
