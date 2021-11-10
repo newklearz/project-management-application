@@ -34,11 +34,3 @@ build/
 
 ### Oracle Database ###
 /env/orcldata
-
-### Mvn and Package-lock.json ###
-/mvnw
-/mvnw.cmd
-/package-lock.json
-
-
-
