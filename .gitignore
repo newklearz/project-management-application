@@ -32,6 +32,10 @@ build/
 ### VS Code ###
 .vscode/
 
-###Oracle Database
-
+### Oracle Database ###
 /env/orcldata
+
+## project-management-application-api ##
+/project-management-application-api
+
+

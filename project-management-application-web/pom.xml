@@ -73,7 +73,7 @@
                 <ngVersion>6</ngVersion>
               </configOptions>
             </configuration>
-            <id>Generate TypeScript API (Sales Frontoffice)</id>
+            <id>Generate TypeScript API (Project Management Application)</id>
             <goals>
               <goal>generate</goal>
             </goals>

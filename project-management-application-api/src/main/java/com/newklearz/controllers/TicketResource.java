@@ -10,18 +10,17 @@ import org.springframework.web.bind.annotation.*;
 import com.newklearz.DTO.TicketDTO;
 import com.newklearz.DTO.TicketDetailsDTO;
 
-@Api("TicketResource")
+@Api("Ticket")
 public interface TicketResource
 {
     String TICKET_COMMON_PREFIX = "/api/v1/tickets";
 
-    /**
-     * retrives all tickets
-     * @return {@link  ResponseEntity<List<TicketDTO>>}
-     */
-    @ApiOperation("Retrieve all tickets")
+//    /**
+//     * retrives all tickets
+//     * @return {@link  ResponseEntity<List<TicketDTO>>}
+//     */
+    @ApiOperation("Retrieves all tickets")
     @ResponseBody
-  //  @GetMapping(TICKET_COMMON_PREFIX)
     @RequestMapping(method = RequestMethod.GET, value = TICKET_COMMON_PREFIX)
     ResponseEntity<List<TicketDTO>> getTickets();
 

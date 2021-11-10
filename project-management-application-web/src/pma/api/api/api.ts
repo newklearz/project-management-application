@@ -1,5 +1,5 @@
-export * from './ticketResource.service';
-import { TicketResourceService } from './ticketResource.service';
+export * from './ticket.service';
+import { TicketService } from './ticket.service';
 export * from './userResources.service';
 import { UserResourcesService } from './userResources.service';
-export const APIS = [TicketResourceService, UserResourcesService];
+export const APIS = [TicketService, UserResourcesService];

@@ -2,15 +2,8 @@
   "name": "angular-app",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
     "start-watch": "ng serve --watch",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "build:mvn:watch": "ng build --output-path target/classes/META-INF/resources --watch",
-    "build:mvn:prod": "ng build --prod --output-path dist/META-INF/resources",
-    "build:mvn": "ng build --output-path dist/META-INF/resources",
-    "test": "ng test"
+    "build:mvn": "ng build --output-path dist/META-INF/resources"
   },
   "private": true,
   "dependencies": {

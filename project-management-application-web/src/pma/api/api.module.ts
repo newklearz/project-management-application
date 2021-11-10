@@ -2,7 +2,7 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import {  } from './configuration';
 import { HttpClient } from '@angular/common/http';
 
-import { TicketResourceService } from './api/ticketResource.service';
+import { TicketService } from './api/ticket.service';
 import { UserResourcesService } from './api/userResources.service';
 
 @NgModule({
