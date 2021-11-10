@@ -14,7 +14,6 @@ public class TicketDTO
 
     public TicketDTO()
     {
-
     }
 
     public TicketDTO(Integer id, String name, String ticketType, String dateCreated, String dateUpdated, String status,

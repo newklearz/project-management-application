@@ -48,4 +48,8 @@ Thumbs.db
 /node
 
 # Api
-/src/pma/api
+/src/pma
+/src/templates
+
+# Target
+/target

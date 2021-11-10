@@ -2,60 +2,63 @@ package com.newklearz.controllers;
 
 import java.util.List;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.newklearz.DTO.TicketDTO;
 import com.newklearz.DTO.TicketDetailsDTO;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @Api("Ticket")
 public interface TicketResource
 {
     String TICKET_COMMON_PREFIX = "/api/v1/tickets";
 
-//    /**
-//     * retrieves all tickets
-//     * @return {@link  ResponseEntity<List<TicketDTO>>}
-//     */
     @ApiOperation("Retrieves all tickets")
     @ResponseBody
-    @RequestMapping(method = RequestMethod.GET, value = TICKET_COMMON_PREFIX)
+    @GetMapping(TICKET_COMMON_PREFIX)
     ResponseEntity<List<TicketDTO>> getTickets();
 
-    @ApiOperation("Retrieve all tickets 21")
+    @ApiOperation("Retrieves a ticket")
     @ResponseBody
     @GetMapping(TICKET_COMMON_PREFIX + "/{id}")
     ResponseEntity<TicketDTO> getTicket(@PathVariable("id") Integer id);
 
-    @ApiOperation("Retrieve all tickets 22")
+    @ApiOperation("Creates a ticket")
     @ResponseBody
     @PostMapping(TICKET_COMMON_PREFIX)
     ResponseEntity<TicketDTO> createTicket(@RequestBody TicketDTO ticketDTO);
 
-    @ApiOperation("Retrieve all tickets 23 ")
+    @ApiOperation("Updates a ticket")
     @ResponseBody
     @PutMapping(TICKET_COMMON_PREFIX + "/{id}")
     ResponseEntity<TicketDTO> updateTicket(@PathVariable("id") Integer id, @RequestBody TicketDTO ticketDTO);
 
-    @ApiOperation("Retrieve all tickets 24")
+    @ApiOperation("Deletes a ticket")
     @ResponseBody
     @DeleteMapping(TICKET_COMMON_PREFIX + "/{id}")
     ResponseEntity<Object> deleteTicket(@PathVariable("id") Integer id);
 
-    @ApiOperation("Retrieve all tickets 25")
+    @ApiOperation("Retrieves ticketDetails for a ticket")
     @ResponseBody
     @GetMapping(TICKET_COMMON_PREFIX + "/{id}/details")
     ResponseEntity<TicketDetailsDTO> getTicketDetailsForTicket(@PathVariable("id") Integer id);
 
-    @ApiOperation("Retrieve all tickets 26")
+    @ApiOperation("Updates ticketDetails for a ticket")
     @ResponseBody
     @PutMapping(TICKET_COMMON_PREFIX + "/{id}/details")
     ResponseEntity<TicketDetailsDTO> updateTicketDetails(@PathVariable("id") Integer id,
         @RequestBody TicketDetailsDTO ticketDetailsDTO);
 
-    @ApiOperation("Retrieve all tickets 27")
+    @ApiOperation("Clones a ticket")
     @ResponseBody
     @PostMapping(TICKET_COMMON_PREFIX + "/{id}/clone")
     ResponseEntity<TicketDTO> cloneTicket(@PathVariable("id") Integer id) throws CloneNotSupportedException;
