@@ -46,3 +46,6 @@ Thumbs.db
 
 # Node
 /node
+
+# Api
+/src/pma/api

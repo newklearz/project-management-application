@@ -35,7 +35,5 @@ build/
 ### Oracle Database ###
 /env/orcldata
 
-## project-management-application-api ##
-/project-management-application-api
 
 

@@ -16,7 +16,7 @@ public interface TicketResource
     String TICKET_COMMON_PREFIX = "/api/v1/tickets";
 
 //    /**
-//     * retrives all tickets
+//     * retrieves all tickets
 //     * @return {@link  ResponseEntity<List<TicketDTO>>}
 //     */
     @ApiOperation("Retrieves all tickets")
