@@ -18,6 +18,15 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <frontend-maven-plugin.nodeVersion>v14.17.3</frontend-maven-plugin.nodeVersion>
+        <frontend-maven-plugin.npmVersion>6.14.13</frontend-maven-plugin.npmVersion>
+        <frontend-maven-plugin.version>1.12.0</frontend-maven-plugin.version>
+        <swagger-maven-plugin.version>3.1.7</swagger-maven-plugin.version>
+        <swagger-codegen-maven-plugin.version>2.4.7</swagger-codegen-maven-plugin.version>
+
+        <swagger.spec.output>${project.build.directory}/swagger</swagger.spec.output>
+        <swagger.ts.templates>${project.basedir}/src/templates/typescript-angular</swagger.ts.templates>
+        <swagger.ts.output>${project.basedir}/src/pma/api</swagger.ts.output>
     </properties>
 
     <modules>

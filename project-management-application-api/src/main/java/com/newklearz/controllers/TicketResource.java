@@ -9,36 +9,57 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.newklearz.DTO.TicketDTO;
 import com.newklearz.DTO.TicketDetailsDTO;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api("Ticket")
 public interface TicketResource
 {
     String TICKET_COMMON_PREFIX = "/api/v1/tickets";
 
+    @ApiOperation("Retrieves all tickets")
+    @ResponseBody
     @GetMapping(TICKET_COMMON_PREFIX)
     ResponseEntity<List<TicketDTO>> getTickets();
 
+    @ApiOperation("Retrieves a ticket")
+    @ResponseBody
     @GetMapping(TICKET_COMMON_PREFIX + "/{id}")
     ResponseEntity<TicketDTO> getTicket(@PathVariable("id") Integer id);
 
+    @ApiOperation("Creates a ticket")
+    @ResponseBody
     @PostMapping(TICKET_COMMON_PREFIX)
     ResponseEntity<TicketDTO> createTicket(@RequestBody TicketDTO ticketDTO);
 
+    @ApiOperation("Updates a ticket")
+    @ResponseBody
     @PutMapping(TICKET_COMMON_PREFIX + "/{id}")
     ResponseEntity<TicketDTO> updateTicket(@PathVariable("id") Integer id, @RequestBody TicketDTO ticketDTO);
 
+    @ApiOperation("Deletes a ticket")
+    @ResponseBody
     @DeleteMapping(TICKET_COMMON_PREFIX + "/{id}")
     ResponseEntity<Object> deleteTicket(@PathVariable("id") Integer id);
 
+    @ApiOperation("Retrieves ticketDetails for a ticket")
+    @ResponseBody
     @GetMapping(TICKET_COMMON_PREFIX + "/{id}/details")
     ResponseEntity<TicketDetailsDTO> getTicketDetailsForTicket(@PathVariable("id") Integer id);
 
+    @ApiOperation("Updates ticketDetails for a ticket")
+    @ResponseBody
     @PutMapping(TICKET_COMMON_PREFIX + "/{id}/details")
     ResponseEntity<TicketDetailsDTO> updateTicketDetails(@PathVariable("id") Integer id,
         @RequestBody TicketDetailsDTO ticketDetailsDTO);
 
+    @ApiOperation("Clones a ticket")
+    @ResponseBody
     @PostMapping(TICKET_COMMON_PREFIX + "/{id}/clone")
     ResponseEntity<TicketDTO> cloneTicket(@PathVariable("id") Integer id) throws CloneNotSupportedException;
 }
