@@ -1,22 +1,26 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<div class="container login-container">
+<div class="login-container">
   <div class="row">
-    <div class="col-md-6 login-form-1">
-      <h3>Welcome to PMA</h3>
+    <div class="login-form">
       <form>
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Your Username *" value=""/>
         </div>
         <div class="form-group">
-          <input type="password" class="form-control" placeholder="Your Password *" value=""/>
+          <input type="{{text}}" name="password" id="password" class="form-control" placeholder="Your Password *"
+                 value="" data-toggle="password">
+          <div class="input-group-append">
+            <span class="input-group-text" (click)="onShowPassword()" [ngClass]="{clicked:text==='text'}">
+              <i class="fa fa-eye"></i>
+            </span>
+          </div>
         </div>
-        <div class="form-group">
-          <input type="submit" class="btnSubmit" value="Login"/>
-        </div>
-        <div class="form-group">
-          <a href="#" class="ForgetPwd">Forget Password?</a>
+        <div class="login-bottom">
+          <div class="form-group">
+            <input type="submit" class="btn-submit" value="Login"/>
+          </div>
+          <div class="form-group">
+            <a href="#" class="forget-password">Forget Password?</a>
+          </div>
         </div>
       </form>
     </div>

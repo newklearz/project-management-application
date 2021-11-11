@@ -1,34 +1,54 @@
-.login-container{
-  margin: 20%;
-}
-.login-form-1{
-  padding: 5%;
-  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
-}
-.login-form-1 h3{
-  text-align: center;
-  color: #333;
+.login-container
+{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.login-container form{
-  padding: 10%;
-}
-.btnSubmit
+.login-form
 {
-  width: 50%;
-  border-radius: 1rem;
+  padding: 5px;
+  width: 30rem;
+  height: 25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-form h3
+{
+  text-align: center;
+}
+
+.login-container form
+{
+  padding: 3rem;
+  width: 100%;
+}
+
+.btn-submit
+{
+  width: 7rem;
+  height: 2rem;
+  border-radius: 0.5rem;
   padding: 1.5%;
   border: none;
   cursor: pointer;
 }
-.login-form-1 .btnSubmit{
-  font-weight: 600;
-  color: #fff;
-  background-color: #0062cc;
+
+.login-bottom
+{
+  width: 100%;
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.login-form-1 .ForgetPwd{
-  color: #0062cc;
-  font-weight: 600;
-  text-decoration: none;
+.input-group-append
+{
+  margin-top: 10px;
+  cursor: pointer;
 }
