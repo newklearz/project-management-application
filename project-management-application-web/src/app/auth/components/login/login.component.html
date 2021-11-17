@@ -1,15 +1,15 @@
 <div class="login-container">
   <div class="row">
-    <div class="login-form">
+    <div routerLink="login" class="login-form" >
       <form>
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Your Username *" value=""/>
         </div>
         <div class="form-group">
-          <input type="{{text}}" name="password" id="password" class="form-control" placeholder="Your Password *"
+          <input [type]="showPassword ? 'text' : 'password'" name="password" id="password" class="form-control" placeholder="Your Password *"
                  value="" data-toggle="password">
           <div class="input-group-append">
-            <span class="input-group-text" (click)="onShowPassword()" [ngClass]="{clicked:text==='text'}">
+            <span class="input-group-text" (click)="togglePasswordVisibility()" [ngClass]="{'clicked':showPassword}">
               <i class="fa fa-eye"></i>
             </span>
           </div>

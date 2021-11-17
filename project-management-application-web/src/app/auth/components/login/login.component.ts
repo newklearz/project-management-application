@@ -7,18 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
   text: String ='password';
+  showPassword = false;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  onShowPassword(){
-    if(this.text==='password'){
-      this.text='text';
-    }
-    else {
-      this.text='password';
-    }
+  togglePasswordVisibility(){
+    this.showPassword = !this.showPassword
   }
 }
