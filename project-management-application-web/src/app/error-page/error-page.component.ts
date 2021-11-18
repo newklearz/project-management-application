@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Data} from '@angular/router';
+import {ActivatedRoute, Data, Router} from '@angular/router';
+import {ApiService} from "../api.service";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-error-page',
@@ -9,14 +11,23 @@ import {ActivatedRoute, Data} from '@angular/router';
 export class ErrorPageComponent implements OnInit {
   errorMessage: string;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private activatedRoute: ActivatedRoute, private appService: ApiService, private httpClient: HttpClient, private router: Router)
+  {
+
   }
 
-  ngOnInit() {
-    this.route.data.subscribe(
+  ngOnInit()
+  {
+    this.activatedRoute.data.subscribe(
       (data: Data) => {
         this.errorMessage = data['message'];
       }
     );
+  }
+
+  logout()
+  {
+    this.appService.isAuthenticated = false;
+    this.router.navigateByUrl('/');
   }
 }

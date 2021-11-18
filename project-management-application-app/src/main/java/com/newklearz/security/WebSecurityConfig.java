@@ -7,6 +7,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
+import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -15,21 +17,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
     private final ApplicationPasswordEncoder applicationPasswordEncoder;
     private final MyUserDetailsService myUserDetailsService;
 
+    private final CorsFilter corsFilter;
+
     public WebSecurityConfig(ApplicationPasswordEncoder applicationPasswordEncoder,
-        MyUserDetailsService myUserDetails)
+        MyUserDetailsService myUserDetails, CorsFilter corsFilter)
     {
 
         this.applicationPasswordEncoder = applicationPasswordEncoder;
         this.myUserDetailsService = myUserDetails;
+        this.corsFilter = corsFilter;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception
     {
+        http.addFilterBefore(corsFilter, ChannelProcessingFilter.class);
         http.httpBasic().and()
             .authorizeRequests()
-            .antMatchers("/api/v1/registration").permitAll()
-            .anyRequest().authenticated().and().csrf().disable();
+            .antMatchers("/index.html", "/", "/login").permitAll()
+            .anyRequest().authenticated();
+        //            .antMatchers("/api/v1/registration").permitAll()
+        //            .anyRequest().authenticated().and().csrf().disable();
     }
 
     @Override

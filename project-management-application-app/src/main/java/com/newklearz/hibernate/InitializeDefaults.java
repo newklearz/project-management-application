@@ -1,9 +1,9 @@
 package com.newklearz.hibernate;
 
-import com.newklearz.DTO.AppUserRole;
-import com.newklearz.repository.users.Users;
 import org.springframework.stereotype.Component;
 
+import com.newklearz.DTO.AppUserRole;
+import com.newklearz.repository.users.Users;
 import com.newklearz.security.MyUserDetailsService;
 
 @Component
