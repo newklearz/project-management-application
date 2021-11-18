@@ -1,0 +1,28 @@
+.login-form
+{
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+}
+
+.login-form h3
+{
+  color: #333;
+}
+
+.login-form .btn-submit
+{
+  font-weight: 600;
+  color: #fff;
+  background-color: #0062cc;
+}
+
+.login-form .forget-password
+{
+  color: #0062cc;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.clicked
+{
+  background-color: #ced4da;
+}

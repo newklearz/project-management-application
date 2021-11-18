@@ -1,0 +1,28 @@
+<div class="login-container">
+  <div class="row">
+    <div routerLink="/login" class="login-form" >
+      <form (ngSubmit)="login()">
+        <div class="form-group">
+          <input [(ngModel)]="credentials.username" [ngModelOptions]="{standalone: true}" type="text" class="form-control" placeholder="Your Username *" value="" />
+        </div>
+        <div class="form-group">
+          <input [(ngModel)]="credentials.password" [ngModelOptions]="{standalone: true}" [type]="showPassword ? 'text' : 'password'" name="password" id="password" class="form-control" placeholder="Your Password *"
+                 value="" data-toggle="password" >
+          <div class="input-group-append">
+            <span class="input-group-text" (click)="togglePasswordVisibility()" [ngClass]="{'clicked':showPassword}">
+              <i class="fa fa-eye"></i>
+            </span>
+          </div>
+        </div>
+        <div class="login-bottom">
+          <div class="form-group">
+            <input type="submit" class="btn-submit" value="Login"/>
+          </div>
+          <div class="form-group">
+            <a href="#" class="forget-password">Forget Password?</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

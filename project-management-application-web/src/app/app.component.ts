@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {ApiService} from "./api.service";
+import {HttpClient} from "@angular/common/http";
+import {Router} from "@angular/router";
+
 
 @Component({
   selector: 'app-root',
@@ -6,6 +10,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'angular-app';
-  title2= 'eu-angular-app';
+  constructor(private app: ApiService, private http: HttpClient, private router: Router)
+  {
+    this.app.authenticate(undefined, undefined)
+  }
 }

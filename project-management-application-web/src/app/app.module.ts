@@ -1,16 +1,31 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
+import {FormsModule} from "@angular/forms";
+import {LoginComponent} from "./auth/components/login/login.component";
+import {AppRoutingModule} from "./app-routing.module";
+import {ErrorPageComponent} from "./error-page/error-page.component";
+import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {XhrInterceptor} from "./xhr.interceptor";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    ErrorPageComponent,
+    PageNotFoundComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule,
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule
+{
+}
