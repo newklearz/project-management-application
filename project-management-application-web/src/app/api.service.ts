@@ -2,10 +2,8 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Injectable({providedIn: 'root'})
-export class ApiService
-{
+export class ApiService {
   private _isAuthenticated = false;
-
   constructor(private httpClient: HttpClient) {
   }
 
@@ -13,7 +11,6 @@ export class ApiService
     const headers = new HttpHeaders(credentials ? {
       authorization: 'Basic ' + btoa(credentials.username + ':' + credentials.password)
     } : {});
-
     return this.httpClient.get('http://localhost:8080/users', {headers: headers})
   }
 
@@ -21,8 +18,7 @@ export class ApiService
     return this._isAuthenticated;
   }
 
-  set isAuthenticated(value: boolean)
-  {
+  set isAuthenticated(value: boolean) {
     this._isAuthenticated = value;
   }
 }

@@ -34,3 +34,6 @@ build/
 
 ### Oracle Database ###
 /env/orcldata
+
+### Create Default Users ###
+project-management-application-app/src/main/java/com/newklearz/hibernate

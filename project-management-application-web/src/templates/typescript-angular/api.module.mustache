@@ -1,6 +1,7 @@
 import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core';
-import { {{configurationClassName}} } from './configuration';
-import { HttpClient } from '@angular/common/http';
+import { Configuration } from './configuration';
+{{#useHttpClient}}import { HttpClient } from '@angular/common/http';{{/useHttpClient}}
+{{^useHttpClient}}import { Http } from '@angular/http';{{/useHttpClient}}
 
 {{#apiInfo}}
 {{#apis}}
@@ -12,25 +13,25 @@ import { {{classname}} } from './{{importPath}}';
   imports:      [],
   declarations: [],
   exports:      [],
-  providers: [{{#isProvidedInNone}}
-    {{#apiInfo}}{{#apis}}{{classname}}{{^-last}},
-    {{/-last}}{{/apis}}{{/apiInfo}} {{/isProvidedInNone}}]
+  providers: [
+    {{#apiInfo}}{{#apis}}{{classname}}{{#hasMore}},
+    {{/hasMore}}{{/apis}}{{/apiInfo}} ]
 })
-export class {{apiModuleClassName}} {
-    public static forRoot(configurationFactory: () => {{configurationClassName}}): ModuleWithProviders{{#enforceGenericModuleWithProviders}}<{{apiModuleClassName}}>{{/enforceGenericModuleWithProviders}} {
+export class ApiModule {
+    public static forRoot(configurationFactory: () => Configuration): ModuleWithProviders<any> {
         return {
-            ngModule: {{apiModuleClassName}},
-            providers: [ { provide: {{configurationClassName}}, useFactory: configurationFactory } ]
+            ngModule: ApiModule,
+            providers: [ { provide: Configuration, useFactory: configurationFactory } ]
         };
     }
 
-    constructor( @Optional() @SkipSelf() parentModule: {{apiModuleClassName}},
-                 @Optional() http: HttpClient) {
+    constructor( @Optional() @SkipSelf() parentModule: ApiModule,
+                 @Optional() http: {{#useHttpClient}}HttpClient{{/useHttpClient}}{{^useHttpClient}}Http{{/useHttpClient}}) {
         if (parentModule) {
-            throw new Error('{{apiModuleClassName}} is already loaded. Import in your base AppModule only.');
+            throw new Error('ApiModule is already loaded. Import in your base AppModule only.');
         }
         if (!http) {
-            throw new Error('You need to import the HttpClientModule in your AppModule! \n' +
+            throw new Error('You need to import the {{#useHttpClient}}HttpClientModule{{/useHttpClient}}{{^useHttpClient}}HttpModule{{/useHttpClient}} in your AppModule! \n' +
             'See also https://github.com/angular/angular/issues/20575');
         }
     }

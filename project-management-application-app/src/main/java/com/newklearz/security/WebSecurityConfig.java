@@ -2,6 +2,7 @@ package com.newklearz.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -35,9 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
         http.httpBasic().and()
             .authorizeRequests()
             .antMatchers("/index.html", "/", "/login").permitAll()
-            .anyRequest().authenticated();
-        //            .antMatchers("/api/v1/registration").permitAll()
-        //            .anyRequest().authenticated().and().csrf().disable();
+            .anyRequest().authenticated().and().csrf().disable();
     }
 
     @Override

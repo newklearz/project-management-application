@@ -1,7 +1,4 @@
 import {Component} from '@angular/core';
-import {ApiService} from "./api.service";
-import {HttpClient} from "@angular/common/http";
-import {Router} from "@angular/router";
 
 
 @Component({
@@ -9,9 +6,9 @@ import {Router} from "@angular/router";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  constructor(private app: ApiService, private http: HttpClient, private router: Router)
+export class AppComponent
+{
+  constructor()
   {
-    this.app.authenticate(undefined, undefined)
   }
 }
