@@ -34,3 +34,5 @@ build/
 
 ### Oracle Database ###
 /env/orcldata
+### MySQL Database ###
+/env/data
