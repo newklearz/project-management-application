@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
-import com.newklearz.repository.ticketdetails.TicketDetailsRepository;
 import org.springframework.stereotype.Service;
 
 import com.newklearz.DTO.TicketDTO;
@@ -15,6 +14,7 @@ import com.newklearz.adapters.TicketDetailsAdapter;
 import com.newklearz.repository.ticket.Ticket;
 import com.newklearz.repository.ticket.TicketRepository;
 import com.newklearz.repository.ticketdetails.TicketDetails;
+import com.newklearz.repository.ticketdetails.TicketDetailsRepository;
 
 @Service
 public class TicketService

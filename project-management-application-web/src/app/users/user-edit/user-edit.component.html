@@ -27,6 +27,34 @@
       </span>
     </div>
   </div>
+  <ng-container *ngIf="!editMode">
+    <div class="col">
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="text"
+          id="password"
+          formControlName="password"
+          class="form-control">
+        <span
+          *ngIf="!userForm.get('password').valid && userForm.get('password').touched"
+          class="help-block">Please enter a valid password!
+      </span>
+      </div>
+    </div>
+  </ng-container>
+  <div class="col">
+    <div class="form-group">
+      <label for="appUserRole">Status</label>
+      <select
+        id="active"
+        class="form-control"
+        formControlName="active">
+        <option value="true">Active</option>
+        <option value="false">Inactive</option>
+      </select>
+    </div>
+  </div>
   <div class="col">
     <div class="form-group">
       <label for="appUserRole">User Role</label>
@@ -44,7 +72,7 @@
   <br>
   <div class="row">
     <div class="col d-flex justify-content-end">
-      <button class="btn btn-primary" type="submit">Save Changes</button>
+      <button class="btn btn-primary" type="submit" [disabled]="!userForm.valid">Save Changes</button>
     </div>
   </div>
 </form>

@@ -1,12 +1,14 @@
 import {Injectable} from "@angular/core";
-import {UsersDTO, UserService} from "../../pma/api";
+import {RegistrationService, UsersDTO, UserService} from "../../pma/api";
 import {Observable} from "rxjs";
 
 
 @Injectable({providedIn: 'root'})
 export class AdminService {
 
-  constructor(private userService: UserService) {
+
+  constructor(private userService: UserService,
+              private registrationService: RegistrationService) {
   }
 
   getUsers() {
@@ -17,15 +19,15 @@ export class AdminService {
     return this.userService.getUser(id);
   }
 
-  addUser(user: UsersDTO): Observable<UsersDTO>{
-    return this.userService.createUser(user);
+  addUser(user: UsersDTO): Observable<UsersDTO> {
+    return this.registrationService.register(user);
   }
 
-  deactivateUser(id: number){
+  deactivateUser(id: number) {
     return this.userService.deactivateUser(id);
   }
 
-  updateUser(id: number, userDTO: UsersDTO): Observable<UsersDTO>{
+  updateUser(id: number, userDTO: UsersDTO): Observable<UsersDTO> {
     return this.userService.updateUser(id, userDTO);
   }
 }

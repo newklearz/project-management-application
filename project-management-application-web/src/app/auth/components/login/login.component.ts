@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit
   {
     this.apiService.authenticate(this.credentials, () => {
     }).subscribe(resp => {
-      this.apiService.isAuthenticated = true;
       this.router.navigateByUrl('users');
     }, (err => console.log(err)))
     return false;

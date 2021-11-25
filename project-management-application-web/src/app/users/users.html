@@ -37,7 +37,7 @@
                   <td class="text-nowrap align-middle">{{user.appUserRole}}
                   </td>
                   <td class="text-nowrap align-middle"><i
-                    class="fa fa-fw text-secondary cursor-pointer fa-toggle-off"></i></td>
+                    [class]="user.active? toggleOn : toggleOff"></i></td>
                   <td class="text-nowrap align-middle">
                     <div class="btn-group align-top">
                       <button class="btn btn-sm btn-outline-secondary badge" type="button"

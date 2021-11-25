@@ -4,6 +4,8 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.newklearz.DTO.UsersDTO;
+import com.newklearz.adapters.UserAdapter;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -41,7 +43,7 @@ public class MyUserDetailsService implements UserDetailsService
         return new MyUserDetails(usersOptional.get());
     }
 
-    public String signUpUser(Users user)
+    public UsersDTO signUpUser(Users user)
 
     {
         boolean userExists = usersRepository.findByUserName(user.getUserName()).isPresent();
@@ -58,7 +60,7 @@ public class MyUserDetailsService implements UserDetailsService
         String encodedPassword = applicationPasswordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         usersRepository.save(user);
-        return "Sign-Up successfully";
+        return UserAdapter.toDTO(user);
     }
 
     private boolean invalidCharacters(String password)

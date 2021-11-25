@@ -4,29 +4,22 @@ import {Injectable} from '@angular/core';
 import {ApiService} from "./api.service";
 
 @Injectable({providedIn: 'root'})
-export class AuthGuard implements CanActivate, CanActivateChild
-{
-  constructor(private apiService: ApiService, private router: Router)
-  {
+export class AuthGuard implements CanActivate, CanActivateChild {
+  constructor(private apiService: ApiService, private router: Router) {
   }
 
   canActivate(route: ActivatedRouteSnapshot,
-              state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean
-  {
-    if (this.apiService.isAuthenticated)
-    {
+              state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    if (this.apiService.isUserLoggedIn()) {
       return true;
-    } else
-    {
+    } else {
       this.router.navigate(['/']);
       return false;
     }
-
   }
 
   canActivateChild(route: ActivatedRouteSnapshot,
-                   state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean
-  {
+                   state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     return this.canActivate(route, state);
   }
 }

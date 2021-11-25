@@ -14,6 +14,7 @@ public class UserAdapter
         usersDTO.setId(user.getId());
         usersDTO.setUserName(user.getUserName());
         usersDTO.setEmail(user.getEmail());
+        usersDTO.setActive(user.isActive());
         usersDTO.setPassword(user.getPassword());
         usersDTO.setAppUserRole(user.getAppUserRole());
         usersDTO.setTicketList(TicketAdapter.toDTOList(user.getTicketList()));
@@ -26,6 +27,7 @@ public class UserAdapter
         user.setId(usersDTO.getId());
         user.setUserName(usersDTO.getUserName());
         user.setEmail(usersDTO.getEmail());
+        user.setActive(usersDTO.isActive());
         user.setPassword(usersDTO.getPassword());
         user.setAppUserRole(usersDTO.getAppUserRole());
         user.setTicketList(TicketAdapter.toEntityList(usersDTO.getTicketList()));

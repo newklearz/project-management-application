@@ -7,12 +7,13 @@ import {LoginComponent} from "./auth/components/login/login.component";
 import {AppRoutingModule} from "./app-routing.module";
 import {Users} from "./users/users";
 import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {HeaderComponent} from "./header/header.component";
 import {ApiModule, UserService} from "../pma/api";
 import {UserEditComponent} from './users/user-edit/user-edit.component';
 import {CanDeactivateGuard} from "./users/user-edit/can-deactivate-guard.service";
 import {UserServiceNotification} from "./users/user-service.notification";
+import {InterceptorService} from "./interceptor.service";
 
 @NgModule({
   declarations: [
@@ -31,7 +32,9 @@ import {UserServiceNotification} from "./users/user-service.notification";
     ApiModule,
     ReactiveFormsModule
   ],
-  providers: [UserService, UserServiceNotification, CanDeactivateGuard],
+  providers: [UserService, UserServiceNotification, CanDeactivateGuard, {
+    provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

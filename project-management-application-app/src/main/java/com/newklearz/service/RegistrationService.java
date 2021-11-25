@@ -1,8 +1,9 @@
-package com.newklearz.registration;
+package com.newklearz.service;
 
 import org.springframework.stereotype.Service;
 
 import com.newklearz.DTO.AppUserRole;
+import com.newklearz.DTO.UsersDTO;
 import com.newklearz.repository.users.Users;
 import com.newklearz.security.MyUserDetailsService;
 
@@ -16,7 +17,7 @@ public class RegistrationService
         this.myUserDetailsService = myUserDetailsService;
     }
 
-    public String register(RegistrationRequest request)
+    public UsersDTO register(UsersDTO request)
     {
         return myUserDetailsService.signUpUser(
             new Users(

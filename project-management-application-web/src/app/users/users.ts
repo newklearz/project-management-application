@@ -14,7 +14,9 @@ import {UserServiceNotification} from "./user-service.notification";
 })
 export class Users implements OnInit {
   errorMessage: string;
-  users:  Observable<UsersDTO[]>;
+  users: Observable<UsersDTO[]>;
+  toggleOff = "fa fa-fw text-secondary cursor-pointer fa-toggle-off";
+  toggleOn = "fa fa-fw text-secondary cursor-pointer fa-toggle-on";
 
   constructor(private userServiceNotification: UserServiceNotification,
               private activatedRoute: ActivatedRoute,
@@ -41,16 +43,12 @@ export class Users implements OnInit {
     return item.id;
   }
 
-  logout() {
-    // this.appService.isAuthenticated = false;
-    this.router.navigateByUrl('/');
-  }
 
-  onEditUser(index: number){
+  onEditUser(index: number) {
     this.router.navigate(['edit', index], {relativeTo: this.activatedRoute});
   }
 
-  onAddUser(){
+  onAddUser() {
     this.router.navigate(['edit'], {relativeTo: this.activatedRoute});
   }
 }
