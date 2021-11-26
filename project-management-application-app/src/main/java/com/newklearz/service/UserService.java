@@ -60,7 +60,7 @@ public class UserService
     public UsersDTO updateUser(Integer id, UsersDTO userDTO)
     {
         Users theUser = getUserById(id);
-
+        userDTO.setPassword(theUser.getPassword());
         if (!theUser.getId().equals(userDTO.getId()))
         {
             throw new RuntimeException("Id of entity not the same with path id");

@@ -32,7 +32,8 @@ build/
 ### VS Code ###
 .vscode/
 
-### Oracle Database ###
-/env/orcldata
 ### MySQL Database ###
 /env/data
+
+### Oracle Database ###
+/env/orcldata

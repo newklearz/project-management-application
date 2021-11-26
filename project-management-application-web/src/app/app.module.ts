@@ -2,30 +2,40 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {LoginComponent} from "./auth/components/login/login.component";
 import {AppRoutingModule} from "./app-routing.module";
-import {ErrorPageComponent} from "./error-page/error-page.component";
+import {Users} from "./users/users";
 import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {XhrInterceptor} from "./xhr.interceptor";
+import {HeaderComponent} from "./header/header.component";
+import {ApiModule, UserService} from "../pma/api";
+import {UserEditComponent} from './users/user-edit/user-edit.component';
+import {CanDeactivateGuard} from "./users/user-edit/can-deactivate-guard.service";
+import {UserServiceNotification} from "./users/user-service.notification";
+import {InterceptorService} from "./interceptor.service";
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    ErrorPageComponent,
-    PageNotFoundComponent
+    Users,
+    PageNotFoundComponent,
+    HeaderComponent,
+    UserEditComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ApiModule,
+    ReactiveFormsModule
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true}],
+  providers: [UserService, UserServiceNotification, CanDeactivateGuard, {
+    provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true
+  }],
   bootstrap: [AppComponent]
 })
-export class AppModule
-{
+export class AppModule {
 }

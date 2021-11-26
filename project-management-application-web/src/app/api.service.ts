@@ -1,10 +1,9 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {map} from "rxjs/operators";
 
 @Injectable({providedIn: 'root'})
-export class ApiService
-{
-  private _isAuthenticated = false;
+export class ApiService {
 
   constructor(private httpClient: HttpClient) {
   }
@@ -13,16 +12,23 @@ export class ApiService
     const headers = new HttpHeaders(credentials ? {
       authorization: 'Basic ' + btoa(credentials.username + ':' + credentials.password)
     } : {});
-
-    return this.httpClient.get('http://localhost:8080/users', {headers: headers})
+    return this.httpClient.get('http://localhost:8080/users', {headers: headers}).pipe(
+      map(userData => {
+        sessionStorage.setItem('username', credentials.username);
+        let authString = 'Basic ' + btoa(credentials.username + ':' + credentials.password);
+        sessionStorage.setItem('basicauth', authString);
+        return userData;
+      })
+    );
   }
 
-  get isAuthenticated(): boolean {
-    return this._isAuthenticated;
+  isUserLoggedIn() {
+    let user = sessionStorage.getItem('username');
+    console.log(!(user === null));
+    return !(user === null);
   }
 
-  set isAuthenticated(value: boolean)
-  {
-    this._isAuthenticated = value;
+  logOut() {
+    sessionStorage.clear();
   }
 }

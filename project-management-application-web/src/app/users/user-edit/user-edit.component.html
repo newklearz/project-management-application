@@ -1,0 +1,78 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <div class="col">
+    <div class="form-group">
+      <label for="userName">Username</label>
+      <input
+        type="text"
+        id="userName"
+        required
+        formControlName="userName"
+        class="form-control">
+      <span
+        *ngIf="!userForm.get('userName').valid && userForm.get('userName').touched"
+        class="help-block">This field is required!</span>
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        type="text"
+        id="email"
+        formControlName="email"
+        class="form-control">
+      <span
+        *ngIf="!userForm.get('email').valid && userForm.get('email').touched"
+        class="help-block">Please enter a valid email!
+      </span>
+    </div>
+  </div>
+  <ng-container *ngIf="!editMode">
+    <div class="col">
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="text"
+          id="password"
+          formControlName="password"
+          class="form-control">
+        <span
+          *ngIf="!userForm.get('password').valid && userForm.get('password').touched"
+          class="help-block">Please enter a valid password!
+      </span>
+      </div>
+    </div>
+  </ng-container>
+  <div class="col">
+    <div class="form-group">
+      <label for="appUserRole">Status</label>
+      <select
+        id="active"
+        class="form-control"
+        formControlName="active">
+        <option value="true">Active</option>
+        <option value="false">Inactive</option>
+      </select>
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <label for="appUserRole">User Role</label>
+      <select
+        id="appUserRole"
+        class="form-control"
+        formControlName="appUserRole">
+        <option value="">Select a role</option>
+        <option value="USER">USER</option>
+        <option value="ADMIN">ADMIN</option>
+      </select>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="row">
+    <div class="col d-flex justify-content-end">
+      <button class="btn btn-primary" type="submit" [disabled]="!userForm.valid">Save Changes</button>
+    </div>
+  </div>
+</form>

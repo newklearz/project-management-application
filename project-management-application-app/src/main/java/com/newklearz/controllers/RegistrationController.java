@@ -1,5 +1,7 @@
-package com.newklearz.registration;
+package com.newklearz.controllers;
 
+import com.newklearz.DTO.UsersDTO;
+import com.newklearz.service.RegistrationService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/registration")
-public class RegistrationController
+public class RegistrationController implements RegistrationResource
 {
     private final RegistrationService registrationService;
 
@@ -17,7 +19,7 @@ public class RegistrationController
     }
 
     @PostMapping
-    public String register(@RequestBody RegistrationRequest request)
+    public UsersDTO register(@RequestBody UsersDTO request)
     {
         return registrationService.register(request);
     }
