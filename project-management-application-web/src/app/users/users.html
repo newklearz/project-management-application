@@ -1,0 +1,74 @@
+<app-header></app-header>
+<div class="col">
+  <div class="row flex-lg-nowrap">
+    <div class="col mb-3">
+      <div class="e-panel card">
+        <div class="card-body">
+          <div class="e-table">
+            <div class="table-responsive table-lg mt-3">
+              <table class="table table-bordered">
+                <thead>
+                <tr>
+                  <th class="align-top">
+                    <div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0">
+                      <input type="checkbox" class="custom-control-input" id="all-items">
+                      <label class="custom-control-label" for="all-items"></label>
+                    </div>
+                  </th>
+                  <th class="max-width">Name</th>
+                  <th class="max-width">Email</th>
+                  <th class="max-width">Role</th>
+                  <th class="max-width">Status</th>
+                  <th class="max-width">Actions</th>
+                </tr>
+                </thead>
+                <tbody *ngFor="let user of users | async; let i = index; trackBy: trackByFn">
+                <tr>
+                  <td class="align-middle">
+                    <div
+                      class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
+                      <input type="checkbox" class="custom-control-input" id="{{user.id}}">
+                      <label class="custom-control-label" for="{{user.id}}"></label>
+                    </div>
+                  </td>
+                  <td class="text-nowrap align-middle">{{user.userName}}
+                  </td>
+                  <td class="text-nowrap align-middle"><span>{{user.email}}</span></td>
+                  <td class="text-nowrap align-middle">{{user.appUserRole}}
+                  </td>
+                  <td class="text-nowrap align-middle"><i
+                    [class]="user.active? toggleOn : toggleOff"></i></td>
+                  <td class="text-nowrap align-middle">
+                    <div class="btn-group align-top">
+                      <button class="btn btn-sm btn-outline-secondary badge" type="button"
+                              (click)="onEditUser(user.id)">Edit
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-lg-3 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <div class="text-center px-xl-3">
+            <button class="btn btn-success btn-block" type="button" (click)="onAddUser()">
+              New User
+            </button>
+          </div>
+          <hr class="my-3">
+          <div>
+            <div class="px-2">
+              <router-outlet></router-outlet>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

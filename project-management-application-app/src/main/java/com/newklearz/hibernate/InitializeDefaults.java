@@ -9,7 +9,7 @@ import com.newklearz.security.MyUserDetailsService;
 @Component
 public class InitializeDefaults
 {
-    private MyUserDetailsService myUserDetailsService;
+    private final MyUserDetailsService myUserDetailsService;
 
     public InitializeDefaults(MyUserDetailsService myUserDetailsService)
     {
@@ -20,6 +20,16 @@ public class InitializeDefaults
     private void initialize()
     {
         Users admin = new Users("admin", "admin@pma", "admiN123$", AppUserRole.ADMIN);
+        Users user1 = new Users("costin", "costin@pma", "admiN123$", AppUserRole.USER);
+        Users user2 = new Users("florin", "florin@pma", "admiN123$", AppUserRole.USER);
+        Users user3 = new Users("ioan", "ioan@pma", "admiN123$", AppUserRole.USER);
+        Users user4 = new Users("sergiu", "sergiu@pma", "admiN123$", AppUserRole.USER);
+        Users user5 = new Users("marian", "marian@pma", "admiN123$", AppUserRole.USER);
         myUserDetailsService.signUpUser(admin);
+        myUserDetailsService.signUpUser(user1);
+        myUserDetailsService.signUpUser(user2);
+        myUserDetailsService.signUpUser(user3);
+        myUserDetailsService.signUpUser(user4);
+        myUserDetailsService.signUpUser(user5);
     }
 }
