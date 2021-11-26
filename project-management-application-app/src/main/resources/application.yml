@@ -1,3 +1,9 @@
 security:
   ignored:
     - "*.bundle.*"
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/pms?enabledTLSProtocols=TLSv1.2
+    username: admin
+    password: admin
+    driver-class-name: com.mysql.cj.jdbc.Driver
