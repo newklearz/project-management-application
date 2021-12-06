@@ -2,90 +2,138 @@ package com.newklearz.controllers;
 
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.newklearz.ProjectManagementApplication;
+import com.newklearz.SpringBootTestEnvironment;
 import com.newklearz.DTO.TicketDTO;
 import com.newklearz.DTO.TicketDetailsDTO;
 
-@SpringBootTest(classes = ProjectManagementApplication.class)
-public class TicketControllerIT
+public class TicketControllerIT extends SpringBootTestEnvironment
 {
-
-    @Autowired
-    TicketController ticketController;
-    TicketDTO ticketDTO;
-    TicketDetailsDTO ticketDetailsDTO;
-
-    @BeforeEach
-    public void setUp()
-    {
-        ticketDetailsDTO = new TicketDetailsDTO(1, "Avem niste probleme urgente", "Dragonii albstri", "Ultimul");
-        ticketDTO = new TicketDTO(1, "test", "bug", "01-12-2021", "02-12-2021", "inProgress", "unsolved", "assignee", ticketDetailsDTO);
-        ticketController.createTicket(ticketDTO);
-        ticketDetailsDTO = new TicketDetailsDTO(2, "Avem niste probleme urgente", "Dragonii albstri", "Ultimul");
-        ticketDTO = new TicketDTO(2, "test2", "bug", "01-12-2021", "02-12-2021", "inProgress", "unsolved", "assignee", ticketDetailsDTO);
-        ticketController.createTicket(ticketDTO);
-    }
-
+    /**
+     * Verify if get request returns all tickets
+     */
     @Test
     public void testRetrievalOfTickets()
     {
         ResponseEntity<List<TicketDTO>> tickets = ticketController.getTickets();
-        System.out.println("The name of the first ticket: " + tickets.getBody().get(1).getName());
+        Assertions.assertNotNull(tickets, "The class must not be null");
+        Assertions.assertEquals(tickets.getStatusCode(), HttpStatus.OK);
     }
 
+    /**
+     * Verify if get request returns a ticket by id from database
+     */
     @Test
     public void testRetrievalOfTicket()
     {
         ResponseEntity<TicketDTO> ticket = ticketController.getTicket(1);
-        System.out.println("Ticket with id 1 has the name: " + ticket.getBody().getName());
+        Assertions.assertEquals(1, ticket.getBody().getId());
+        Assertions.assertNotNull(ticket);
+        Assertions.assertEquals(ticket.getStatusCode(), HttpStatus.OK);
     }
 
+    /**
+     * Verify if post request persists a ticket in the database
+     */
     @Test
     public void testCreateOfTicket()
     {
-        ResponseEntity<TicketDTO> ticket = ticketController.createTicket(new TicketDTO(null, "test2", "bug2", "01-12-2021", "02-12-2021", "inProgress", "unsolved", "assignee", new TicketDetailsDTO()));
-        System.out.println("Newly created ticket has the type: " + ticket.getBody().getTicketType());
+        TicketDTO testTicket = new TicketDTO(3, "test2", "bug2", "01-12-2021", "02-12-2021", "inProgress", "unsolved", "assignee", new TicketDetailsDTO());
+        ResponseEntity<TicketDTO> ticket = ticketController.createTicket(testTicket);
+        TicketDTO ticketDTOFound = ticket.getBody();
+        Assertions.assertEquals(testTicket.getId(), ticketDTOFound.getId());
+        Assertions.assertEquals(testTicket.getName(), ticketDTOFound.getName());
+        Assertions.assertEquals(testTicket.getTicketType(), ticketDTOFound.getTicketType());
+        Assertions.assertEquals(testTicket.getDateCreated(), ticketDTOFound.getDateCreated());
+        Assertions.assertEquals(testTicket.getDateUpdated(), ticketDTOFound.getDateUpdated());
+        Assertions.assertEquals(testTicket.getStatus(), ticketDTOFound.getStatus());
+        Assertions.assertEquals(testTicket.getResolution(), ticketDTOFound.getResolution());
+        Assertions.assertEquals(testTicket.getUserRole(), ticketDTOFound.getUserRole());
+        Assertions.assertNotNull(ticket);
+        Assertions.assertEquals(ticket.getStatusCode(), HttpStatus.OK);
     }
 
+    /**
+     * Verify if put request updates a ticket in the database
+     */
     @Test
     public void testUpdateOfTicket()
     {
-        ResponseEntity<TicketDTO> ticket = ticketController.updateTicket(1, new TicketDTO(1, "test3", "bug3", "01-12-2021", "02-12-2021", "inProgress", "resolved", "assignee", new TicketDetailsDTO()));
-        System.out.println("Updated ticket has the status of " + ticket.getBody().getResolution());
+        ResponseEntity<TicketDTO> foundTicketBeforeUpdate = ticketController.getTicket(1);
+        Assertions.assertNotNull(foundTicketBeforeUpdate);
+        TicketDTO ticketBeforeUpdate = foundTicketBeforeUpdate.getBody();
+        ticketBeforeUpdate.setName("test2");
+        ResponseEntity<TicketDTO> requestUpdateTicket = ticketController.updateTicket(ticketBeforeUpdate.getId(),ticketBeforeUpdate);
+        Assertions.assertNotNull(requestUpdateTicket);
+        Assertions.assertEquals(requestUpdateTicket.getStatusCode(), HttpStatus.OK);
+        ResponseEntity<TicketDTO> foundTicketAfterUpdate = ticketController.getTicket(ticketBeforeUpdate.getId());
+        Assertions.assertNotNull(foundTicketAfterUpdate);
+        TicketDTO ticketAfterUpdate = foundTicketAfterUpdate.getBody();
+        Assertions.assertEquals(ticketBeforeUpdate.getName(), ticketAfterUpdate.getName());
+
     }
 
-
+    /**
+     * Verify if get request returns all ticketsDetails for a ticket identified by an id
+     */
     @Test
     public void testRetrieveTicketDetailsOfTicket()
     {
-        ResponseEntity<TicketDetailsDTO> ticketDetails = ticketController.getTicketDetailsForTicket(1);
-        System.out.println("Description of ticket with id 1: " + ticketDetails.getBody().getDescription());
+        ResponseEntity<TicketDTO> ticket = ticketController.getTicket(1);
+        Assertions.assertEquals(1, ticket.getBody().getId());
+        Assertions.assertNotNull(ticket);
+        Assertions.assertEquals(ticket.getStatusCode(), HttpStatus.OK);
+        TicketDetailsDTO ticketDetails = ticket.getBody().getTicketDetails();
+        Assertions.assertNotNull(ticketDetails);
+        Assertions.assertEquals(ticket.getBody().getId(), ticket.getBody().getTicketDetails().getId());
     }
 
+    /**
+     * Verify if put request updates ticketsDetails for a ticket identified by an id
+     */
     @Test
     public void testUpdateTicketDetailsOfTicket()
     {
-        ResponseEntity<TicketDetailsDTO> ticketDetails = ticketController.updateTicketDetails(1, new TicketDetailsDTO(1, "Avem timp", "Dragonii albstri", "Ultimul"));
-        System.out.println("Updated description of ticket with id 1: " + ticketDetails.getBody().getDescription());
+        ResponseEntity<TicketDTO> foundTicketBeforeUpdate = ticketController.getTicket(1);
+        Assertions.assertNotNull(foundTicketBeforeUpdate);
+        TicketDTO ticketBeforeUpdateTicketDetails = foundTicketBeforeUpdate.getBody();
+        ticketBeforeUpdateTicketDetails.getTicketDetails().setDescription("Hello from Description");
+        ResponseEntity<TicketDetailsDTO> requestUpdateTicketDetails = ticketController.updateTicketDetails(ticketBeforeUpdateTicketDetails.getId(),ticketBeforeUpdateTicketDetails.getTicketDetails());
+        Assertions.assertNotNull(requestUpdateTicketDetails);
+        Assertions.assertEquals(requestUpdateTicketDetails.getStatusCode(), HttpStatus.OK);
+        ResponseEntity<TicketDetailsDTO> foundTicketDetailsAfterUpdate = ticketController.getTicketDetailsForTicket(ticketBeforeUpdateTicketDetails.getId());
+        Assertions.assertNotNull(foundTicketDetailsAfterUpdate);
+        TicketDetailsDTO ticketDetailsAfterUpdate = foundTicketDetailsAfterUpdate.getBody();
+        Assertions.assertEquals(ticketBeforeUpdateTicketDetails.getTicketDetails().getDescription(), ticketDetailsAfterUpdate.getDescription());
     }
 
+    /**
+     * Verify if post request clones a ticket based on an existing ticket's id
+     */
     @Test
     public void testCloneOfTicket() throws CloneNotSupportedException
     {
-        ResponseEntity<TicketDTO> ticket = ticketController.cloneTicket(1);
-        System.out.println("Id of cloned ticket is: " + ticket.getBody().getId());
+        ResponseEntity<TicketDTO> foundTicketBeforeClone= ticketController.getTicket(1);
+        Assertions.assertNotNull(foundTicketBeforeClone);
+        String ticketBeforeCloneName = foundTicketBeforeClone.getBody().getName();
+        ResponseEntity<TicketDTO> clonedTicket = ticketController.cloneTicket(foundTicketBeforeClone.getBody().getId());
+        Assertions.assertNotNull(clonedTicket);
+        Assertions.assertEquals(clonedTicket.getStatusCode(), HttpStatus.OK);
+        String ticketAfterCloneName = clonedTicket.getBody().getName();
+        Assertions.assertEquals(ticketAfterCloneName, "cloned " +ticketBeforeCloneName);
     }
 
+    /**
+     * Verify if delete request deletes a ticket in database
+     */
     @Test
     public void testDeleteOfTicket()
     {
         ResponseEntity<Object> ticket = ticketController.deleteTicket(2);
-        System.out.println(ticket.getStatusCode());
+       Assertions.assertEquals(ticket.getStatusCode(), HttpStatus.NO_CONTENT);
     }
 }

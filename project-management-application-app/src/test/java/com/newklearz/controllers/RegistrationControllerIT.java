@@ -1,25 +1,24 @@
 package com.newklearz.controllers;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
-import com.newklearz.ProjectManagementApplication;
+import com.newklearz.SpringBootTestEnvironment;
 import com.newklearz.DTO.AppUserRole;
 import com.newklearz.DTO.UsersDTO;
 import com.newklearz.adapters.UserAdapter;
 import com.newklearz.repository.users.Users;
 
-@SpringBootTest(classes = ProjectManagementApplication.class)
-public class RegistrationControllerIT
+public class RegistrationControllerIT extends SpringBootTestEnvironment
 {
-    @Autowired
-    RegistrationController registrationController;
-
+    /**
+     * Verify if post request registers a user
+     */
     @Test
     public void testRegistrationOfUser()
     {
         UsersDTO user = registrationController.register(UserAdapter.toDTO(new Users("bestadmin", "bestadmin@gmail.com", "crocodiL123$", AppUserRole.ADMIN)));
-        System.out.println("Registered user's email is: " + user.getEmail());
+        Assertions.assertNotNull(user);
+        Assertions.assertEquals(user.getUserName(), "bestadmin");
     }
 }

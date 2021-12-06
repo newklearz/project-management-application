@@ -54,5 +54,5 @@ public interface UserResource
     @ApiOperation("Changes user's password")
     @ResponseBody
     @PostMapping(USER_COMMON_PREFIX + "/{id}/update_password")
-    String changeUserPassword(@PathVariable("id") Integer id, @RequestBody String password);
+    ResponseEntity <String> changeUserPassword(@PathVariable("id") Integer id, @RequestBody String password);
 }

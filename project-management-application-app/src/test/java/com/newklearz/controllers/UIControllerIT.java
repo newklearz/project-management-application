@@ -3,24 +3,19 @@ package com.newklearz.controllers;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.Base64Utils;
 
+import com.newklearz.SpringBootTestEnvironment;
 
-@SpringBootTest()
-@AutoConfigureMockMvc
-public class UIControllerIT
+
+
+public class UIControllerIT extends SpringBootTestEnvironment
 {
-    @Autowired
-    private MockMvc mockMvc;
-
+    /**
+     * Verify if get request is permitted on an authenticated only endpoint access
+     */
     @Test
     void testUnauthenticatedEndPoint() throws Exception
     {
@@ -28,6 +23,9 @@ public class UIControllerIT
             .andExpect(status().isUnauthorized());
     }
 
+    /**
+     * Verify if get request returns an authenticated User Principal after sending correct credentials in header
+     */
     @Test
     public void testAuthenticatedEndPoint() throws Exception
     {

@@ -58,8 +58,8 @@ public class UserController implements UserResource
     }
 
     @Override
-    public String changeUserPassword(Integer id, String password)
+    public ResponseEntity<String> changeUserPassword(Integer id, String password)
     {
-        return userService.updatePassword(id, password);
+        return ResponseEntity.ok(userService.updatePassword(id, password));
     }
 }
