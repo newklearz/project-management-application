@@ -41,11 +41,11 @@ public class SpringBootTestEnvironment
     @BeforeEach
     public void setUp()
     {
-        createTicket();
+        createTwoTickets();
         createUser();
     }
 
-    private void createTicket()
+    private void createTwoTickets()
     {
         ticketDetailsDTO = new TicketDetailsDTO(1, getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString());
         ticketDTO = new TicketDTO(1, getAlphaNumericString(), getAlphaNumericString(), getRandomDate(), getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(),
