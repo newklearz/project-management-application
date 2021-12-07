@@ -13,9 +13,6 @@ import com.newklearz.SpringBootTestEnvironment;
 
 public class UIControllerIT extends SpringBootTestEnvironment
 {
-    /**
-     * Verify if get request is permitted on an authenticated only endpoint access
-     */
     @Test
     void testUnauthenticatedEndPoint() throws Exception
     {
@@ -23,9 +20,6 @@ public class UIControllerIT extends SpringBootTestEnvironment
             .andExpect(status().isUnauthorized());
     }
 
-    /**
-     * Verify if get request returns an authenticated User Principal after sending correct credentials in header
-     */
     @Test
     public void testAuthenticatedEndPoint() throws Exception
     {

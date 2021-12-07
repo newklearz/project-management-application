@@ -1,15 +1,16 @@
 package com.newklearz;
 
+import static com.newklearz.controllers.Utils.getAlphaNumericString;
+import static com.newklearz.controllers.Utils.getRandomDate;
+import static com.newklearz.controllers.Utils.getRandomEmail;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.newklearz.DTO.AppUserRole;
@@ -35,36 +36,38 @@ public class SpringBootTestEnvironment
     protected UsersDTO usersDTO;
     protected TicketDTO ticketDTO;
     protected TicketDetailsDTO ticketDetailsDTO;
+    protected List<TicketDTO> ticketDTOS = new ArrayList<>();
 
     @BeforeEach
     public void setUp()
     {
-        ticketDetailsDTO = new TicketDetailsDTO(1, "Avem niste probleme urgente", "Dragonii albstri", "Ultimul");
-        ticketDTO = new TicketDTO(1, "test", "bug", "01-12-2021", "02-12-2021", "inProgress", "unsolved", "assignee", ticketDetailsDTO);
-        ResponseEntity<TicketDTO> ticketOne = ticketController.createTicket(ticketDTO);
-        Assertions.assertNotNull(ticketOne);
-        Assertions.assertEquals(ticketOne.getStatusCode(), HttpStatus.OK);
-        TicketDTO ticketOne$ = ticketOne.getBody();
-        ticketDetailsDTO = new TicketDetailsDTO(2, "Avem niste probleme urgente", "Dragonii albstri", "Ultimul");
-        ticketDTO = new TicketDTO(2, "test2", "bug", "01-12-2021", "02-12-2021", "inProgress", "unsolved", "assignee", ticketDetailsDTO);
-        ticketController.createTicket(ticketDTO);
-        ResponseEntity<TicketDTO> ticketTwo = ticketController.createTicket(ticketDTO);
-        Assertions.assertNotNull(ticketTwo);
-        Assertions.assertEquals(ticketTwo.getStatusCode(), HttpStatus.OK);
-        TicketDTO ticketTwo$ = ticketTwo.getBody();
-        List<TicketDTO> ticketDTOS = new ArrayList<>();
-        ticketDTOS.add(ticketOne$);
-        ticketDTOS.add(ticketTwo$);
-        usersDTO = new UsersDTO();
+        createTicket();
+        createUser();
+    }
+
+    private void createTicket()
+    {
+        ticketDetailsDTO = new TicketDetailsDTO(1, getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString());
+        ticketDTO = new TicketDTO(1, getAlphaNumericString(), getAlphaNumericString(), getRandomDate(), getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(),
+            ticketDetailsDTO);
+        this.ticketDTOS.add(ticketController.createTicket(ticketDTO).getBody());
+
+        ticketDetailsDTO = new TicketDetailsDTO(2, getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString());
+        ticketDTO = new TicketDTO(2, getAlphaNumericString(), getAlphaNumericString(), getRandomDate(), getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(),
+            ticketDetailsDTO);
+        this.ticketDTOS.add(ticketController.createTicket(ticketDTO).getBody());
+    }
+
+    private void createUser()
+    {
+        this.usersDTO = new UsersDTO();
         usersDTO.setId(7);
-        usersDTO.setUserName("hero");
-        usersDTO.setEmail("heroz@gmail.com");
+        usersDTO.setUserName(getAlphaNumericString());
+        usersDTO.setEmail(getRandomEmail());
         usersDTO.setPassword("admiN123$");
         usersDTO.setAppUserRole(AppUserRole.ADMIN);
         usersDTO.setTicketList(ticketDTOS);
         usersDTO.setActive(true);
-        ResponseEntity<UsersDTO> responseEntity = userController.createUser(usersDTO);
-        Assertions.assertNotNull(responseEntity);
-        Assertions.assertEquals(responseEntity.getStatusCode(), HttpStatus.OK);
+        userController.createUser(usersDTO);
     }
 }

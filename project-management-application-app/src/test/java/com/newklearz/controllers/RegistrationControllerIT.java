@@ -1,6 +1,8 @@
 package com.newklearz.controllers;
 
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import org.junit.jupiter.api.Test;
 
 import com.newklearz.SpringBootTestEnvironment;
@@ -11,14 +13,11 @@ import com.newklearz.repository.users.Users;
 
 public class RegistrationControllerIT extends SpringBootTestEnvironment
 {
-    /**
-     * Verify if post request registers a user
-     */
     @Test
     public void testRegistrationOfUser()
     {
-        UsersDTO user = registrationController.register(UserAdapter.toDTO(new Users("bestadmin", "bestadmin@gmail.com", "crocodiL123$", AppUserRole.ADMIN)));
-        Assertions.assertNotNull(user);
-        Assertions.assertEquals(user.getUserName(), "bestadmin");
+        UsersDTO user = registrationController.register(UserAdapter.toDTO(new Users("bestadmin", Utils.getAlphaNumericString(), "crocodiL123$", AppUserRole.ADMIN)));
+        assertNotNull(user);
+        assertEquals(user.getUserName(), "bestadmin");
     }
 }
