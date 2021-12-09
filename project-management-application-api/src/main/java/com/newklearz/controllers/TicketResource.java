@@ -58,6 +58,16 @@ public interface TicketResource
     ResponseEntity<TicketDetailsDTO> updateTicketDetails(@PathVariable("id") Integer id,
         @RequestBody TicketDetailsDTO ticketDetailsDTO);
 
+    @ApiOperation("Retrieves all tickets created by a user")
+    @ResponseBody
+    @GetMapping(TICKET_COMMON_PREFIX + "/{id}/created")
+    ResponseEntity<List<TicketDTO>> getAllTicketsCreatedByUser(@PathVariable("id") Integer id);
+
+    @ApiOperation("Retrieves all tickets assigned to a user")
+    @ResponseBody
+    @GetMapping(TICKET_COMMON_PREFIX + "/{id}/assigned")
+    ResponseEntity<List<TicketDTO>> getAllTicketsAssignedToUser(@PathVariable("id") Integer id);
+
     @ApiOperation("Clones a ticket")
     @ResponseBody
     @PostMapping(TICKET_COMMON_PREFIX + "/{id}/clone")

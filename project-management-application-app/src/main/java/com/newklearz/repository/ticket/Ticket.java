@@ -5,21 +5,25 @@ import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.newklearz.repository.ticketdetails.TicketDetails;
+import com.newklearz.repository.users.Users;
 
 @Entity
 @Table(name = "ticket")
 public class Ticket implements Serializable, Cloneable
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
 
@@ -44,6 +48,14 @@ public class Ticket implements Serializable, Cloneable
     @Column(name = "user_role")
     private String userRole;
 
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "created_by", referencedColumnName = "user_id")
+    private Users createdBy;
+
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "assigned_to", referencedColumnName = "user_id")
+    private Users assignedTo;
+
     @JoinColumn(name = "ticket_details_id", unique = true)
     @OneToOne(cascade = CascadeType.ALL)
     private TicketDetails ticketDetails;
@@ -51,18 +63,6 @@ public class Ticket implements Serializable, Cloneable
     public Ticket()
     {
 
-    }
-
-    public Ticket(String name, String ticketType, String dateCreated, String dateUpdated, String status,
-        String resolution, String userRole)
-    {
-        this.name = name;
-        this.ticketType = ticketType;
-        this.dateCreated = dateCreated;
-        this.dateUpdated = dateUpdated;
-        this.status = status;
-        this.resolution = resolution;
-        this.userRole = userRole;
     }
 
     public Ticket(Ticket ticket) throws CloneNotSupportedException
@@ -75,6 +75,8 @@ public class Ticket implements Serializable, Cloneable
         this.resolution = ticket.getResolution();
         this.userRole = ticket.getUserRole();
         this.ticketDetails = ticket.getTicketDetails();
+        this.createdBy = ticket.getCreatedBy();
+        this.assignedTo = ticket.getAssignedTo();
         this.ticketDetails = new TicketDetails((TicketDetails) ticket.getTicketDetails().clone());
     }
 
@@ -166,6 +168,22 @@ public class Ticket implements Serializable, Cloneable
     public void setTicketDetails(TicketDetails ticketDetails)
     {
         this.ticketDetails = ticketDetails;
+    }
+
+    public Users getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(Users createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Users getAssignedTo() {
+        return assignedTo;
+    }
+
+    public void setAssignedTo(Users assignedTo) {
+        this.assignedTo = assignedTo;
     }
 
     @Override

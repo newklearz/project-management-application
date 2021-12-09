@@ -1,5 +1,7 @@
 package com.newklearz.controllers;
 
+import static com.newklearz.controllers.Utils.getEmail;
+import static com.newklearz.controllers.Utils.getPassword;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -16,7 +18,7 @@ public class RegistrationControllerIT extends SpringBootTestEnvironment
     @Test
     public void testRegistrationOfUser()
     {
-        UsersDTO user = registrationController.register(UserAdapter.toDTO(new Users("bestadmin", Utils.getAlphaNumericString(), "crocodiL123$", AppUserRole.ADMIN)));
+        UsersDTO user = registrationController.register(UserAdapter.toDTO(new Users("bestadmin", getEmail(), getPassword(), AppUserRole.ADMIN)));
         assertNotNull(user);
         assertEquals(user.getUserName(), "bestadmin");
     }

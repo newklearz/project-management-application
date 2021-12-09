@@ -1,6 +1,7 @@
 package com.newklearz;
 
 import static com.newklearz.controllers.Utils.getAlphaNumericString;
+import static com.newklearz.controllers.Utils.getPassword;
 import static com.newklearz.controllers.Utils.getRandomDate;
 import static com.newklearz.controllers.Utils.getRandomEmail;
 
@@ -41,33 +42,31 @@ public class SpringBootTestEnvironment
     @BeforeEach
     public void setUp()
     {
-        createTwoTickets();
         createUser();
     }
 
     private void createTwoTickets()
     {
-        ticketDetailsDTO = new TicketDetailsDTO(1, getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString());
-        ticketDTO = new TicketDTO(1, getAlphaNumericString(), getAlphaNumericString(), getRandomDate(), getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(),
-            ticketDetailsDTO);
+        ticketDetailsDTO = new TicketDetailsDTO(null, getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString());
+        ticketDTO = new TicketDTO(null, getAlphaNumericString(), getAlphaNumericString(), getRandomDate(), getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(),
+            usersDTO, null, ticketDetailsDTO);
         this.ticketDTOS.add(ticketController.createTicket(ticketDTO).getBody());
 
-        ticketDetailsDTO = new TicketDetailsDTO(2, getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString());
-        ticketDTO = new TicketDTO(2, getAlphaNumericString(), getAlphaNumericString(), getRandomDate(), getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(),
-            ticketDetailsDTO);
+        ticketDetailsDTO = new TicketDetailsDTO(null, getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString());
+        ticketDTO = new TicketDTO(null, getAlphaNumericString(), getAlphaNumericString(), getRandomDate(), getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(),
+            usersDTO, null, ticketDetailsDTO);
         this.ticketDTOS.add(ticketController.createTicket(ticketDTO).getBody());
     }
 
     private void createUser()
     {
         this.usersDTO = new UsersDTO();
-        usersDTO.setId(7);
         usersDTO.setUserName(getAlphaNumericString());
         usersDTO.setEmail(getRandomEmail());
-        usersDTO.setPassword("admiN123$");
+        usersDTO.setPassword(getPassword());
         usersDTO.setAppUserRole(AppUserRole.ADMIN);
-        usersDTO.setTicketList(ticketDTOS);
         usersDTO.setActive(true);
-        userController.createUser(usersDTO);
+        usersDTO = userController.createUser(this.usersDTO).getBody();
+        createTwoTickets();
     }
 }

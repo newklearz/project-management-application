@@ -11,7 +11,7 @@ public class UsersDTO
     private String password;
     private boolean isActive;
     private AppUserRole appUserRole;
-    private List<TicketDTO> ticketList = new ArrayList<>();
+//    private List<TicketDTO> ticketList = new ArrayList<>();
 
     public UsersDTO()
     {
@@ -25,7 +25,7 @@ public class UsersDTO
         this.email = email;
         this.password = password;
         this.appUserRole = appUserRole;
-        this.ticketList = ticketDTOList;
+//        this.ticketList = ticketDTOList;
         this.isActive = isActive;
     }
 
@@ -79,15 +79,15 @@ public class UsersDTO
         this.appUserRole = appUserRole;
     }
 
-    public List<TicketDTO> getTicketList()
-    {
-        return ticketList;
-    }
-
-    public void setTicketList(List<TicketDTO> ticketList)
-    {
-        this.ticketList = ticketList;
-    }
+//    public List<TicketDTO> getTicketList()
+//    {
+//        return ticketList;
+//    }
+//
+//    public void setTicketList(List<TicketDTO> ticketList)
+//    {
+//        this.ticketList = ticketList;
+//    }
 
     public boolean isActive()
     {

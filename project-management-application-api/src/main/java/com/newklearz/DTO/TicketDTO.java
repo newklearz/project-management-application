@@ -10,6 +10,8 @@ public class TicketDTO
     private String status;
     private String resolution;
     private String userRole;
+    private UsersDTO createdBy;
+    private UsersDTO assignedTo;
     private TicketDetailsDTO ticketDetails;
 
     public TicketDTO()
@@ -17,7 +19,7 @@ public class TicketDTO
     }
 
     public TicketDTO(Integer id, String name, String ticketType, String dateCreated, String dateUpdated, String status,
-        String resolution, String userRole, TicketDetailsDTO ticketDetailsDTO)
+        String resolution, String userRole, UsersDTO createdBy, UsersDTO assignedTo, TicketDetailsDTO ticketDetails)
     {
         this.id = id;
         this.name = name;
@@ -27,7 +29,9 @@ public class TicketDTO
         this.status = status;
         this.resolution = resolution;
         this.userRole = userRole;
-        this.ticketDetails = ticketDetailsDTO;
+        this.createdBy = createdBy;
+        this.assignedTo = assignedTo;
+        this.ticketDetails = ticketDetails;
     }
 
     public Integer getId()
@@ -119,5 +123,21 @@ public class TicketDTO
     public void setTicketDetails(TicketDetailsDTO ticketDetails)
     {
         this.ticketDetails = ticketDetails;
+    }
+
+    public UsersDTO getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(UsersDTO createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public UsersDTO getAssignedTo() {
+        return assignedTo;
+    }
+
+    public void setAssignedTo(UsersDTO assignedTo) {
+        this.assignedTo = assignedTo;
     }
 }

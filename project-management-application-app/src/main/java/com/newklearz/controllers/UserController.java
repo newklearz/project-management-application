@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.newklearz.DTO.TicketDTO;
 import com.newklearz.DTO.UsersDTO;
 import com.newklearz.service.UserService;
 
@@ -49,12 +48,6 @@ public class UserController implements UserResource
     {
         userService.deactivateUser(id);
         return ResponseEntity.status(HttpStatus.LOCKED).build();
-    }
-
-    @Override
-    public ResponseEntity<List<TicketDTO>> getTicketsForUser(Integer id)
-    {
-        return ResponseEntity.ok(userService.findAllTicketsByUser(id));
     }
 
     @Override
