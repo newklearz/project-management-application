@@ -68,4 +68,16 @@ public class TicketController implements TicketResource
     {
         return ResponseEntity.ok(ticketService.cloneById(id));
     }
+
+    @Override
+    public ResponseEntity<List<TicketDTO>> getAllTicketsCreatedByUser(Integer id)
+    {
+        return ResponseEntity.ok(ticketService.findAllTicketsCreatedByUser(id));
+    }
+
+    @Override
+    public ResponseEntity<List<TicketDTO>> getAllTicketsAssignedToUser(Integer id)
+    {
+        return ResponseEntity.ok(ticketService.findAllTicketsAssignedToUser(id));
+    }
 }

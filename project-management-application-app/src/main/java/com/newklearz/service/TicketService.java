@@ -5,12 +5,15 @@ import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
+import com.newklearz.repository.users.Users;
 import org.springframework.stereotype.Service;
 
 import com.newklearz.DTO.TicketDTO;
 import com.newklearz.DTO.TicketDetailsDTO;
+import com.newklearz.DTO.UsersDTO;
 import com.newklearz.adapters.TicketAdapter;
 import com.newklearz.adapters.TicketDetailsAdapter;
+import com.newklearz.adapters.UserAdapter;
 import com.newklearz.repository.ticket.Ticket;
 import com.newklearz.repository.ticket.TicketRepository;
 import com.newklearz.repository.ticketdetails.TicketDetails;
@@ -21,11 +24,14 @@ public class TicketService
 {
     private final TicketRepository ticketRepository;
     private final TicketDetailsRepository ticketDetailsRepository;
+    private final UserService userService;
 
-    public TicketService(TicketRepository ticketRepository, TicketDetailsRepository ticketDetailsRepository)
+    public TicketService(TicketRepository ticketRepository, TicketDetailsRepository ticketDetailsRepository,
+        UserService userService)
     {
         this.ticketRepository = ticketRepository;
         this.ticketDetailsRepository = ticketDetailsRepository;
+        this.userService = userService;
     }
 
     public List<TicketDTO> findAll()
@@ -41,7 +47,13 @@ public class TicketService
 
     public TicketDTO createTicket(TicketDTO ticketDTO)
     {
+        UsersDTO userFound = userService.findById(ticketDTO.getCreatedBy().getId());
+        UsersDTO dummyUser = userService.findById(1);
+
         Ticket ticket = TicketAdapter.toEntity(ticketDTO);
+        ticket.setCreatedBy(UserAdapter.toEntity(userFound));
+        ticket.setAssignedTo(UserAdapter.toEntity(dummyUser));
+
         Ticket savedTicket = ticketRepository.save(ticket);
         return TicketAdapter.toDTO(savedTicket);
     }
@@ -87,4 +99,25 @@ public class TicketService
         Ticket newTicket = new Ticket((Ticket) ticket.clone());
         return TicketAdapter.toDTO(ticketRepository.save(newTicket));
     }
+
+    public List<TicketDTO> findAllTicketsCreatedByUser(Integer id)
+    {
+        UsersDTO user = userService.findById(id);
+        if (user != null)
+        {
+            return TicketAdapter.toDTOList(ticketRepository.findTicketsCreatedByUser(id));
+        }
+        throw new EntityNotFoundException("User with id " + id + " not found");
+    }
+
+    public List<TicketDTO> findAllTicketsAssignedToUser(Integer id)
+    {
+        UsersDTO user = userService.findById(id);
+        if (user != null)
+        {
+            return TicketAdapter.toDTOList(ticketRepository.findTicketsAssignedToUser(id));
+        }
+        throw new EntityNotFoundException("User with id " + id + " not found");
+    }
+
 }

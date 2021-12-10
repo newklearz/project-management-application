@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.newklearz.DTO.TicketDTO;
 import com.newklearz.DTO.UsersDTO;
 
 import io.swagger.annotations.Api;
@@ -46,13 +45,8 @@ public interface UserResource
     @PutMapping(USER_COMMON_PREFIX + "/{id}/deactivate")
     ResponseEntity<Object> deactivateUser(@PathVariable("id") Integer id);
 
-    @ApiOperation("Retrieves all tickets for a user")
-    @ResponseBody
-    @GetMapping(USER_COMMON_PREFIX + "/{id}/tickets")
-    ResponseEntity<List<TicketDTO>> getTicketsForUser(@PathVariable("id") Integer id);
-
     @ApiOperation("Changes user's password")
     @ResponseBody
     @PostMapping(USER_COMMON_PREFIX + "/{id}/update_password")
-    String changeUserPassword(@PathVariable("id") Integer id, @RequestBody String password);
+    ResponseEntity<String> changeUserPassword(@PathVariable("id") Integer id, @RequestBody String password);
 }

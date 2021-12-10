@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.newklearz.DTO.TicketDTO;
 import com.newklearz.DTO.UsersDTO;
 import com.newklearz.service.UserService;
 
@@ -52,14 +51,8 @@ public class UserController implements UserResource
     }
 
     @Override
-    public ResponseEntity<List<TicketDTO>> getTicketsForUser(Integer id)
+    public ResponseEntity<String> changeUserPassword(Integer id, String password)
     {
-        return ResponseEntity.ok(userService.findAllTicketsByUser(id));
-    }
-
-    @Override
-    public String changeUserPassword(Integer id, String password)
-    {
-        return userService.updatePassword(id, password);
+        return ResponseEntity.ok(userService.updatePassword(id, password));
     }
 }

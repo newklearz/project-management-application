@@ -7,10 +7,9 @@ import javax.persistence.EntityNotFoundException;
 
 import org.springframework.stereotype.Service;
 
-import com.newklearz.DTO.TicketDTO;
 import com.newklearz.DTO.UsersDTO;
-import com.newklearz.adapters.TicketAdapter;
 import com.newklearz.adapters.UserAdapter;
+import com.newklearz.repository.ticket.TicketRepository;
 import com.newklearz.repository.users.Users;
 import com.newklearz.repository.users.UsersRepository;
 import com.newklearz.security.MyUserDetailsService;
@@ -25,18 +24,6 @@ public class UserService
     {
         this.usersRepository = usersRepository;
         this.myUserDetailsService = myUserDetailsService;
-    }
-
-    public List<TicketDTO> findAllTicketsByUser(Integer id)
-    {
-        Users user = getUserById(id);
-
-        if (user != null)
-        {
-            return TicketAdapter.toDTOList(user.getTicketList());
-        }
-
-        throw new EntityNotFoundException("User with id " + id + " not found");
     }
 
     public List<UsersDTO> findAll()

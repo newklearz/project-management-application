@@ -17,20 +17,25 @@ public class UserAdapter
         usersDTO.setActive(user.isActive());
         usersDTO.setPassword(user.getPassword());
         usersDTO.setAppUserRole(user.getAppUserRole());
-        usersDTO.setTicketList(TicketAdapter.toDTOList(user.getTicketList()));
         return usersDTO;
     }
 
     public static Users toEntity(UsersDTO usersDTO)
     {
         Users user = new Users();
-        user.setId(usersDTO.getId());
-        user.setUserName(usersDTO.getUserName());
-        user.setEmail(usersDTO.getEmail());
-        user.setActive(usersDTO.isActive());
-        user.setPassword(usersDTO.getPassword());
-        user.setAppUserRole(usersDTO.getAppUserRole());
-        user.setTicketList(TicketAdapter.toEntityList(usersDTO.getTicketList()));
+        if (usersDTO != null)
+        {
+            user.setId(usersDTO.getId());
+            user.setUserName(usersDTO.getUserName());
+            user.setEmail(usersDTO.getEmail());
+            user.setActive(usersDTO.isActive());
+            user.setPassword(usersDTO.getPassword());
+            user.setAppUserRole(usersDTO.getAppUserRole());
+        }
+        else
+        {
+            return new Users();
+        }
         return user;
     }
 

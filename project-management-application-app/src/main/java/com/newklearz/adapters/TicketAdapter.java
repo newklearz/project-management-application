@@ -19,6 +19,8 @@ public class TicketAdapter
         ticketDTO.setStatus(ticket.getStatus());
         ticketDTO.setResolution(ticket.getResolution());
         ticketDTO.setUserRole(ticket.getUserRole());
+        ticketDTO.setAssignedTo(UserAdapter.toDTO(ticket.getAssignedTo()));
+        ticketDTO.setCreatedBy(UserAdapter.toDTO(ticket.getCreatedBy()));
         ticketDTO.setTicketDetails(TicketDetailsAdapter.toDTO(ticket.getTicketDetails()));
         return ticketDTO;
     }
@@ -34,6 +36,8 @@ public class TicketAdapter
         ticket.setStatus(ticketDTO.getStatus());
         ticket.setResolution(ticketDTO.getResolution());
         ticket.setUserRole(ticketDTO.getUserRole());
+        ticket.setCreatedBy(UserAdapter.toEntity(ticketDTO.getCreatedBy()));
+        ticket.setAssignedTo(UserAdapter.toEntity(ticketDTO.getAssignedTo()));
         ticket.setTicketDetails(TicketDetailsAdapter.toEntity(ticketDTO.getTicketDetails()));
         return ticket;
     }
