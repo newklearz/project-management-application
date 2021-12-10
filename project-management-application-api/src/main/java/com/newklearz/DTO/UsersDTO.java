@@ -1,8 +1,5 @@
 package com.newklearz.DTO;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class UsersDTO
 {
     private Integer id;
@@ -11,21 +8,19 @@ public class UsersDTO
     private String password;
     private boolean isActive;
     private AppUserRole appUserRole;
-//    private List<TicketDTO> ticketList = new ArrayList<>();
 
     public UsersDTO()
     {
     }
 
     public UsersDTO(Integer id, String userName, String email, String password, AppUserRole appUserRole,
-        List<TicketDTO> ticketDTOList, boolean isActive)
+        boolean isActive)
     {
         this.id = id;
         this.userName = userName;
         this.email = email;
         this.password = password;
         this.appUserRole = appUserRole;
-//        this.ticketList = ticketDTOList;
         this.isActive = isActive;
     }
 
@@ -78,16 +73,6 @@ public class UsersDTO
     {
         this.appUserRole = appUserRole;
     }
-
-//    public List<TicketDTO> getTicketList()
-//    {
-//        return ticketList;
-//    }
-//
-//    public void setTicketList(List<TicketDTO> ticketList)
-//    {
-//        this.ticketList = ticketList;
-//    }
 
     public boolean isActive()
     {
