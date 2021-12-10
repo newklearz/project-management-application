@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.newklearz.repository.board.Board;
 import com.newklearz.repository.ticketdetails.TicketDetails;
 import com.newklearz.repository.users.Users;
 
@@ -55,6 +56,10 @@ public class Ticket implements Serializable, Cloneable
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "assigned_to", referencedColumnName = "user_id")
     private Users assignedTo;
+
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name ="assigned_board", referencedColumnName = "id")
+    private Board board;
 
     @JoinColumn(name = "ticket_details_id", unique = true)
     @OneToOne(cascade = CascadeType.ALL)
