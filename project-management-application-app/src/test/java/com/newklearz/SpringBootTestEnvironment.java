@@ -8,6 +8,8 @@ import static com.newklearz.controllers.Utils.getRandomEmail;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.newklearz.DTO.BoardDTO;
+import com.newklearz.controllers.BoardController;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -34,10 +36,13 @@ public class SpringBootTestEnvironment
     protected TicketController ticketController;
     @Autowired
     protected RegistrationController registrationController;
+    @Autowired
+    protected BoardController boardController;
     protected UsersDTO usersDTO;
     protected TicketDTO ticketDTO;
     protected TicketDetailsDTO ticketDetailsDTO;
     protected List<TicketDTO> ticketDTOS = new ArrayList<>();
+    protected BoardDTO boardDTO;
 
     @BeforeEach
     public void setUp()
@@ -49,12 +54,12 @@ public class SpringBootTestEnvironment
     {
         ticketDetailsDTO = new TicketDetailsDTO(null, getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString());
         ticketDTO = new TicketDTO(null, getAlphaNumericString(), getAlphaNumericString(), getRandomDate(), getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(),
-            usersDTO, null, ticketDetailsDTO);
+            usersDTO, null, boardDTO,null, ticketDetailsDTO);
         this.ticketDTOS.add(ticketController.createTicket(ticketDTO).getBody());
 
         ticketDetailsDTO = new TicketDetailsDTO(null, getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString());
         ticketDTO = new TicketDTO(null, getAlphaNumericString(), getAlphaNumericString(), getRandomDate(), getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(),
-            usersDTO, null, ticketDetailsDTO);
+            usersDTO, null, boardDTO,null, ticketDetailsDTO);
         this.ticketDTOS.add(ticketController.createTicket(ticketDTO).getBody());
     }
 
@@ -67,6 +72,13 @@ public class SpringBootTestEnvironment
         usersDTO.setAppUserRole(AppUserRole.ADMIN);
         usersDTO.setActive(true);
         usersDTO = userController.createUser(this.usersDTO).getBody();
+        createBoard();
         createTwoTickets();
+    }
+
+    private void createBoard() {
+        this.boardDTO = new BoardDTO();
+        boardDTO.setName(getAlphaNumericString());
+        boardDTO = boardController.createBoard(this.boardDTO).getBody();
     }
 }

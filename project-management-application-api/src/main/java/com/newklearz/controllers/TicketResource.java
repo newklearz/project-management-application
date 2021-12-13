@@ -2,6 +2,7 @@ package com.newklearz.controllers;
 
 import java.util.List;
 
+import com.newklearz.DTO.BoardDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,4 +73,9 @@ public interface TicketResource
     @ResponseBody
     @PostMapping(TICKET_COMMON_PREFIX + "/{id}/clone")
     ResponseEntity<TicketDTO> cloneTicket(@PathVariable("id") Integer id) throws CloneNotSupportedException;
+
+    @ApiOperation("Retrieves all tickets assigned to a board")
+    @ResponseBody
+    @GetMapping(TICKET_COMMON_PREFIX + "/{id}/assigned_board")
+    ResponseEntity<List<TicketDTO>> getAllTicketsAssignedToBoard(@PathVariable("id") Integer id);
 }

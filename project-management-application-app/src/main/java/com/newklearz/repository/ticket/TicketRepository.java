@@ -12,6 +12,7 @@ public interface TicketRepository extends JpaRepository<Ticket, Integer>
 {
 
     String USERID = "userId";
+    String BOARDID = "boardId";
 
     @Query("SELECT ticket"
             + " FROM Ticket ticket"
@@ -22,4 +23,9 @@ public interface TicketRepository extends JpaRepository<Ticket, Integer>
             + " FROM Ticket ticket"
             + " WHERE ticket.assignedTo.id = :" + USERID)
     List<Ticket> findTicketsAssignedToUser (@Param(USERID) Integer userId);
+
+    @Query("SELECT ticket"
+                  + " FROM Ticket ticket"
+                  + " WHERE ticket.assignedBoard.id = :" + BOARDID)
+    List<Ticket> findTicketsAssignedToBoard (@Param(BOARDID) Integer boardId);
 }

@@ -8,16 +8,39 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="board")
-public class Board {
+@Table(name = "board")
+public class Board
+{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name = "board_id")
     private Integer id;
 
-    @Column (name = "board_name")
-    private String boardName;
+    @Column(name = "name")
+    private String name;
 
+    public Board()
+    {
+    }
 
+    public Integer getId()
+    {
+        return id;
+    }
+
+    public void setId(Integer id)
+    {
+        this.id = id;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
 }

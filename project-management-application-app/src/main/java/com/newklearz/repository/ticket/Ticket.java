@@ -2,6 +2,7 @@ package com.newklearz.repository.ticket;
 
 import java.io.Serializable;
 
+import javax.annotation.Generated;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,11 +14,14 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.newklearz.repository.board.Board;
 import com.newklearz.repository.ticketdetails.TicketDetails;
 import com.newklearz.repository.users.Users;
+import org.hibernate.annotations.GeneratorType;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "ticket")
@@ -58,16 +62,18 @@ public class Ticket implements Serializable, Cloneable
     private Users assignedTo;
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    @JoinColumn(name ="assigned_board", referencedColumnName = "id")
-    private Board board;
+    @JoinColumn(name = "assigned_board", referencedColumnName = "board_id")
+    private Board assignedBoard;
 
     @JoinColumn(name = "ticket_details_id", unique = true)
     @OneToOne(cascade = CascadeType.ALL)
     private TicketDetails ticketDetails;
 
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer priority;
+
     public Ticket()
     {
-
     }
 
     public Ticket(Ticket ticket) throws CloneNotSupportedException
@@ -175,20 +181,44 @@ public class Ticket implements Serializable, Cloneable
         this.ticketDetails = ticketDetails;
     }
 
-    public Users getCreatedBy() {
+    public Users getCreatedBy()
+    {
         return createdBy;
     }
 
-    public void setCreatedBy(Users createdBy) {
+    public void setCreatedBy(Users createdBy)
+    {
         this.createdBy = createdBy;
     }
 
-    public Users getAssignedTo() {
+    public Users getAssignedTo()
+    {
         return assignedTo;
     }
 
-    public void setAssignedTo(Users assignedTo) {
+    public void setAssignedTo(Users assignedTo)
+    {
         this.assignedTo = assignedTo;
+    }
+
+    public Board getAssignedBoard()
+    {
+        return assignedBoard;
+    }
+
+    public void setAssignedBoard(Board assignedBoard)
+    {
+        this.assignedBoard = assignedBoard;
+    }
+
+    public Integer getPriority()
+    {
+        return priority;
+    }
+
+    public void setPriority(Integer priority)
+    {
+        this.priority = priority;
     }
 
     @Override
