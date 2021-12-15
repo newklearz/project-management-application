@@ -12,8 +12,6 @@ public class TicketDTO
     private String userRole;
     private UsersDTO createdBy;
     private UsersDTO assignedTo;
-    private BoardDTO assignedBoard;
-    private Integer priority;
     private TicketDetailsDTO ticketDetails;
 
     public TicketDTO()
@@ -21,8 +19,7 @@ public class TicketDTO
     }
 
     public TicketDTO(Integer id, String name, String ticketType, String dateCreated, String dateUpdated, String status,
-        String resolution, String userRole, UsersDTO createdBy, UsersDTO assignedTo, BoardDTO assignedBoard,
-        Integer priority, TicketDetailsDTO ticketDetails)
+        String resolution, String userRole, UsersDTO createdBy, UsersDTO assignedTo, TicketDetailsDTO ticketDetails)
     {
         this.id = id;
         this.name = name;
@@ -34,8 +31,6 @@ public class TicketDTO
         this.userRole = userRole;
         this.createdBy = createdBy;
         this.assignedTo = assignedTo;
-        this.assignedBoard = assignedBoard;
-        this.priority = priority;
         this.ticketDetails = ticketDetails;
     }
 
@@ -150,23 +145,4 @@ public class TicketDTO
         this.assignedTo = assignedTo;
     }
 
-    public BoardDTO getAssignedBoard()
-    {
-        return assignedBoard;
-    }
-
-    public void setAssignedBoard(BoardDTO assignedBoard)
-    {
-        this.assignedBoard = assignedBoard;
-    }
-
-    public Integer getPriority()
-    {
-        return priority;
-    }
-
-    public void setPriority(Integer priority)
-    {
-        this.priority = priority;
-    }
 }

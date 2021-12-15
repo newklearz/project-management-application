@@ -5,8 +5,6 @@ import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
-import com.newklearz.DTO.BoardDTO;
-import com.newklearz.repository.users.Users;
 import org.springframework.stereotype.Service;
 
 import com.newklearz.DTO.TicketDTO;
@@ -26,7 +24,7 @@ public class TicketService
     private final TicketRepository ticketRepository;
     private final TicketDetailsRepository ticketDetailsRepository;
     private final UserService userService;
-    public final BoardService boardService;
+    private final BoardService boardService;
 
     public TicketService(TicketRepository ticketRepository, TicketDetailsRepository ticketDetailsRepository,
         UserService userService, BoardService boardService)
@@ -59,16 +57,6 @@ public class TicketService
 
         Ticket savedTicket = ticketRepository.save(ticket);
         return TicketAdapter.toDTO(savedTicket);
-    }
-
-    public List<TicketDTO> findTicketsAssignedToBoard(Integer id)
-    {
-        BoardDTO board = boardService.findById(id);
-        if (board != null)
-        {
-            return TicketAdapter.toDTOList(ticketRepository.findTicketsAssignedToBoard(id));
-        }
-        throw new EntityNotFoundException("Board with id " + id + " not found");
     }
 
     public TicketDTO updateTicket(Integer id, TicketDTO ticketDTO)
@@ -132,5 +120,4 @@ public class TicketService
         }
         throw new EntityNotFoundException("User with id " + id + " not found");
     }
-
 }

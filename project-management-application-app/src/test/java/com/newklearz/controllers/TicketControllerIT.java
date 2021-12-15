@@ -10,7 +10,6 @@ import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
-import com.newklearz.DTO.BoardDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -55,7 +54,7 @@ public class TicketControllerIT extends SpringBootTestEnvironment
     {
         TicketDTO testTicket = new TicketDTO(null, getAlphaNumericString(), getAlphaNumericString(), getRandomDate(),
             getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(),
-            usersDTO, null,boardDTO,null, new TicketDetailsDTO());
+            usersDTO, null, new TicketDetailsDTO());
         ResponseEntity<TicketDTO> ticket = ticketController.createTicket(testTicket);
         assertNotNull(ticket);
         assertEquals(ticket.getStatusCode(), HttpStatus.OK);
@@ -174,16 +173,5 @@ public class TicketControllerIT extends SpringBootTestEnvironment
         ResponseEntity<Object> ticket = ticketController.deleteTicket(ticketDTOS.get(1).getId());
         assertEquals(ticket.getStatusCode(), HttpStatus.NO_CONTENT);
         assertThrows(EntityNotFoundException.class, () -> ticketController.getTicket(ticketDTOS.get(1).getId()));
-    }
-
-    @Test
-    public void testGetTicketsAssignedToBoard(){
-        ResponseEntity<BoardDTO> board = boardController.getBoard(ticketDTOS.get(0).getAssignedBoard().getId());
-        assertEquals(board.getBody().getId(), board.getBody().getId());
-        assertNotNull(board);
-        assertEquals(board.getStatusCode(), HttpStatus.OK);
-
-        List<TicketDTO> ticket = ticketController.getAllTicketsAssignedToBoard(board.getBody().getId()).getBody();
-        assertNotNull(ticket.get(0).getName(), ticketDTOS.get(0).getName());
     }
 }

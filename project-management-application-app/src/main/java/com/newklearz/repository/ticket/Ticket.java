@@ -1,8 +1,9 @@
 package com.newklearz.repository.ticket;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.annotation.Generated;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,21 +11,18 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.newklearz.repository.board.Board;
+import com.newklearz.repository.rank.TicketRank;
 import com.newklearz.repository.ticketdetails.TicketDetails;
 import com.newklearz.repository.users.Users;
-import org.hibernate.annotations.GeneratorType;
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "ticket")
+@Table(name = "pma_ticket")
 public class Ticket implements Serializable, Cloneable
 {
     @Id
@@ -61,16 +59,12 @@ public class Ticket implements Serializable, Cloneable
     @JoinColumn(name = "assigned_to", referencedColumnName = "user_id")
     private Users assignedTo;
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    @JoinColumn(name = "assigned_board", referencedColumnName = "board_id")
-    private Board assignedBoard;
+    @OneToMany(mappedBy = "assignedTicket", fetch = FetchType.EAGER)
+    private List<TicketRank> ticketRankList = new ArrayList<>();
 
     @JoinColumn(name = "ticket_details_id", unique = true)
     @OneToOne(cascade = CascadeType.ALL)
     private TicketDetails ticketDetails;
-
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer priority;
 
     public Ticket()
     {
@@ -201,24 +195,14 @@ public class Ticket implements Serializable, Cloneable
         this.assignedTo = assignedTo;
     }
 
-    public Board getAssignedBoard()
+    public List<TicketRank> getTicketRankList()
     {
-        return assignedBoard;
+        return ticketRankList;
     }
 
-    public void setAssignedBoard(Board assignedBoard)
+    public void setTicketRankList(List<TicketRank> ticketRankList)
     {
-        this.assignedBoard = assignedBoard;
-    }
-
-    public Integer getPriority()
-    {
-        return priority;
-    }
-
-    public void setPriority(Integer priority)
-    {
-        this.priority = priority;
+        this.ticketRankList = ticketRankList;
     }
 
     @Override

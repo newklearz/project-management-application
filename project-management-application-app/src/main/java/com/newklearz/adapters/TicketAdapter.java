@@ -21,8 +21,6 @@ public class TicketAdapter
         ticketDTO.setUserRole(ticket.getUserRole());
         ticketDTO.setAssignedTo(UserAdapter.toDTO(ticket.getAssignedTo()));
         ticketDTO.setCreatedBy(UserAdapter.toDTO(ticket.getCreatedBy()));
-        ticketDTO.setAssignedBoard(BoardAdapter.toDTO(ticket.getAssignedBoard()));
-        ticketDTO.setPriority(ticket.getPriority());
         ticketDTO.setTicketDetails(TicketDetailsAdapter.toDTO(ticket.getTicketDetails()));
         return ticketDTO;
     }
@@ -40,8 +38,6 @@ public class TicketAdapter
         ticket.setUserRole(ticketDTO.getUserRole());
         ticket.setCreatedBy(UserAdapter.toEntity(ticketDTO.getCreatedBy()));
         ticket.setAssignedTo(UserAdapter.toEntity(ticketDTO.getAssignedTo()));
-        ticket.setAssignedBoard(BoardAdapter.toEntity(ticketDTO.getAssignedBoard()));
-        ticket.setPriority(ticketDTO.getPriority());
         ticket.setTicketDetails(TicketDetailsAdapter.toEntity(ticketDTO.getTicketDetails()));
         return ticket;
     }

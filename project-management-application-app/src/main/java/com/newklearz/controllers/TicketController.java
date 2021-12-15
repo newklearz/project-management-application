@@ -80,9 +80,4 @@ public class TicketController implements TicketResource
     {
         return ResponseEntity.ok(ticketService.findAllTicketsAssignedToUser(id));
     }
-
-    @Override
-    public ResponseEntity<List<TicketDTO>> getAllTicketsAssignedToBoard(Integer id) {
-        return ResponseEntity.ok(ticketService.findTicketsAssignedToBoard(id));
-    }
 }

@@ -1,16 +1,16 @@
 package com.newklearz.controllers;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-
-import com.newklearz.SpringBootTestEnvironment;
-import com.newklearz.DTO.BoardDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import com.newklearz.SpringBootTestEnvironment;
+import com.newklearz.DTO.BoardDTO;
 
 public class BoardControllerIT extends SpringBootTestEnvironment
 {
@@ -33,7 +33,6 @@ public class BoardControllerIT extends SpringBootTestEnvironment
         assertNotNull(retrievedBoard);
 
         assertEquals(boardDTO.getId(), retrievedBoard.getId());
-
     }
 
     @Test
@@ -57,8 +56,7 @@ public class BoardControllerIT extends SpringBootTestEnvironment
         BoardDTO boardBeforeUpdate = foundBoardBeforeUpdate.getBody();
         boardBeforeUpdate.setName("abc");
 
-        ResponseEntity<BoardDTO> requestUpdateBoard =
-            boardController.updateBoard(boardBeforeUpdate.getId(), boardBeforeUpdate);
+        ResponseEntity<BoardDTO> requestUpdateBoard = boardController.updateBoard(boardBeforeUpdate.getId(), boardBeforeUpdate);
         assertNotNull(requestUpdateBoard);
         assertEquals(requestUpdateBoard.getStatusCode(), HttpStatus.OK);
 

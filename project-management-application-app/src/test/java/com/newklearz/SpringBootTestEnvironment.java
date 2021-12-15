@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.newklearz.DTO.BoardDTO;
+import com.newklearz.DTO.TicketRankDTO;
 import com.newklearz.controllers.BoardController;
+import com.newklearz.controllers.TicketRankController;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -38,11 +40,14 @@ public class SpringBootTestEnvironment
     protected RegistrationController registrationController;
     @Autowired
     protected BoardController boardController;
+    @Autowired
+    protected TicketRankController ticketRankController;
     protected UsersDTO usersDTO;
     protected TicketDTO ticketDTO;
     protected TicketDetailsDTO ticketDetailsDTO;
     protected List<TicketDTO> ticketDTOS = new ArrayList<>();
     protected BoardDTO boardDTO;
+    protected TicketRankDTO ticketRankDTO;
 
     @BeforeEach
     public void setUp()
@@ -52,15 +57,28 @@ public class SpringBootTestEnvironment
 
     private void createTwoTickets()
     {
-        ticketDetailsDTO = new TicketDetailsDTO(null, getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString());
-        ticketDTO = new TicketDTO(null, getAlphaNumericString(), getAlphaNumericString(), getRandomDate(), getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(),
-            usersDTO, null, boardDTO,null, ticketDetailsDTO);
+        ticketDetailsDTO =
+            new TicketDetailsDTO(null, getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString());
+        ticketDTO = new TicketDTO(null, getAlphaNumericString(), getAlphaNumericString(), getRandomDate(),
+            getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(),
+            usersDTO, null, ticketDetailsDTO);
         this.ticketDTOS.add(ticketController.createTicket(ticketDTO).getBody());
 
-        ticketDetailsDTO = new TicketDetailsDTO(null, getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString());
-        ticketDTO = new TicketDTO(null, getAlphaNumericString(), getAlphaNumericString(), getRandomDate(), getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(),
-            usersDTO, null, boardDTO,null, ticketDetailsDTO);
+        ticketDetailsDTO =
+            new TicketDetailsDTO(null, getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString());
+        ticketDTO = new TicketDTO(null, getAlphaNumericString(), getAlphaNumericString(), getRandomDate(),
+            getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(),
+            usersDTO, null, ticketDetailsDTO);
         this.ticketDTOS.add(ticketController.createTicket(ticketDTO).getBody());
+    }
+
+    private void addTicketToBoard()
+    {
+        this.ticketRankDTO = new TicketRankDTO();
+        this.ticketRankDTO.setAssignedTicket(ticketDTOS.get(1));
+        this.ticketRankDTO.setAssignedBoard(boardDTO);
+        this.ticketRankDTO.setTicketRank(123);
+        ticketRankDTO = ticketRankController.addTicketToBoard(ticketRankDTO).getBody();
     }
 
     private void createUser()
@@ -74,9 +92,11 @@ public class SpringBootTestEnvironment
         usersDTO = userController.createUser(this.usersDTO).getBody();
         createBoard();
         createTwoTickets();
+        addTicketToBoard();
     }
 
-    private void createBoard() {
+    private void createBoard()
+    {
         this.boardDTO = new BoardDTO();
         boardDTO.setName(getAlphaNumericString());
         boardDTO = boardController.createBoard(this.boardDTO).getBody();

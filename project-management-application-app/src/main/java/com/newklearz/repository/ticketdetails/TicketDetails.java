@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ticketdetails")
+@Table(name = "pma_ticket_details")
 public class TicketDetails implements Serializable, Cloneable
 {
     @Id
