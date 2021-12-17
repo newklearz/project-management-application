@@ -55,8 +55,7 @@ public interface TicketResource
     @ApiOperation("Updates ticketDetails for a ticket")
     @ResponseBody
     @PutMapping(TICKET_COMMON_PREFIX + "/{id}/details")
-    ResponseEntity<TicketDetailsDTO> updateTicketDetails(@PathVariable("id") Integer id,
-        @RequestBody TicketDetailsDTO ticketDetailsDTO);
+    ResponseEntity<TicketDetailsDTO> updateTicketDetails(@PathVariable("id") Integer id, @RequestBody TicketDetailsDTO ticketDetailsDTO);
 
     @ApiOperation("Retrieves all tickets created by a user")
     @ResponseBody

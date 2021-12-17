@@ -170,6 +170,12 @@ public class TicketControllerIT extends SpringBootTestEnvironment
     @Test
     public void testDeleteOfTicket()
     {
+        ResponseEntity<Object> removeTicketFromBoard = ticketRankController.removeTicketFromBoard(ticketDTOS.get(1).getId(), boardDTO.getId());
+        assertEquals(removeTicketFromBoard.getStatusCode(), HttpStatus.NO_CONTENT);
+
+        ResponseEntity<List<TicketDTO>> ticketsForBoard = ticketRankController.getTicketsForBoard(boardDTO.getId());
+        assertEquals(0, ticketsForBoard.getBody().size());
+
         ResponseEntity<Object> ticket = ticketController.deleteTicket(ticketDTOS.get(1).getId());
         assertEquals(ticket.getStatusCode(), HttpStatus.NO_CONTENT);
         assertThrows(EntityNotFoundException.class, () -> ticketController.getTicket(ticketDTOS.get(1).getId()));

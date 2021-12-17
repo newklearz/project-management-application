@@ -38,8 +38,8 @@ public interface TicketRankResource
 
     @ApiOperation("Removes a ticket from a board")
     @ResponseBody
-    @DeleteMapping(TICKET_RANK_COMMON_PREFIX + "/{id}")
-    ResponseEntity<Object> removeTicketFromBoard(@PathVariable("id") Integer id);
+    @DeleteMapping(TICKET_RANK_COMMON_PREFIX + "/{ticketId}/{boardId}")
+    ResponseEntity<Object> removeTicketFromBoard(@PathVariable("ticketId") Integer ticketId, @PathVariable("boardId") Integer boardId);
 
     @ApiOperation("Updates ticket priority for a board")
     @ResponseBody
