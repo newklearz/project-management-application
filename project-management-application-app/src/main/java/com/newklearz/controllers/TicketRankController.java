@@ -22,9 +22,9 @@ public class TicketRankController implements TicketRankResource
     }
 
     @Override
-    public ResponseEntity<TicketRankDTO> addTicketToBoard(TicketRankDTO ticketRankDTO)
+    public ResponseEntity<TicketRankDTO> addTicketToBoard(Integer id, TicketRankDTO ticketRankDTO)
     {
-        return ResponseEntity.ok(ticketRankService.addTicketToBoard(ticketRankDTO));
+        return ResponseEntity.ok(ticketRankService.addTicketToBoard(id, ticketRankDTO));
     }
 
     @Override
@@ -47,8 +47,9 @@ public class TicketRankController implements TicketRankResource
     }
 
     @Override
-    public ResponseEntity<TicketDTO> updateTicketPriority(Integer id, TicketRankDTO ticketRankDTO)
+    public ResponseEntity<Object> updateTicketPriority(Integer id,Integer i, Integer j)
     {
-        return null;
+        ticketRankService.updateTicketPriority(id, i, j);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

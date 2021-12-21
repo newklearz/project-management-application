@@ -23,8 +23,8 @@ public interface TicketRankResource
 
     @ApiOperation("Adds ticket to a board")
     @ResponseBody
-    @PostMapping(TICKET_RANK_COMMON_PREFIX)
-    ResponseEntity<TicketRankDTO> addTicketToBoard(@RequestBody TicketRankDTO ticketRankDTO);
+    @PostMapping(TICKET_RANK_COMMON_PREFIX + "/{id}")
+    ResponseEntity<TicketRankDTO> addTicketToBoard( @PathVariable("id")Integer id, @RequestBody TicketRankDTO ticketRankDTO);
 
     @ApiOperation("Retrieves all tickets for a board")
     @ResponseBody
@@ -44,5 +44,5 @@ public interface TicketRankResource
     @ApiOperation("Updates ticket priority for a board")
     @ResponseBody
     @PutMapping(TICKET_RANK_COMMON_PREFIX + "/{id}")
-    ResponseEntity<TicketDTO> updateTicketPriority(@PathVariable("id") Integer id, @RequestBody TicketRankDTO ticketRankDTO);
+    ResponseEntity <Object> updateTicketPriority(@PathVariable("id") Integer id, Integer i, Integer j);
 }

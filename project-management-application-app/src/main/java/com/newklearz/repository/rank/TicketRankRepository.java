@@ -19,7 +19,8 @@ public interface TicketRankRepository extends JpaRepository<TicketRank, Integer>
         + " FROM Ticket ticket"
         + " INNER JOIN TicketRank ticketRank"
         + " on ticket.id = ticketRank.assignedTicket.id"
-        + " WHERE ticketRank.assignedBoard.id = :" + BOARDID)
+        + " WHERE ticketRank.assignedBoard.id = :" + BOARDID
+        + " ORDER BY ticketRank.ticketRank")
     List<Ticket> findTicketsForBoard(@Param(BOARDID) Integer boardId);
 
     @Query("SELECT board"
@@ -28,6 +29,12 @@ public interface TicketRankRepository extends JpaRepository<TicketRank, Integer>
         + " on board.id = ticketRank.assignedBoard.id"
         + " WHERE ticketRank.assignedTicket.id = :" + TICKETID)
     List<Board> findBoardsForTicket(@Param(TICKETID) Integer ticketId);
+
+    @Query("SELECT ticketRank"
+            + " FROM TicketRank ticketRank"
+            + " WHERE ticketRank.assignedBoard.id = :" + BOARDID
+            + " ORDER BY ticketRank.ticketRank")
+    List<TicketRank> findTicketRanksForBoard(@Param(BOARDID) Integer boardId);
 
     @Transactional
     @Modifying

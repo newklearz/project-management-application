@@ -2,7 +2,6 @@ package com.newklearz.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 
@@ -15,8 +14,6 @@ import com.newklearz.DTO.BoardDTO;
 import com.newklearz.DTO.TicketDTO;
 import com.newklearz.DTO.TicketRankDTO;
 
-import javax.persistence.EntityNotFoundException;
-
 public class TicketRankControllerIT extends SpringBootTestEnvironment
 {
     @Test
@@ -25,14 +22,12 @@ public class TicketRankControllerIT extends SpringBootTestEnvironment
         TicketRankDTO testTicketRank = new TicketRankDTO();
         testTicketRank.setAssignedTicket(ticketDTOS.get(0));
         testTicketRank.setAssignedBoard(boardDTO);
-        testTicketRank.setTicketRank(125);
 
-        ResponseEntity<TicketRankDTO> ticketRank = ticketRankController.addTicketToBoard(testTicketRank);
+        ResponseEntity<TicketRankDTO> ticketRank = ticketRankController.addTicketToBoard(boardDTO.getId(),testTicketRank);
         assertNotNull(ticketRank);
         assertEquals(ticketRank.getStatusCode(), HttpStatus.OK);
 
         TicketRankDTO ticketRankDTOFound = ticketRank.getBody();
-        assertEquals(testTicketRank.getTicketRank(), ticketRankDTOFound.getTicketRank());
         assertEquals(testTicketRank.getAssignedTicket().getId(), ticketRankDTOFound.getAssignedTicket().getId());
         assertEquals(testTicketRank.getAssignedBoard().getId(), ticketRankDTOFound.getAssignedBoard().getId());
     }
@@ -73,5 +68,36 @@ public class TicketRankControllerIT extends SpringBootTestEnvironment
 
         ResponseEntity<List<TicketDTO>> ticketsForBoard = ticketRankController.getTicketsForBoard(boardDTO.getId());
         assertEquals(0, ticketsForBoard.getBody().size());
+    }
+
+    @Test
+    public void testUpdateTicketPriority()
+    {
+        TicketRankDTO testTicketRank = new TicketRankDTO();
+        testTicketRank.setAssignedTicket(ticketDTOS.get(0));
+        testTicketRank.setAssignedBoard(boardDTO);
+
+        ResponseEntity<TicketRankDTO> ticketRank = ticketRankController.addTicketToBoard(boardDTO.getId(),testTicketRank);
+        ticketRankDTOS.add(ticketRank.getBody());
+        assertNotNull(ticketRank);
+        assertEquals(ticketRank.getStatusCode(), HttpStatus.OK);
+
+        TicketRankDTO testTicketRank3 = new TicketRankDTO();
+        testTicketRank3.setAssignedTicket(ticketDTOS.get(2));
+        testTicketRank3.setAssignedBoard(boardDTO);
+
+        ResponseEntity<TicketRankDTO> ticketRank3 = ticketRankController.addTicketToBoard(boardDTO.getId(),testTicketRank3);
+        ticketRankDTOS.add(ticketRank3.getBody());
+        assertNotNull(ticketRank3);
+        assertEquals(ticketRank3.getStatusCode(), HttpStatus.OK);
+
+        ResponseEntity<Object> updateTicketPriority = ticketRankController.updateTicketPriority(boardDTO.getId(),1,2);
+        assertEquals(updateTicketPriority.getStatusCode(), HttpStatus.OK);
+
+        ResponseEntity<List<TicketDTO>> ticketsForBoard = ticketRankController.getTicketsForBoard(boardDTO.getId());
+        assertEquals(ticketsForBoard.getStatusCode(), HttpStatus.OK);
+        assertNotNull(ticketsForBoard.getBody());
+        assertEquals(ticketDTOS.size(), ticketsForBoard.getBody().size());
+        assertEquals(ticketsForBoard.getBody().get(1).getId(),ticketRankDTOS.get(2).getAssignedTicket().getId());
     }
 }
