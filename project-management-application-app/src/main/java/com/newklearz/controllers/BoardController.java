@@ -1,6 +1,6 @@
 package com.newklearz.controllers;
 
-import com.newklearz.DTO.BoardDTO;
+import com.newklearz.dto.BoardDTO;
 import com.newklearz.service.BoardService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;

@@ -6,9 +6,9 @@ import javax.persistence.EntityNotFoundException;
 
 import org.springframework.stereotype.Service;
 
-import com.newklearz.DTO.BoardDTO;
-import com.newklearz.DTO.TicketDTO;
-import com.newklearz.DTO.TicketRankDTO;
+import com.newklearz.dto.BoardDTO;
+import com.newklearz.dto.TicketDTO;
+import com.newklearz.dto.TicketRankDTO;
 import com.newklearz.adapters.BoardAdapter;
 import com.newklearz.adapters.TicketAdapter;
 import com.newklearz.adapters.TicketRankAdapter;
@@ -71,19 +71,19 @@ public class TicketRankService
         ticketRankRepository.removeTicketFromBoard(ticketId, boardId);
     }
 
-    public void updateTicketPriority(Integer boardId, Integer i, Integer j)
+    public void updateTicketPriority(Integer boardId, Integer toPosition, Integer fromPosition)
     {
         List<TicketRank> ticketRanks = ticketRankRepository.findTicketRanksForBoard(boardId);
-        if (ticketRanks.size() == 2 || i == 0)
+        if (ticketRanks.size() == 2 || toPosition == 0)
         {
-            ticketRanks.get(j).setTicketRank(ticketRanks.get(i).getTicketRank() - 1);
+            ticketRanks.get(fromPosition).setTicketRank(ticketRanks.get(toPosition).getTicketRank() - 1);
         }
         else
         {
-            ticketRanks.get(j)
-                .setTicketRank(((ticketRanks.get(i).getTicketRank() - ticketRanks.get(i - 1).getTicketRank()) / 2)
-                    + ticketRanks.get(i - 1).getTicketRank());
+            ticketRanks.get(fromPosition)
+                .setTicketRank(((ticketRanks.get(toPosition).getTicketRank() - ticketRanks.get(toPosition - 1).getTicketRank()) / 2)
+                    + ticketRanks.get(toPosition - 1).getTicketRank());
         }
-        ticketRankRepository.save(ticketRanks.get(j));
+        ticketRankRepository.save(ticketRanks.get(fromPosition));
     }
 }

@@ -3,7 +3,7 @@ package com.newklearz.adapters;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.newklearz.DTO.TicketRankDTO;
+import com.newklearz.dto.TicketRankDTO;
 import com.newklearz.repository.rank.TicketRank;
 
 public class TicketRankAdapter

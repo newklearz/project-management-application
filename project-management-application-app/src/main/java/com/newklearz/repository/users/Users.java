@@ -11,7 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.newklearz.DTO.AppUserRole;
+import com.newklearz.dto.AppUserRole;
 
 @Entity
 @Table(name = "pma_users")

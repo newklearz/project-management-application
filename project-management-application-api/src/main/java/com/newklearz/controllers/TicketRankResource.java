@@ -1,8 +1,8 @@
 package com.newklearz.controllers;
 
-import com.newklearz.DTO.BoardDTO;
-import com.newklearz.DTO.TicketDTO;
-import com.newklearz.DTO.TicketRankDTO;
+import com.newklearz.dto.BoardDTO;
+import com.newklearz.dto.TicketDTO;
+import com.newklearz.dto.TicketRankDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
@@ -44,5 +44,5 @@ public interface TicketRankResource
     @ApiOperation("Updates ticket priority for a board")
     @ResponseBody
     @PutMapping(TICKET_RANK_COMMON_PREFIX + "/{id}")
-    ResponseEntity <Object> updateTicketPriority(@PathVariable("id") Integer id, Integer i, Integer j);
+    ResponseEntity <Object> updateTicketPriority(@PathVariable("id") Integer id, Integer toPosition, Integer fromPosition);
 }

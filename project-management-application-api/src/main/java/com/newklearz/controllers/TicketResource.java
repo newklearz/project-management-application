@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.newklearz.DTO.TicketDTO;
-import com.newklearz.DTO.TicketDetailsDTO;
+import com.newklearz.dto.TicketDTO;
+import com.newklearz.dto.TicketDetailsDTO;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

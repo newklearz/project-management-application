@@ -7,9 +7,8 @@ import javax.persistence.EntityNotFoundException;
 
 import org.springframework.stereotype.Service;
 
-import com.newklearz.DTO.UsersDTO;
+import com.newklearz.dto.UsersDTO;
 import com.newklearz.adapters.UserAdapter;
-import com.newklearz.repository.ticket.TicketRepository;
 import com.newklearz.repository.users.Users;
 import com.newklearz.repository.users.UsersRepository;
 import com.newklearz.security.MyUserDetailsService;

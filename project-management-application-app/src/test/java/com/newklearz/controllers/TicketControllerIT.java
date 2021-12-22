@@ -15,9 +15,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.newklearz.SpringBootTestEnvironment;
-import com.newklearz.DTO.TicketDTO;
-import com.newklearz.DTO.TicketDetailsDTO;
-import com.newklearz.DTO.UsersDTO;
+import com.newklearz.dto.TicketDTO;
+import com.newklearz.dto.TicketDetailsDTO;
+import com.newklearz.dto.UsersDTO;
 
 public class TicketControllerIT extends SpringBootTestEnvironment
 {

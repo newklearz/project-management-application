@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
-import com.newklearz.DTO.BoardDTO;
+import com.newklearz.dto.BoardDTO;
 import org.springframework.stereotype.Service;
 
 import com.newklearz.adapters.BoardAdapter;
@@ -31,7 +31,6 @@ public class BoardService
     {
         Board board = getBoardById(id);
         return BoardAdapter.toDTO(board);
-
     }
 
     public BoardDTO createBoard(BoardDTO boardDTO)

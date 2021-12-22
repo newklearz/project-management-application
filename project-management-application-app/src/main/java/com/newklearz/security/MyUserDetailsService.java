@@ -4,7 +4,7 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.newklearz.DTO.UsersDTO;
+import com.newklearz.dto.UsersDTO;
 import com.newklearz.adapters.UserAdapter;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

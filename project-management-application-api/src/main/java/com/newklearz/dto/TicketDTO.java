@@ -1,4 +1,4 @@
-package com.newklearz.DTO;
+package com.newklearz.dto;
 
 public class TicketDTO
 {

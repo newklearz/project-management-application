@@ -3,7 +3,7 @@ package com.newklearz.adapters;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.newklearz.DTO.UsersDTO;
+import com.newklearz.dto.UsersDTO;
 import com.newklearz.repository.users.Users;
 
 public class UserAdapter

@@ -7,9 +7,9 @@ import javax.persistence.EntityNotFoundException;
 
 import org.springframework.stereotype.Service;
 
-import com.newklearz.DTO.TicketDTO;
-import com.newklearz.DTO.TicketDetailsDTO;
-import com.newklearz.DTO.UsersDTO;
+import com.newklearz.dto.TicketDTO;
+import com.newklearz.dto.TicketDetailsDTO;
+import com.newklearz.dto.UsersDTO;
 import com.newklearz.adapters.TicketAdapter;
 import com.newklearz.adapters.TicketDetailsAdapter;
 import com.newklearz.adapters.UserAdapter;

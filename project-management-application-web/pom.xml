@@ -36,7 +36,7 @@
             <apiSource>
               <springmvc>true</springmvc>
               <locations>
-                <location>com.newklearz.DTO</location>
+                <location>com.newklearz.dto</location>
                 <location>com.newklearz.controllers</location>
               </locations>
               <info>

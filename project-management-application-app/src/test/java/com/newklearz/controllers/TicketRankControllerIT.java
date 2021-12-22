@@ -10,9 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.newklearz.SpringBootTestEnvironment;
-import com.newklearz.DTO.BoardDTO;
-import com.newklearz.DTO.TicketDTO;
-import com.newklearz.DTO.TicketRankDTO;
+import com.newklearz.dto.BoardDTO;
+import com.newklearz.dto.TicketDTO;
+import com.newklearz.dto.TicketRankDTO;
 
 public class TicketRankControllerIT extends SpringBootTestEnvironment
 {

@@ -3,7 +3,7 @@ package com.newklearz.adapters;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.newklearz.DTO.TicketRankForeignKeyDTO;
+import com.newklearz.dto.TicketRankForeignKeyDTO;
 import com.newklearz.repository.rank.TicketRankForeignKey;
 
 public class TicketRankForeignKeyAdapter

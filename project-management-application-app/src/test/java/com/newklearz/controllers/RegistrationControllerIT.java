@@ -8,8 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.Test;
 
 import com.newklearz.SpringBootTestEnvironment;
-import com.newklearz.DTO.AppUserRole;
-import com.newklearz.DTO.UsersDTO;
+import com.newklearz.dto.AppUserRole;
+import com.newklearz.dto.UsersDTO;
 import com.newklearz.adapters.UserAdapter;
 import com.newklearz.repository.users.Users;
 

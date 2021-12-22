@@ -11,7 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.newklearz.SpringBootTestEnvironment;
-import com.newklearz.DTO.BoardDTO;
+import com.newklearz.dto.BoardDTO;
 
 public class BoardControllerIT extends SpringBootTestEnvironment
 {

@@ -13,8 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.newklearz.SpringBootTestEnvironment;
-import com.newklearz.DTO.AppUserRole;
-import com.newklearz.DTO.UsersDTO;
+import com.newklearz.dto.AppUserRole;
+import com.newklearz.dto.UsersDTO;
 
 public class UserControllerIT extends SpringBootTestEnvironment
 {

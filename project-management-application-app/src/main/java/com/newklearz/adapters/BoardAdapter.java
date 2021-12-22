@@ -3,7 +3,7 @@ package com.newklearz.adapters;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.newklearz.DTO.BoardDTO;
+import com.newklearz.dto.BoardDTO;
 import com.newklearz.repository.board.Board;
 
 public class BoardAdapter

@@ -6,9 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.newklearz.DTO.BoardDTO;
-import com.newklearz.DTO.TicketDTO;
-import com.newklearz.DTO.TicketRankDTO;
+import com.newklearz.dto.BoardDTO;
+import com.newklearz.dto.TicketDTO;
+import com.newklearz.dto.TicketRankDTO;
 import com.newklearz.service.TicketRankService;
 
 @RestController
@@ -47,9 +47,9 @@ public class TicketRankController implements TicketRankResource
     }
 
     @Override
-    public ResponseEntity<Object> updateTicketPriority(Integer id,Integer i, Integer j)
+    public ResponseEntity<Object> updateTicketPriority(Integer id,Integer toPosition, Integer fromPosition)
     {
-        ticketRankService.updateTicketPriority(id, i, j);
+        ticketRankService.updateTicketPriority(id, toPosition, fromPosition);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

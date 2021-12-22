@@ -6,8 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.newklearz.DTO.TicketDTO;
-import com.newklearz.DTO.TicketDetailsDTO;
+import com.newklearz.dto.TicketDTO;
+import com.newklearz.dto.TicketDetailsDTO;
 import com.newklearz.service.TicketService;
 
 @RestController
