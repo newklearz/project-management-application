@@ -10,14 +10,14 @@ import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
-import com.newklearz.DTO.UsersDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.newklearz.SpringBootTestEnvironment;
-import com.newklearz.DTO.TicketDTO;
-import com.newklearz.DTO.TicketDetailsDTO;
+import com.newklearz.dto.TicketDTO;
+import com.newklearz.dto.TicketDetailsDTO;
+import com.newklearz.dto.UsersDTO;
 
 public class TicketControllerIT extends SpringBootTestEnvironment
 {
@@ -170,6 +170,12 @@ public class TicketControllerIT extends SpringBootTestEnvironment
     @Test
     public void testDeleteOfTicket()
     {
+        ResponseEntity<Object> removeTicketFromBoard = ticketRankController.removeTicketFromBoard(ticketDTOS.get(1).getId(), boardDTO.getId());
+        assertEquals(removeTicketFromBoard.getStatusCode(), HttpStatus.NO_CONTENT);
+
+        ResponseEntity<List<TicketDTO>> ticketsForBoard = ticketRankController.getTicketsForBoard(boardDTO.getId());
+        assertEquals(0, ticketsForBoard.getBody().size());
+
         ResponseEntity<Object> ticket = ticketController.deleteTicket(ticketDTOS.get(1).getId());
         assertEquals(ticket.getStatusCode(), HttpStatus.NO_CONTENT);
         assertThrows(EntityNotFoundException.class, () -> ticketController.getTicket(ticketDTOS.get(1).getId()));

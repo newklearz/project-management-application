@@ -11,10 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.newklearz.DTO.AppUserRole;
+import com.newklearz.dto.AppUserRole;
 
 @Entity
-@Table(name = "users")
+@Table(name = "pma_users")
 public class Users implements Serializable
 {
     @Id
@@ -38,7 +38,6 @@ public class Users implements Serializable
 
     public Users()
     {
-
     }
 
     public Users(String userName, String email, String password, AppUserRole appUserRole)

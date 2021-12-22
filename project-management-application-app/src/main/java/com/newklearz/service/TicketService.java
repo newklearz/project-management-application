@@ -5,12 +5,11 @@ import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
-import com.newklearz.repository.users.Users;
 import org.springframework.stereotype.Service;
 
-import com.newklearz.DTO.TicketDTO;
-import com.newklearz.DTO.TicketDetailsDTO;
-import com.newklearz.DTO.UsersDTO;
+import com.newklearz.dto.TicketDTO;
+import com.newklearz.dto.TicketDetailsDTO;
+import com.newklearz.dto.UsersDTO;
 import com.newklearz.adapters.TicketAdapter;
 import com.newklearz.adapters.TicketDetailsAdapter;
 import com.newklearz.adapters.UserAdapter;
@@ -25,13 +24,15 @@ public class TicketService
     private final TicketRepository ticketRepository;
     private final TicketDetailsRepository ticketDetailsRepository;
     private final UserService userService;
+    private final BoardService boardService;
 
     public TicketService(TicketRepository ticketRepository, TicketDetailsRepository ticketDetailsRepository,
-        UserService userService)
+        UserService userService, BoardService boardService)
     {
         this.ticketRepository = ticketRepository;
         this.ticketDetailsRepository = ticketDetailsRepository;
         this.userService = userService;
+        this.boardService = boardService;
     }
 
     public List<TicketDTO> findAll()
@@ -119,5 +120,4 @@ public class TicketService
         }
         throw new EntityNotFoundException("User with id " + id + " not found");
     }
-
 }

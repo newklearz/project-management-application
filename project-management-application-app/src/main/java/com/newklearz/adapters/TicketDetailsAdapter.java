@@ -3,7 +3,7 @@ package com.newklearz.adapters;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.newklearz.DTO.TicketDetailsDTO;
+import com.newklearz.dto.TicketDetailsDTO;
 import com.newklearz.repository.ticketdetails.TicketDetails;
 
 public class TicketDetailsAdapter

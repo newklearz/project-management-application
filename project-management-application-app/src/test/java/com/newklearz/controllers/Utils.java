@@ -23,15 +23,19 @@ public class Utils
         return RandomStringUtils.randomAlphabetic(7) + "@testdata.com";
     }
 
-    public static String getRandomDate(){
+    public static String getRandomDate()
+    {
         DateFormat dateFormat = new SimpleDateFormat(" yyyy-MM-dd hh:mm:ss");
         return dateFormat.format(LOCAL_DATE);
     }
 
-    public static String getPassword (){
+    public static String getPassword()
+    {
         return COMPLEX_PASSWORD;
     }
-    public static String getEmail (){
+
+    public static String getEmail()
+    {
         return EMAIL;
     }
 }

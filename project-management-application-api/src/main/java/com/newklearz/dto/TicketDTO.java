@@ -1,4 +1,4 @@
-package com.newklearz.DTO;
+package com.newklearz.dto;
 
 public class TicketDTO
 {
@@ -125,19 +125,24 @@ public class TicketDTO
         this.ticketDetails = ticketDetails;
     }
 
-    public UsersDTO getCreatedBy() {
+    public UsersDTO getCreatedBy()
+    {
         return createdBy;
     }
 
-    public void setCreatedBy(UsersDTO createdBy) {
+    public void setCreatedBy(UsersDTO createdBy)
+    {
         this.createdBy = createdBy;
     }
 
-    public UsersDTO getAssignedTo() {
+    public UsersDTO getAssignedTo()
+    {
         return assignedTo;
     }
 
-    public void setAssignedTo(UsersDTO assignedTo) {
+    public void setAssignedTo(UsersDTO assignedTo)
+    {
         this.assignedTo = assignedTo;
     }
+
 }

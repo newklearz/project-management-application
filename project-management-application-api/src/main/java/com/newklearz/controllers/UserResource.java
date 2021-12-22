@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.newklearz.DTO.UsersDTO;
+import com.newklearz.dto.UsersDTO;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -1,6 +1,6 @@
 package com.newklearz.controllers;
 
-import com.newklearz.DTO.UsersDTO;
+import com.newklearz.dto.UsersDTO;
 import com.newklearz.service.RegistrationService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

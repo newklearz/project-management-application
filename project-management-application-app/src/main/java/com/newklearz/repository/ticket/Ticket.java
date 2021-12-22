@@ -1,6 +1,8 @@
 package com.newklearz.repository.ticket;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,17 +11,18 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.newklearz.repository.rank.TicketRank;
 import com.newklearz.repository.ticketdetails.TicketDetails;
 import com.newklearz.repository.users.Users;
 
 @Entity
-@Table(name = "ticket")
+@Table(name = "pma_ticket")
 public class Ticket implements Serializable, Cloneable
 {
     @Id
@@ -56,13 +59,15 @@ public class Ticket implements Serializable, Cloneable
     @JoinColumn(name = "assigned_to", referencedColumnName = "user_id")
     private Users assignedTo;
 
+    @OneToMany(mappedBy = "assignedTicket", fetch = FetchType.EAGER)
+    private List<TicketRank> ticketRankList = new ArrayList<>();
+
     @JoinColumn(name = "ticket_details_id", unique = true)
     @OneToOne(cascade = CascadeType.ALL)
     private TicketDetails ticketDetails;
 
     public Ticket()
     {
-
     }
 
     public Ticket(Ticket ticket) throws CloneNotSupportedException
@@ -170,20 +175,34 @@ public class Ticket implements Serializable, Cloneable
         this.ticketDetails = ticketDetails;
     }
 
-    public Users getCreatedBy() {
+    public Users getCreatedBy()
+    {
         return createdBy;
     }
 
-    public void setCreatedBy(Users createdBy) {
+    public void setCreatedBy(Users createdBy)
+    {
         this.createdBy = createdBy;
     }
 
-    public Users getAssignedTo() {
+    public Users getAssignedTo()
+    {
         return assignedTo;
     }
 
-    public void setAssignedTo(Users assignedTo) {
+    public void setAssignedTo(Users assignedTo)
+    {
         this.assignedTo = assignedTo;
+    }
+
+    public List<TicketRank> getTicketRankList()
+    {
+        return ticketRankList;
+    }
+
+    public void setTicketRankList(List<TicketRank> ticketRankList)
+    {
+        this.ticketRankList = ticketRankList;
     }
 
     @Override

@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.newklearz.DTO.TicketDTO;
-import com.newklearz.DTO.TicketDetailsDTO;
+import com.newklearz.dto.TicketDTO;
+import com.newklearz.dto.TicketDetailsDTO;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -55,8 +55,7 @@ public interface TicketResource
     @ApiOperation("Updates ticketDetails for a ticket")
     @ResponseBody
     @PutMapping(TICKET_COMMON_PREFIX + "/{id}/details")
-    ResponseEntity<TicketDetailsDTO> updateTicketDetails(@PathVariable("id") Integer id,
-        @RequestBody TicketDetailsDTO ticketDetailsDTO);
+    ResponseEntity<TicketDetailsDTO> updateTicketDetails(@PathVariable("id") Integer id, @RequestBody TicketDetailsDTO ticketDetailsDTO);
 
     @ApiOperation("Retrieves all tickets created by a user")
     @ResponseBody
