@@ -3,14 +3,13 @@ package com.newklearz.service;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.EntityNotFoundException;
-
-import com.newklearz.dto.BoardDTO;
 import org.springframework.stereotype.Service;
 
 import com.newklearz.adapters.BoardAdapter;
+import com.newklearz.dto.BoardDTO;
 import com.newklearz.repository.board.Board;
 import com.newklearz.repository.board.BoardRepository;
+import com.newklearz.service.exceptions.BoardException;
 
 @Service
 public class BoardService
@@ -53,6 +52,6 @@ public class BoardService
     private Board getBoardById(Integer id)
     {
         Optional<Board> optional = boardRepository.findById(id);
-        return optional.orElseThrow(() -> new EntityNotFoundException("Board with id " + id + " not found"));
+        return optional.orElseThrow(() -> new BoardException("Board with id " + id + " not found"));
     }
 }
