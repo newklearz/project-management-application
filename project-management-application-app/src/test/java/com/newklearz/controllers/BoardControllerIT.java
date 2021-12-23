@@ -44,8 +44,8 @@ public class BoardControllerIT extends SpringBootTestEnvironment
         /**
          * Retrieve board with a negative id
          */
-        ResponseEntity<BoardDTO> boardNegativeID = boardController.getBoard(Integer.MAX_VALUE + 3488799);
-        assertEquals(HttpStatus.BAD_REQUEST, boardNegativeID.getStatusCode());
+        ResponseEntity<BoardDTO> boardNegativeId = boardController.getBoard(Integer.MAX_VALUE + 3488799);
+        assertEquals(HttpStatus.BAD_REQUEST, boardNegativeId.getStatusCode());
 
         /**
          * Retrieve board with an in-existent id
@@ -85,31 +85,31 @@ public class BoardControllerIT extends SpringBootTestEnvironment
         /**
          * Create board with null name
          */
-        ResponseEntity<BoardDTO> testBoardNullName = boardController.createBoard(new BoardDTO(null, null));
-        assertEquals(HttpStatus.BAD_REQUEST, testBoardNullName.getStatusCode());
+        ResponseEntity<BoardDTO> boardNullName = boardController.createBoard(new BoardDTO(null, null));
+        assertEquals(HttpStatus.BAD_REQUEST, boardNullName.getStatusCode());
 
         /**
          * Create board with empty string name
          */
-        ResponseEntity<BoardDTO> testEmptyStringName = boardController.createBoard(new BoardDTO(null, ""));
-        assertEquals(HttpStatus.BAD_REQUEST, testEmptyStringName.getStatusCode());
+        ResponseEntity<BoardDTO> boardEmptyStringName = boardController.createBoard(new BoardDTO(null, ""));
+        assertEquals(HttpStatus.BAD_REQUEST, boardEmptyStringName.getStatusCode());
 
         /**
          * Create board with blank space name
          */
-        ResponseEntity<BoardDTO> testBlankSpaceName = boardController.createBoard(new BoardDTO(null, " "));
-        assertEquals(HttpStatus.BAD_REQUEST, testBlankSpaceName.getStatusCode());
+        ResponseEntity<BoardDTO> boardBlankSpaceName = boardController.createBoard(new BoardDTO(null, " "));
+        assertEquals(HttpStatus.BAD_REQUEST, boardBlankSpaceName.getStatusCode());
         /**
          * Create board with same name as an existing one
          */
-        ResponseEntity<BoardDTO> testSameName = boardController.createBoard(new BoardDTO(null, boardDTO.getName()));
-        assertEquals(HttpStatus.CONFLICT, testSameName.getStatusCode());
+        ResponseEntity<BoardDTO> boardSameName = boardController.createBoard(new BoardDTO(null, boardDTO.getName()));
+        assertEquals(HttpStatus.CONFLICT, boardSameName.getStatusCode());
 
         /**
          * Create board with more than 100 characters in name
          */
-        ResponseEntity<BoardDTO> testMoreCharsName = boardController.createBoard(new BoardDTO(null, getMoreChars()));
-        assertEquals(HttpStatus.BAD_REQUEST, testMoreCharsName.getStatusCode());
+        ResponseEntity<BoardDTO> boardMoreCharsName = boardController.createBoard(new BoardDTO(null, getMoreChars()));
+        assertEquals(HttpStatus.BAD_REQUEST, boardMoreCharsName.getStatusCode());
     }
 
     @Test

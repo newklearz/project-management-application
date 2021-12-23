@@ -58,8 +58,8 @@ public class TicketControllerIT extends SpringBootTestEnvironment
         /**
          * Retrieve ticket with a negative id
          */
-        ResponseEntity<TicketDTO> ticketNegativeID = ticketController.getTicket(Integer.MAX_VALUE + 3488799);
-        assertEquals(HttpStatus.BAD_REQUEST, ticketNegativeID.getStatusCode());
+        ResponseEntity<TicketDTO> ticketNegativeId = ticketController.getTicket(Integer.MAX_VALUE + 3488799);
+        assertEquals(HttpStatus.BAD_REQUEST, ticketNegativeId.getStatusCode());
 
         /**
          * Retrieve ticket with an in-existent id
@@ -188,7 +188,6 @@ public class TicketControllerIT extends SpringBootTestEnvironment
     @Test
     public void testUpdateOfTicketNegative()
     {
-
         ResponseEntity<TicketDTO> foundTicketBeforeUpdate = ticketController.getTicket(ticketDTOS.get(0).getId());
         assertNotNull(foundTicketBeforeUpdate);
         assertEquals(HttpStatus.OK, foundTicketBeforeUpdate.getStatusCode());
