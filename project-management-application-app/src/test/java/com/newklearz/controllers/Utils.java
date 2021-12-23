@@ -12,6 +12,7 @@ public class Utils
     private final static Date LOCAL_DATE = Calendar.getInstance().getTime();
     private final static String COMPLEX_PASSWORD = "admiN123$";
     private final static String EMAIL = "test@test.com";
+    private final static String MORE_CHARACTERS_THAN_100 ="sajdhkkahskdjhakjdhakjsdhkajshdkjashdkjashdkjahsdkjsahdkahsdkjahdskjahdskjahsdkhasdkjhasdkj";
 
     public static String getAlphaNumericString()
     {
@@ -37,5 +38,10 @@ public class Utils
     public static String getEmail()
     {
         return EMAIL;
+    }
+
+    public static String getMoreChars()
+    {
+        return MORE_CHARACTERS_THAN_100;
     }
 }

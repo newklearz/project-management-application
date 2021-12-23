@@ -1,6 +1,7 @@
 package com.newklearz.controllers;
 
 import static com.newklearz.controllers.Utils.getAlphaNumericString;
+import static com.newklearz.controllers.Utils.getMoreChars;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -82,33 +83,32 @@ public class BoardControllerIT extends SpringBootTestEnvironment
     public void testCreateOfBoardNegative()
     {
         /**
-         * Create a board with null name
+         * Create board with null name
          */
         ResponseEntity<BoardDTO> testBoardNullName = boardController.createBoard(new BoardDTO(null, null));
         assertEquals(HttpStatus.BAD_REQUEST, testBoardNullName.getStatusCode());
 
         /**
-         * Create a board with empty string name
+         * Create board with empty string name
          */
         ResponseEntity<BoardDTO> testEmptyStringName = boardController.createBoard(new BoardDTO(null, ""));
         assertEquals(HttpStatus.BAD_REQUEST, testEmptyStringName.getStatusCode());
 
         /**
-         * Create a board with blank space name
+         * Create board with blank space name
          */
         ResponseEntity<BoardDTO> testBlankSpaceName = boardController.createBoard(new BoardDTO(null, " "));
         assertEquals(HttpStatus.BAD_REQUEST, testBlankSpaceName.getStatusCode());
         /**
-         * Create a board with same name as an existing one
+         * Create board with same name as an existing one
          */
         ResponseEntity<BoardDTO> testSameName = boardController.createBoard(new BoardDTO(null, boardDTO.getName()));
         assertEquals(HttpStatus.CONFLICT, testSameName.getStatusCode());
 
         /**
-         * Create a board with more than 100 characters in name
+         * Create board with more than 100 characters in name
          */
-        ResponseEntity<BoardDTO> testMoreCharsName = boardController.createBoard(new BoardDTO(null,
-            "sajdhkkahskdjhakjdhakjsdhkajshdkjashdkjashdkjahsdkjsahdkahsdkjahdskjahdskjahsdkhasdkjhasdkj"));
+        ResponseEntity<BoardDTO> testMoreCharsName = boardController.createBoard(new BoardDTO(null, getMoreChars()));
         assertEquals(HttpStatus.BAD_REQUEST, testMoreCharsName.getStatusCode());
     }
 
@@ -149,7 +149,7 @@ public class BoardControllerIT extends SpringBootTestEnvironment
         boardBeforeUpdate.setName("abc");
 
         /**
-         * Update a board with an already existing name
+         * Update board with an existing name
          */
         ResponseEntity<BoardDTO> requestUpdateBoard = boardController.updateBoard(boardBeforeUpdate.getId(), boardBeforeUpdate);
         assertEquals(HttpStatus.CONFLICT, requestUpdateBoard.getStatusCode());
