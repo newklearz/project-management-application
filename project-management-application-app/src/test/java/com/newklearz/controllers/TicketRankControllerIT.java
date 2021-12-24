@@ -1,5 +1,7 @@
 package com.newklearz.controllers;
 
+import static com.newklearz.controllers.Utils.getIntegerZero;
+import static com.newklearz.controllers.Utils.getOutOfRangeValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -52,26 +54,26 @@ public class TicketRankControllerIT extends SpringBootTestEnvironment
         /**
          * Retrieve tickets for board with an in-existent id
          */
-        ResponseEntity<List<TicketDTO>> ticketsForInexistentBoardId = ticketRankController.getTicketsForBoard(213123123);
+        ResponseEntity<List<TicketDTO>> ticketsForInexistentBoardId = ticketRankController.getTicketsForBoard(Integer.MAX_VALUE);
         assertEquals(HttpStatus.NOT_FOUND, ticketsForInexistentBoardId.getStatusCode());
 
         /**
          * Retrieve tickets for board with a negative id
          */
-        ResponseEntity<List<TicketDTO>>  ticketsForNegativeBoardId = ticketRankController.getTicketsForBoard(Integer.MAX_VALUE + 3488799);
+        ResponseEntity<List<TicketDTO>>  ticketsForNegativeBoardId = ticketRankController.getTicketsForBoard(Integer.MIN_VALUE);
         assertEquals(HttpStatus.BAD_REQUEST, ticketsForNegativeBoardId.getStatusCode());
 
         /**
          * Retrieve tickets for board with id value of zero
          */
-        ResponseEntity<List<TicketDTO>>  ticketsForZeroBoardId = ticketRankController.getTicketsForBoard(0);
+        ResponseEntity<List<TicketDTO>>  ticketsForZeroBoardId = ticketRankController.getTicketsForBoard(getIntegerZero());
         assertEquals(HttpStatus.BAD_REQUEST, ticketsForZeroBoardId.getStatusCode());
 
         /**
-         * Retrieve tickets for board with alphanumeric id value
+         * Retrieve tickets for board with out of range Integer id value
          */
-        ResponseEntity<List<TicketDTO>> ticketsForAlphaNumericBoardId = ticketRankController.getTicketsForBoard(Integer.parseInt("asdaakjshd123sah"));
-        assertEquals(HttpStatus.BAD_REQUEST, ticketsForAlphaNumericBoardId);
+        ResponseEntity<List<TicketDTO>> ticketsForOutOfRangeIntegerBoardId = ticketRankController.getTicketsForBoard(getOutOfRangeValue());
+        assertEquals(HttpStatus.BAD_REQUEST, ticketsForOutOfRangeIntegerBoardId);
     }
 
     @Test
@@ -94,26 +96,26 @@ public class TicketRankControllerIT extends SpringBootTestEnvironment
         /**
          * Retrieve boards for ticket with an in-existent id
          */
-        ResponseEntity<List<BoardDTO>> boardsForInexistentTicketId = ticketRankController.getBoardsForTicket(213123123);
+        ResponseEntity<List<BoardDTO>> boardsForInexistentTicketId = ticketRankController.getBoardsForTicket(Integer.MAX_VALUE);
         assertEquals(HttpStatus.NOT_FOUND, boardsForInexistentTicketId.getStatusCode());
 
         /**
          * Retrieve boards for ticket with a negative id
          */
-        ResponseEntity<List<BoardDTO>>  boardsForNegativeTicketId = ticketRankController.getBoardsForTicket(Integer.MAX_VALUE + 3488799);
+        ResponseEntity<List<BoardDTO>>  boardsForNegativeTicketId = ticketRankController.getBoardsForTicket(Integer.MIN_VALUE);
         assertEquals(HttpStatus.BAD_REQUEST, boardsForNegativeTicketId.getStatusCode());
 
         /**
          * Retrieve boards for ticket with id value of zero
          */
-        ResponseEntity<List<BoardDTO>>  boardsForZeroTicketId = ticketRankController.getBoardsForTicket(0);
+        ResponseEntity<List<BoardDTO>>  boardsForZeroTicketId = ticketRankController.getBoardsForTicket(getIntegerZero());
         assertEquals(HttpStatus.BAD_REQUEST, boardsForZeroTicketId.getStatusCode());
 
         /**
-         * Retrieve boards for ticket with alphanumeric id value
+         * Retrieve boards for ticket with out of range Integer id value
          */
-        ResponseEntity<List<BoardDTO>> boardsForAlphaNumericTicketId = ticketRankController.getBoardsForTicket(Integer.parseInt("asdaakjshd123sah"));
-        assertEquals(HttpStatus.BAD_REQUEST, boardsForAlphaNumericTicketId);
+        ResponseEntity<List<BoardDTO>> boardsForOutOfRangeIntegerTicketId = ticketRankController.getBoardsForTicket(getOutOfRangeValue());
+        assertEquals(HttpStatus.BAD_REQUEST, boardsForOutOfRangeIntegerTicketId);
     }
 
     @Test
@@ -181,20 +183,20 @@ public class TicketRankControllerIT extends SpringBootTestEnvironment
         /**
          * Update rank priority with outOfBounds positions
          */
-        ResponseEntity<Object> outOfBoundsPositions = ticketRankController.updateTicketPriority(boardDTO.getId(),1231231231,123123123);
+        ResponseEntity<Object> outOfBoundsPositions = ticketRankController.updateTicketPriority(boardDTO.getId(),Integer.MAX_VALUE-2,Integer.MAX_VALUE);
         assertEquals(HttpStatus.BAD_REQUEST, outOfBoundsPositions.getStatusCode());
 
         /**
          * Update rank priority with negative positions
          */
-        ResponseEntity<Object> negativeArrayPositions = ticketRankController.updateTicketPriority(boardDTO.getId(),Integer.MAX_VALUE + 3488799,Integer.MAX_VALUE + 3488797);
+        ResponseEntity<Object> negativeArrayPositions = ticketRankController.updateTicketPriority(boardDTO.getId(),Integer.MIN_VALUE,Integer.MIN_VALUE+2);
         assertEquals(HttpStatus.BAD_REQUEST, negativeArrayPositions.getStatusCode());
 
         /**
-         * Update rank priority with alphanumeric positions
+         * Update rank priority with out of range Integer positions
          */
-        ResponseEntity<Object> alphaNumericPositions = ticketRankController.updateTicketPriority(boardDTO.getId(),Integer.parseInt("asdaakjshd123sah"),Integer.parseInt("asdaakjshd143sah"));
-        assertEquals(HttpStatus.BAD_REQUEST, alphaNumericPositions.getStatusCode());
+        ResponseEntity<Object> outOfRangeIntegerPositions = ticketRankController.updateTicketPriority(boardDTO.getId(),getOutOfRangeValue(),getOutOfRangeValue());
+        assertEquals(HttpStatus.BAD_REQUEST, outOfRangeIntegerPositions.getStatusCode());
 
         /**
          * Update rank priority with null positions
@@ -205,25 +207,25 @@ public class TicketRankControllerIT extends SpringBootTestEnvironment
         /**
          * Update rank priority for board with an in-existent id
          */
-        ResponseEntity<Object> inexistentBoardId = ticketRankController.updateTicketPriority(1231231231,1,2);
+        ResponseEntity<Object> inexistentBoardId = ticketRankController.updateTicketPriority(Integer.MAX_VALUE,1,2);
         assertEquals(HttpStatus.NOT_FOUND, inexistentBoardId.getStatusCode());
 
         /**
          * Update rank priority for board with negative id
          */
-        ResponseEntity<Object> negativeBoardId = ticketRankController.updateTicketPriority(Integer.MAX_VALUE + 3488799,1,2);
+        ResponseEntity<Object> negativeBoardId = ticketRankController.updateTicketPriority(Integer.MIN_VALUE,1,2);
         assertEquals(HttpStatus.BAD_REQUEST, negativeBoardId.getStatusCode());
 
         /**
          * Update rank priority for board with id zero
          */
-        ResponseEntity<Object> zeroBoardId = ticketRankController.updateTicketPriority(0,1,2);
+        ResponseEntity<Object> zeroBoardId = ticketRankController.updateTicketPriority(getIntegerZero(),1,2);
         assertEquals(HttpStatus.BAD_REQUEST, zeroBoardId.getStatusCode());
 
         /**
-         * Update rank priority for board with alphanumeric id
+         * Update rank priority for board with out of range Integer id
          */
-        ResponseEntity<Object> alphaNumericBoardId = ticketRankController.updateTicketPriority(Integer.parseInt("asdaakjshd123sah"),1,2);
-        assertEquals(HttpStatus.BAD_REQUEST, alphaNumericBoardId.getStatusCode());
+        ResponseEntity<Object> outOfRangeIntegerBoardId = ticketRankController.updateTicketPriority(getOutOfRangeValue(),1,2);
+        assertEquals(HttpStatus.BAD_REQUEST, outOfRangeIntegerBoardId.getStatusCode());
     }
 }

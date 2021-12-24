@@ -1,7 +1,18 @@
 package com.newklearz.controllers;
 
 import static com.newklearz.controllers.Utils.getAlphaNumericString;
+import static com.newklearz.controllers.Utils.getBlankSpace;
+import static com.newklearz.controllers.Utils.getEmptyString;
+import static com.newklearz.controllers.Utils.getForbiddenCharactersPassword;
+import static com.newklearz.controllers.Utils.getIntegerZero;
+import static com.newklearz.controllers.Utils.getLessCharactersPassword;
+import static com.newklearz.controllers.Utils.getMoreCharactersPassword;
 import static com.newklearz.controllers.Utils.getMoreChars;
+import static com.newklearz.controllers.Utils.getNoDigitsPassword;
+import static com.newklearz.controllers.Utils.getNoLowercasePassword;
+import static com.newklearz.controllers.Utils.getNoSpecialCharactersPassword;
+import static com.newklearz.controllers.Utils.getNoUppercasePassword;
+import static com.newklearz.controllers.Utils.getOutOfRangeValue;
 import static com.newklearz.controllers.Utils.getPassword;
 import static com.newklearz.controllers.Utils.getRandomEmail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -52,26 +63,26 @@ public class UserControllerIT extends SpringBootTestEnvironment
         /**
          * Retrieve user with a negative id
          */
-        ResponseEntity<UsersDTO> userNegativeId = userController.getUser(Integer.MAX_VALUE + 3488799);
+        ResponseEntity<UsersDTO> userNegativeId = userController.getUser(Integer.MIN_VALUE);
         assertEquals(HttpStatus.BAD_REQUEST, userNegativeId.getStatusCode());
 
         /**
          * Retrieve user with an in-existent id
          */
-        ResponseEntity<UsersDTO> userInexistentId = userController.getUser(213123123);
+        ResponseEntity<UsersDTO> userInexistentId = userController.getUser(Integer.MAX_VALUE);
         assertEquals(HttpStatus.NOT_FOUND, userInexistentId.getStatusCode());
 
         /**
          * Retrieve user with id value of zero
          */
-        ResponseEntity<UsersDTO> userZeroId = userController.getUser(0);
+        ResponseEntity<UsersDTO> userZeroId = userController.getUser(getIntegerZero());
         assertEquals(HttpStatus.BAD_REQUEST, userZeroId.getStatusCode());
 
         /**
-         * Retrieve user with alphanumeric id value
+         * Retrieve user with out of range Integer id value
          */
-        ResponseEntity<UsersDTO> userAlphaNumericId = userController.getUser(Integer.parseInt("asdaakjshd123sah"));
-        assertEquals(HttpStatus.BAD_REQUEST, userAlphaNumericId);
+        ResponseEntity<UsersDTO> userOutOFRangeIntegerId = userController.getUser(getOutOfRangeValue());
+        assertEquals(HttpStatus.BAD_REQUEST, userOutOFRangeIntegerId);
     }
 
     @Test
@@ -149,13 +160,13 @@ public class UserControllerIT extends SpringBootTestEnvironment
         /**
          * Create user with empty string username
          */
-        ResponseEntity<UsersDTO> emptyStringUserName = userController.createUser(new UsersDTO(null, "",getRandomEmail(),getPassword(),AppUserRole.USER, true));
+        ResponseEntity<UsersDTO> emptyStringUserName = userController.createUser(new UsersDTO(null, getEmptyString(),getRandomEmail(),getPassword(),AppUserRole.USER, true));
         assertEquals(HttpStatus.BAD_REQUEST, emptyStringUserName.getStatusCode());
 
         /**
          * Create user with blank space username
          */
-        ResponseEntity<UsersDTO> blankSpaceUserName = userController.createUser(new UsersDTO(null, " ",getRandomEmail(),getPassword(),AppUserRole.USER, true));
+        ResponseEntity<UsersDTO> blankSpaceUserName = userController.createUser(new UsersDTO(null, getBlankSpace(),getRandomEmail(),getPassword(),AppUserRole.USER, true));
         assertEquals(HttpStatus.BAD_REQUEST, blankSpaceUserName.getStatusCode());
 
         /**
@@ -182,13 +193,13 @@ public class UserControllerIT extends SpringBootTestEnvironment
         /**
          * Create user with empty string email
          */
-        ResponseEntity<UsersDTO> emptyStringUserEmail = userController.createUser(new UsersDTO(null, getAlphaNumericString(), "", getPassword(), AppUserRole.USER, true));
+        ResponseEntity<UsersDTO> emptyStringUserEmail = userController.createUser(new UsersDTO(null, getAlphaNumericString(), getEmptyString(), getPassword(), AppUserRole.USER, true));
         assertEquals(HttpStatus.BAD_REQUEST, emptyStringUserEmail.getStatusCode());
 
         /**
          * Create user with blank space email
          */
-        ResponseEntity<UsersDTO> blankSpaceUserEmail = userController.createUser(new UsersDTO(null, getAlphaNumericString(), " ", getPassword(), AppUserRole.USER, true));
+        ResponseEntity<UsersDTO> blankSpaceUserEmail = userController.createUser(new UsersDTO(null, getAlphaNumericString(), getBlankSpace(), getPassword(), AppUserRole.USER, true));
         assertEquals(HttpStatus.BAD_REQUEST, blankSpaceUserEmail.getStatusCode());
 
         /**
@@ -221,55 +232,55 @@ public class UserControllerIT extends SpringBootTestEnvironment
         /**
          * Create user with empty string password
          */
-        ResponseEntity<UsersDTO> emptyStringUserPassword = userController.createUser(new UsersDTO(null, "", getRandomEmail(), "", AppUserRole.USER, true));
+        ResponseEntity<UsersDTO> emptyStringUserPassword = userController.createUser(new UsersDTO(null, getAlphaNumericString(), getRandomEmail(), getEmptyString(), AppUserRole.USER, true));
         assertEquals(HttpStatus.BAD_REQUEST, emptyStringUserPassword.getStatusCode());
 
         /**
          * Create user with blank space password
          */
-        ResponseEntity<UsersDTO> blankSpaceUserPassword = userController.createUser(new UsersDTO(null, " ", getRandomEmail(), " ", AppUserRole.USER, true));
+        ResponseEntity<UsersDTO> blankSpaceUserPassword = userController.createUser(new UsersDTO(null, getAlphaNumericString(), getRandomEmail(), getBlankSpace(), AppUserRole.USER, true));
         assertEquals(HttpStatus.BAD_REQUEST, blankSpaceUserPassword.getStatusCode());
 
         /**
-         * Create user with more than forbidden characters in password
+         * Create user with forbidden characters in password
          */
-        ResponseEntity<UsersDTO> invalidCharsUserPassword = userController.createUser(new UsersDTO(null, getMoreChars(), getRandomEmail(), getPassword()+"]", AppUserRole.USER, true));
+        ResponseEntity<UsersDTO> invalidCharsUserPassword = userController.createUser(new UsersDTO(null, getAlphaNumericString(), getRandomEmail(), getForbiddenCharactersPassword(), AppUserRole.USER, true));
         assertEquals(HttpStatus.BAD_REQUEST, invalidCharsUserPassword.getStatusCode());
 
         /**
          * Create user with less than 8 characters in password
          */
-        ResponseEntity<UsersDTO> lessCharsUserPassword = userController.createUser(new UsersDTO(null, getMoreChars(), getRandomEmail(), "cro123$", AppUserRole.USER, true));
+        ResponseEntity<UsersDTO> lessCharsUserPassword = userController.createUser(new UsersDTO(null, getAlphaNumericString(), getRandomEmail(), getLessCharactersPassword(), AppUserRole.USER, true));
         assertEquals(HttpStatus.BAD_REQUEST, lessCharsUserPassword.getStatusCode());
 
         /**
          * Create user with more than 20 characters in password
          */
-        ResponseEntity<UsersDTO> moreCharsUserPassword = userController.createUser(new UsersDTO(null, getMoreChars(), getRandomEmail(), "crocodiL123$$$$$$$$$$$$$$", AppUserRole.USER, true));
+        ResponseEntity<UsersDTO> moreCharsUserPassword = userController.createUser(new UsersDTO(null, getMoreChars(), getRandomEmail(), getMoreCharactersPassword(), AppUserRole.USER, true));
         assertEquals(HttpStatus.BAD_REQUEST, moreCharsUserPassword.getStatusCode());
 
         /**
          * Create user with no digits in password
          */
-        ResponseEntity<UsersDTO> noDigitsUserPassword = userController.createUser(new UsersDTO(null, getMoreChars(), getRandomEmail(), "crocodiL$$$$$$", AppUserRole.USER, true));
+        ResponseEntity<UsersDTO> noDigitsUserPassword = userController.createUser(new UsersDTO(null, getMoreChars(), getRandomEmail(), getNoDigitsPassword(), AppUserRole.USER, true));
         assertEquals(HttpStatus.BAD_REQUEST, noDigitsUserPassword.getStatusCode());
 
         /**
          * Create user with no uppercase in password
          */
-        ResponseEntity<UsersDTO> noUppercaseUserPassword = userController.createUser(new UsersDTO(null, getMoreChars(), getRandomEmail(), "crocodil123$$$", AppUserRole.USER, true));
+        ResponseEntity<UsersDTO> noUppercaseUserPassword = userController.createUser(new UsersDTO(null, getMoreChars(), getRandomEmail(), getNoUppercasePassword(), AppUserRole.USER, true));
         assertEquals(HttpStatus.BAD_REQUEST, noUppercaseUserPassword.getStatusCode());
 
         /**
          * Create user with no lowercase in password
          */
-        ResponseEntity<UsersDTO> noLowerCaseCharsUserPassword = userController.createUser(new UsersDTO(null, getMoreChars(), getRandomEmail(), "CROCODIL123$$$$", AppUserRole.USER, true));
+        ResponseEntity<UsersDTO> noLowerCaseCharsUserPassword = userController.createUser(new UsersDTO(null, getMoreChars(), getRandomEmail(), getNoLowercasePassword(), AppUserRole.USER, true));
         assertEquals(HttpStatus.BAD_REQUEST, noLowerCaseCharsUserPassword.getStatusCode());
 
         /**
          * Create user with no special character in password
          */
-        ResponseEntity<UsersDTO> noSpecialCharsUserPassword = userController.createUser(new UsersDTO(null, getMoreChars(), getRandomEmail(), "crocodiL123", AppUserRole.USER, true));
+        ResponseEntity<UsersDTO> noSpecialCharsUserPassword = userController.createUser(new UsersDTO(null, getMoreChars(), getRandomEmail(), getNoSpecialCharactersPassword(), AppUserRole.USER, true));
         assertEquals(HttpStatus.BAD_REQUEST, noSpecialCharsUserPassword.getStatusCode());
     }
 

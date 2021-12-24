@@ -1,7 +1,11 @@
 package com.newklearz.controllers;
 
 import static com.newklearz.controllers.Utils.getAlphaNumericString;
+import static com.newklearz.controllers.Utils.getBlankSpace;
+import static com.newklearz.controllers.Utils.getEmptyString;
+import static com.newklearz.controllers.Utils.getIntegerZero;
 import static com.newklearz.controllers.Utils.getMoreChars;
+import static com.newklearz.controllers.Utils.getOutOfRangeValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -44,26 +48,26 @@ public class BoardControllerIT extends SpringBootTestEnvironment
         /**
          * Retrieve board with a negative id
          */
-        ResponseEntity<BoardDTO> boardNegativeId = boardController.getBoard(Integer.MAX_VALUE + 3488799);
+        ResponseEntity<BoardDTO> boardNegativeId = boardController.getBoard(Integer.MIN_VALUE);
         assertEquals(HttpStatus.BAD_REQUEST, boardNegativeId.getStatusCode());
 
         /**
          * Retrieve board with an in-existent id
          */
-        ResponseEntity<BoardDTO> boardInexistentId = boardController.getBoard(213123123);
+        ResponseEntity<BoardDTO> boardInexistentId = boardController.getBoard(Integer.MAX_VALUE);
         assertEquals(HttpStatus.NOT_FOUND, boardInexistentId.getStatusCode());
 
         /**
          * Retrieve board with id value of zero
          */
-        ResponseEntity<BoardDTO> boardZeroId = boardController.getBoard(0);
+        ResponseEntity<BoardDTO> boardZeroId = boardController.getBoard(getIntegerZero());
         assertEquals(HttpStatus.BAD_REQUEST, boardZeroId.getStatusCode());
 
         /**
-         * Retrieve board with alphanumeric id value
+         * Retrieve board with Integer out of range id value
          */
-        ResponseEntity<BoardDTO> boardAlphaNumericId = boardController.getBoard(Integer.parseInt("asdaakjshd123sah"));
-        assertEquals(HttpStatus.BAD_REQUEST, boardAlphaNumericId);
+        ResponseEntity<BoardDTO> outOfRangeIntegerBoardId = boardController.getBoard(getOutOfRangeValue());
+        assertEquals(HttpStatus.BAD_REQUEST, outOfRangeIntegerBoardId);
     }
 
     @Test
@@ -91,13 +95,13 @@ public class BoardControllerIT extends SpringBootTestEnvironment
         /**
          * Create board with empty string name
          */
-        ResponseEntity<BoardDTO> boardEmptyStringName = boardController.createBoard(new BoardDTO(null, ""));
+        ResponseEntity<BoardDTO> boardEmptyStringName = boardController.createBoard(new BoardDTO(null, getEmptyString()));
         assertEquals(HttpStatus.BAD_REQUEST, boardEmptyStringName.getStatusCode());
 
         /**
          * Create board with blank space name
          */
-        ResponseEntity<BoardDTO> boardBlankSpaceName = boardController.createBoard(new BoardDTO(null, " "));
+        ResponseEntity<BoardDTO> boardBlankSpaceName = boardController.createBoard(new BoardDTO(null, getBlankSpace()));
         assertEquals(HttpStatus.BAD_REQUEST, boardBlankSpaceName.getStatusCode());
         /**
          * Create board with same name as an existing one
@@ -137,7 +141,7 @@ public class BoardControllerIT extends SpringBootTestEnvironment
     @Test
     public void testUpdateOfBoardNegative()
     {
-        ResponseEntity<BoardDTO> createBoard = boardController.createBoard(new BoardDTO(null, "abc"));
+        ResponseEntity<BoardDTO> createBoard = boardController.createBoard(new BoardDTO(null, getAlphaNumericString()));
         assertNotNull(createBoard);
         assertEquals(HttpStatus.OK, createBoard.getStatusCode());
 
@@ -146,7 +150,7 @@ public class BoardControllerIT extends SpringBootTestEnvironment
         assertEquals(HttpStatus.OK, foundBoardBeforeUpdate.getStatusCode());
 
         BoardDTO boardBeforeUpdate = foundBoardBeforeUpdate.getBody();
-        boardBeforeUpdate.setName("abc");
+        boardBeforeUpdate.setName(createBoard.getBody().getName());
 
         /**
          * Update board with an existing name

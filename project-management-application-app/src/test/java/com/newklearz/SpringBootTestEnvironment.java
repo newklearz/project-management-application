@@ -8,23 +8,23 @@ import static com.newklearz.controllers.Utils.getRandomEmail;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.newklearz.dto.BoardDTO;
-import com.newklearz.dto.TicketRankDTO;
-import com.newklearz.controllers.BoardController;
-import com.newklearz.controllers.TicketRankController;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.newklearz.dto.AppUserRole;
-import com.newklearz.dto.TicketDTO;
-import com.newklearz.dto.TicketDetailsDTO;
-import com.newklearz.dto.UsersDTO;
+import com.newklearz.controllers.BoardController;
 import com.newklearz.controllers.RegistrationController;
 import com.newklearz.controllers.TicketController;
+import com.newklearz.controllers.TicketRankController;
 import com.newklearz.controllers.UserController;
+import com.newklearz.dto.AppUserRole;
+import com.newklearz.dto.BoardDTO;
+import com.newklearz.dto.TicketDTO;
+import com.newklearz.dto.TicketDetailsDTO;
+import com.newklearz.dto.TicketRankDTO;
+import com.newklearz.dto.UsersDTO;
 
 @SpringBootTest(classes = ProjectManagementApplication.class)
 @AutoConfigureMockMvc
