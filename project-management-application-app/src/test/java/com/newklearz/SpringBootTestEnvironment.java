@@ -1,7 +1,7 @@
 package com.newklearz;
 
+import static com.newklearz.controllers.Utils.COMPLEX_PASSWORD;
 import static com.newklearz.controllers.Utils.getAlphaNumericString;
-import static com.newklearz.controllers.Utils.getPassword;
 import static com.newklearz.controllers.Utils.getRandomDate;
 import static com.newklearz.controllers.Utils.getRandomEmail;
 
@@ -85,7 +85,7 @@ public class SpringBootTestEnvironment
         this.usersDTO = new UsersDTO();
         usersDTO.setUserName(getAlphaNumericString());
         usersDTO.setEmail(getRandomEmail());
-        usersDTO.setPassword(getPassword());
+        usersDTO.setPassword(COMPLEX_PASSWORD);
         usersDTO.setAppUserRole(AppUserRole.ADMIN);
         usersDTO.setActive(true);
         usersDTO = userController.createUser(this.usersDTO).getBody();

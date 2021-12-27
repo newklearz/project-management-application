@@ -1,11 +1,11 @@
 package com.newklearz.controllers;
 
+import static com.newklearz.controllers.Utils.BLANK_SPACE;
+import static com.newklearz.controllers.Utils.EMPTY_STRING;
+import static com.newklearz.controllers.Utils.INTEGER_ZERO;
+import static com.newklearz.controllers.Utils.MORE_CHARACTERS_THAN_100;
+import static com.newklearz.controllers.Utils.OUT_OF_RANGE_VALUE;
 import static com.newklearz.controllers.Utils.getAlphaNumericString;
-import static com.newklearz.controllers.Utils.getBlankSpace;
-import static com.newklearz.controllers.Utils.getEmptyString;
-import static com.newklearz.controllers.Utils.getIntegerZero;
-import static com.newklearz.controllers.Utils.getMoreChars;
-import static com.newklearz.controllers.Utils.getOutOfRangeValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -60,13 +60,13 @@ public class BoardControllerIT extends SpringBootTestEnvironment
         /**
          * Retrieve board with id value of zero
          */
-        ResponseEntity<BoardDTO> boardZeroId = boardController.getBoard(getIntegerZero());
+        ResponseEntity<BoardDTO> boardZeroId = boardController.getBoard(INTEGER_ZERO);
         assertEquals(HttpStatus.BAD_REQUEST, boardZeroId.getStatusCode());
 
         /**
          * Retrieve board with Integer out of range id value
          */
-        ResponseEntity<BoardDTO> outOfRangeIntegerBoardId = boardController.getBoard(getOutOfRangeValue());
+        ResponseEntity<BoardDTO> outOfRangeIntegerBoardId = boardController.getBoard(OUT_OF_RANGE_VALUE);
         assertEquals(HttpStatus.BAD_REQUEST, outOfRangeIntegerBoardId);
     }
 
@@ -95,13 +95,13 @@ public class BoardControllerIT extends SpringBootTestEnvironment
         /**
          * Create board with empty string name
          */
-        ResponseEntity<BoardDTO> boardEmptyStringName = boardController.createBoard(new BoardDTO(null, getEmptyString()));
+        ResponseEntity<BoardDTO> boardEmptyStringName = boardController.createBoard(new BoardDTO(null, EMPTY_STRING));
         assertEquals(HttpStatus.BAD_REQUEST, boardEmptyStringName.getStatusCode());
 
         /**
          * Create board with blank space name
          */
-        ResponseEntity<BoardDTO> boardBlankSpaceName = boardController.createBoard(new BoardDTO(null, getBlankSpace()));
+        ResponseEntity<BoardDTO> boardBlankSpaceName = boardController.createBoard(new BoardDTO(null, BLANK_SPACE));
         assertEquals(HttpStatus.BAD_REQUEST, boardBlankSpaceName.getStatusCode());
         /**
          * Create board with same name as an existing one
@@ -112,7 +112,7 @@ public class BoardControllerIT extends SpringBootTestEnvironment
         /**
          * Create board with more than 100 characters in name
          */
-        ResponseEntity<BoardDTO> boardMoreCharsName = boardController.createBoard(new BoardDTO(null, getMoreChars()));
+        ResponseEntity<BoardDTO> boardMoreCharsName = boardController.createBoard(new BoardDTO(null, MORE_CHARACTERS_THAN_100));
         assertEquals(HttpStatus.BAD_REQUEST, boardMoreCharsName.getStatusCode());
     }
 

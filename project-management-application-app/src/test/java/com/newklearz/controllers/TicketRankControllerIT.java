@@ -1,7 +1,7 @@
 package com.newklearz.controllers;
 
-import static com.newklearz.controllers.Utils.getIntegerZero;
-import static com.newklearz.controllers.Utils.getOutOfRangeValue;
+import static com.newklearz.controllers.Utils.INTEGER_ZERO;
+import static com.newklearz.controllers.Utils.OUT_OF_RANGE_VALUE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -66,13 +66,13 @@ public class TicketRankControllerIT extends SpringBootTestEnvironment
         /**
          * Retrieve tickets for board with id value of zero
          */
-        ResponseEntity<List<TicketDTO>>  ticketsForZeroBoardId = ticketRankController.getTicketsForBoard(getIntegerZero());
+        ResponseEntity<List<TicketDTO>>  ticketsForZeroBoardId = ticketRankController.getTicketsForBoard(INTEGER_ZERO);
         assertEquals(HttpStatus.BAD_REQUEST, ticketsForZeroBoardId.getStatusCode());
 
         /**
          * Retrieve tickets for board with out of range Integer id value
          */
-        ResponseEntity<List<TicketDTO>> ticketsForOutOfRangeIntegerBoardId = ticketRankController.getTicketsForBoard(getOutOfRangeValue());
+        ResponseEntity<List<TicketDTO>> ticketsForOutOfRangeIntegerBoardId = ticketRankController.getTicketsForBoard(OUT_OF_RANGE_VALUE);
         assertEquals(HttpStatus.BAD_REQUEST, ticketsForOutOfRangeIntegerBoardId);
     }
 
@@ -108,13 +108,13 @@ public class TicketRankControllerIT extends SpringBootTestEnvironment
         /**
          * Retrieve boards for ticket with id value of zero
          */
-        ResponseEntity<List<BoardDTO>>  boardsForZeroTicketId = ticketRankController.getBoardsForTicket(getIntegerZero());
+        ResponseEntity<List<BoardDTO>>  boardsForZeroTicketId = ticketRankController.getBoardsForTicket(INTEGER_ZERO);
         assertEquals(HttpStatus.BAD_REQUEST, boardsForZeroTicketId.getStatusCode());
 
         /**
          * Retrieve boards for ticket with out of range Integer id value
          */
-        ResponseEntity<List<BoardDTO>> boardsForOutOfRangeIntegerTicketId = ticketRankController.getBoardsForTicket(getOutOfRangeValue());
+        ResponseEntity<List<BoardDTO>> boardsForOutOfRangeIntegerTicketId = ticketRankController.getBoardsForTicket(OUT_OF_RANGE_VALUE);
         assertEquals(HttpStatus.BAD_REQUEST, boardsForOutOfRangeIntegerTicketId);
     }
 
@@ -195,7 +195,7 @@ public class TicketRankControllerIT extends SpringBootTestEnvironment
         /**
          * Update rank priority with out of range Integer positions
          */
-        ResponseEntity<Object> outOfRangeIntegerPositions = ticketRankController.updateTicketPriority(boardDTO.getId(),getOutOfRangeValue(),getOutOfRangeValue());
+        ResponseEntity<Object> outOfRangeIntegerPositions = ticketRankController.updateTicketPriority(boardDTO.getId(),OUT_OF_RANGE_VALUE,OUT_OF_RANGE_VALUE);
         assertEquals(HttpStatus.BAD_REQUEST, outOfRangeIntegerPositions.getStatusCode());
 
         /**
@@ -219,13 +219,13 @@ public class TicketRankControllerIT extends SpringBootTestEnvironment
         /**
          * Update rank priority for board with id zero
          */
-        ResponseEntity<Object> zeroBoardId = ticketRankController.updateTicketPriority(getIntegerZero(),1,2);
+        ResponseEntity<Object> zeroBoardId = ticketRankController.updateTicketPriority(INTEGER_ZERO,1,2);
         assertEquals(HttpStatus.BAD_REQUEST, zeroBoardId.getStatusCode());
 
         /**
          * Update rank priority for board with out of range Integer id
          */
-        ResponseEntity<Object> outOfRangeIntegerBoardId = ticketRankController.updateTicketPriority(getOutOfRangeValue(),1,2);
+        ResponseEntity<Object> outOfRangeIntegerBoardId = ticketRankController.updateTicketPriority(OUT_OF_RANGE_VALUE,1,2);
         assertEquals(HttpStatus.BAD_REQUEST, outOfRangeIntegerBoardId.getStatusCode());
     }
 }

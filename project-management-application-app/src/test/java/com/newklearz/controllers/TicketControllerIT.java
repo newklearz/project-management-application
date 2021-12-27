@@ -1,11 +1,11 @@
 package com.newklearz.controllers;
 
+import static com.newklearz.controllers.Utils.BLANK_SPACE;
+import static com.newklearz.controllers.Utils.EMPTY_STRING;
+import static com.newklearz.controllers.Utils.INTEGER_ZERO;
+import static com.newklearz.controllers.Utils.MORE_CHARACTERS_THAN_100;
+import static com.newklearz.controllers.Utils.OUT_OF_RANGE_VALUE;
 import static com.newklearz.controllers.Utils.getAlphaNumericString;
-import static com.newklearz.controllers.Utils.getBlankSpace;
-import static com.newklearz.controllers.Utils.getEmptyString;
-import static com.newklearz.controllers.Utils.getIntegerZero;
-import static com.newklearz.controllers.Utils.getMoreChars;
-import static com.newklearz.controllers.Utils.getOutOfRangeValue;
 import static com.newklearz.controllers.Utils.getRandomDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -74,13 +74,13 @@ public class TicketControllerIT extends SpringBootTestEnvironment
         /**
          * Retrieve ticket with id value of zero
          */
-        ResponseEntity<TicketDTO> ticketZeroId = ticketController.getTicket(getIntegerZero());
+        ResponseEntity<TicketDTO> ticketZeroId = ticketController.getTicket(INTEGER_ZERO);
         assertEquals(HttpStatus.BAD_REQUEST, ticketZeroId.getStatusCode());
 
         /**
          * Retrieve ticket with out of range Integer id value
          */
-        ResponseEntity<TicketDTO> outOfRangeIntegerTicketId = ticketController.getTicket(getOutOfRangeValue());
+        ResponseEntity<TicketDTO> outOfRangeIntegerTicketId = ticketController.getTicket(OUT_OF_RANGE_VALUE);
         assertEquals(HttpStatus.BAD_REQUEST, outOfRangeIntegerTicketId);
     }
 
@@ -117,13 +117,13 @@ public class TicketControllerIT extends SpringBootTestEnvironment
         /**
          * Create ticket with empty string name
          */
-        ResponseEntity<TicketDTO> testEmptyStringName = ticketController.createTicket(new TicketDTO(null, getEmptyString(), getAlphaNumericString(), getRandomDate(), getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(), usersDTO, null, null));
+        ResponseEntity<TicketDTO> testEmptyStringName = ticketController.createTicket(new TicketDTO(null, EMPTY_STRING, getAlphaNumericString(), getRandomDate(), getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(), usersDTO, null, null));
         assertEquals(HttpStatus.BAD_REQUEST, testEmptyStringName.getStatusCode());
 
         /**
          * Create ticket with blank space name
          */
-        ResponseEntity<TicketDTO> testBlankSpaceName = ticketController.createTicket(new TicketDTO(null, getBlankSpace(), getAlphaNumericString(), getRandomDate(), getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(), usersDTO, null, null));
+        ResponseEntity<TicketDTO> testBlankSpaceName = ticketController.createTicket(new TicketDTO(null, BLANK_SPACE, getAlphaNumericString(), getRandomDate(), getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(), usersDTO, null, null));
         assertEquals(HttpStatus.BAD_REQUEST, testBlankSpaceName.getStatusCode());
         /**
          * Create ticket with same name as an existing one
@@ -134,7 +134,7 @@ public class TicketControllerIT extends SpringBootTestEnvironment
         /**
          * Create ticket with more than 100 characters in name
          */
-        ResponseEntity<TicketDTO> testMoreCharsName = ticketController.createTicket(new TicketDTO(null, getMoreChars(),getAlphaNumericString(), getRandomDate(), getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(), usersDTO, null, null));
+        ResponseEntity<TicketDTO> testMoreCharsName = ticketController.createTicket(new TicketDTO(null, MORE_CHARACTERS_THAN_100,getAlphaNumericString(), getRandomDate(), getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(), usersDTO, null, null));
         assertEquals(HttpStatus.BAD_REQUEST, testMoreCharsName.getStatusCode());
 
         /**
@@ -152,19 +152,19 @@ public class TicketControllerIT extends SpringBootTestEnvironment
         /**
          * Create ticket with empty string ticket type
          */
-        ResponseEntity<TicketDTO> testEmptyStringTicketType = ticketController.createTicket(new TicketDTO(null, getAlphaNumericString(), getEmptyString(), getRandomDate(), getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(), usersDTO, null, null));
+        ResponseEntity<TicketDTO> testEmptyStringTicketType = ticketController.createTicket(new TicketDTO(null, getAlphaNumericString(), EMPTY_STRING, getRandomDate(), getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(), usersDTO, null, null));
         assertEquals(HttpStatus.BAD_REQUEST, testEmptyStringTicketType.getStatusCode());
 
         /**
          * Create ticket with blank space ticket type
          */
-        ResponseEntity<TicketDTO> testBlankSpaceTicketType = ticketController.createTicket(new TicketDTO(null, getAlphaNumericString(), getBlankSpace(), getRandomDate(), getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(), usersDTO, null, null));
+        ResponseEntity<TicketDTO> testBlankSpaceTicketType = ticketController.createTicket(new TicketDTO(null, getAlphaNumericString(), BLANK_SPACE, getRandomDate(), getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(), usersDTO, null, null));
         assertEquals(HttpStatus.BAD_REQUEST, testBlankSpaceTicketType.getStatusCode());
 
         /**
          * Create ticket with more than 100 characters in ticket type
          */
-        ResponseEntity<TicketDTO> testMoreCharsTicketType = ticketController.createTicket(new TicketDTO(null, getAlphaNumericString(),getMoreChars(), getRandomDate(), getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(), usersDTO, null, null));
+        ResponseEntity<TicketDTO> testMoreCharsTicketType = ticketController.createTicket(new TicketDTO(null, getAlphaNumericString(),MORE_CHARACTERS_THAN_100, getRandomDate(), getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(), usersDTO, null, null));
         assertEquals(HttpStatus.BAD_REQUEST, testMoreCharsTicketType.getStatusCode());
     }
 
@@ -249,13 +249,13 @@ public class TicketControllerIT extends SpringBootTestEnvironment
         /**
          * Retrieve tickets created by user with id value of zero
          */
-        ResponseEntity<List<TicketDTO>>  ticketZeroId = ticketController.getAllTicketsCreatedByUser(getIntegerZero());
+        ResponseEntity<List<TicketDTO>>  ticketZeroId = ticketController.getAllTicketsCreatedByUser(INTEGER_ZERO);
         assertEquals(HttpStatus.BAD_REQUEST, ticketZeroId.getStatusCode());
 
         /**
          * Retrieve tickets created by user with out of range Integer id value
          */
-        ResponseEntity<List<TicketDTO>> ticketsForOutOfRangeIntegerUserId = ticketController.getAllTicketsCreatedByUser(getOutOfRangeValue());
+        ResponseEntity<List<TicketDTO>> ticketsForOutOfRangeIntegerUserId = ticketController.getAllTicketsCreatedByUser(OUT_OF_RANGE_VALUE);
         assertEquals(HttpStatus.BAD_REQUEST, ticketsForOutOfRangeIntegerUserId);
     }
 
@@ -289,13 +289,13 @@ public class TicketControllerIT extends SpringBootTestEnvironment
         /**
          * Retrieve tickets assigned to user with id value of zero
          */
-        ResponseEntity<List<TicketDTO>> ticketZeroId = ticketController.getAllTicketsAssignedToUser(getIntegerZero());
+        ResponseEntity<List<TicketDTO>> ticketZeroId = ticketController.getAllTicketsAssignedToUser(INTEGER_ZERO);
         assertEquals(HttpStatus.BAD_REQUEST, ticketZeroId.getStatusCode());
 
         /**
          * Retrieve tickets assigned to user with out of range Integer id value
          */
-        ResponseEntity<List<TicketDTO>> ticketForOutOfRangeIntegerUserId = ticketController.getAllTicketsAssignedToUser(getOutOfRangeValue());
+        ResponseEntity<List<TicketDTO>> ticketForOutOfRangeIntegerUserId = ticketController.getAllTicketsAssignedToUser(OUT_OF_RANGE_VALUE);
         assertEquals(HttpStatus.BAD_REQUEST, ticketForOutOfRangeIntegerUserId);
     }
 
