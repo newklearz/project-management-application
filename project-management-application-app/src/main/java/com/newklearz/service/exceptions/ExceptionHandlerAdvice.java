@@ -16,6 +16,13 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler
     ApiError onUserCredentialsException(UserCredentialsException ex)
     {
         return new ApiError(HttpStatus.EXPECTATION_FAILED, ex.getMessage());
+    }
 
+    @ExceptionHandler(BoardException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    ApiError onBoardRetrievalException(BoardException ex)
+    {
+        return new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 }

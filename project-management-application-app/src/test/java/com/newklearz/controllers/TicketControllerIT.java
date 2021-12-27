@@ -1,11 +1,18 @@
 package com.newklearz.controllers;
 
+import static com.newklearz.controllers.Utils.BLANK_SPACE;
+import static com.newklearz.controllers.Utils.EMPTY_STRING;
+import static com.newklearz.controllers.Utils.INTEGER_ZERO;
+import static com.newklearz.controllers.Utils.MORE_CHARACTERS_THAN_100;
+import static com.newklearz.controllers.Utils.OUT_OF_RANGE_VALUE;
 import static com.newklearz.controllers.Utils.getAlphaNumericString;
 import static com.newklearz.controllers.Utils.getRandomDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
@@ -50,6 +57,34 @@ public class TicketControllerIT extends SpringBootTestEnvironment
     }
 
     @Test
+    public void testRetrievalOfTicketNegative()
+    {
+        /**
+         * Retrieve ticket with a negative id
+         */
+        ResponseEntity<TicketDTO> ticketNegativeId = ticketController.getTicket(Integer.MIN_VALUE);
+        assertEquals(HttpStatus.BAD_REQUEST, ticketNegativeId.getStatusCode());
+
+        /**
+         * Retrieve ticket with an in-existent id
+         */
+        ResponseEntity<TicketDTO> ticketInexistentId = ticketController.getTicket(Integer.MAX_VALUE);
+        assertEquals(HttpStatus.NOT_FOUND, ticketInexistentId.getStatusCode());
+
+        /**
+         * Retrieve ticket with id value of zero
+         */
+        ResponseEntity<TicketDTO> ticketZeroId = ticketController.getTicket(INTEGER_ZERO);
+        assertEquals(HttpStatus.BAD_REQUEST, ticketZeroId.getStatusCode());
+
+        /**
+         * Retrieve ticket with out of range Integer id value
+         */
+        ResponseEntity<TicketDTO> outOfRangeIntegerTicketId = ticketController.getTicket(OUT_OF_RANGE_VALUE);
+        assertEquals(HttpStatus.BAD_REQUEST, outOfRangeIntegerTicketId);
+    }
+
+    @Test
     public void testCreateOfTicket()
     {
         TicketDTO testTicket = new TicketDTO(null, getAlphaNumericString(), getAlphaNumericString(), getRandomDate(),
@@ -71,6 +106,69 @@ public class TicketControllerIT extends SpringBootTestEnvironment
     }
 
     @Test
+    public void testCreateOfTicketNegative()
+    {
+        /**
+         * Create ticket with null name
+         */
+        ResponseEntity<TicketDTO> testTicketNullName = ticketController.createTicket(new TicketDTO(null, null, getAlphaNumericString(), getRandomDate(), getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(), usersDTO, null, null));
+        assertEquals(HttpStatus.BAD_REQUEST, testTicketNullName);
+
+        /**
+         * Create ticket with empty string name
+         */
+        ResponseEntity<TicketDTO> testEmptyStringName = ticketController.createTicket(new TicketDTO(null, EMPTY_STRING, getAlphaNumericString(), getRandomDate(), getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(), usersDTO, null, null));
+        assertEquals(HttpStatus.BAD_REQUEST, testEmptyStringName.getStatusCode());
+
+        /**
+         * Create ticket with blank space name
+         */
+        ResponseEntity<TicketDTO> testBlankSpaceName = ticketController.createTicket(new TicketDTO(null, BLANK_SPACE, getAlphaNumericString(), getRandomDate(), getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(), usersDTO, null, null));
+        assertEquals(HttpStatus.BAD_REQUEST, testBlankSpaceName.getStatusCode());
+        /**
+         * Create ticket with same name as an existing one
+         */
+        ResponseEntity<TicketDTO> testSameName = ticketController.createTicket(new TicketDTO(null, ticketDTOS.get(0).getName(), getAlphaNumericString(), getRandomDate(), getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(), usersDTO, null, null));
+        assertEquals(HttpStatus.CONFLICT, testSameName.getStatusCode());
+
+        /**
+         * Create ticket with more than 100 characters in name
+         */
+        ResponseEntity<TicketDTO> testMoreCharsName = ticketController.createTicket(new TicketDTO(null, MORE_CHARACTERS_THAN_100,getAlphaNumericString(), getRandomDate(), getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(), usersDTO, null, null));
+        assertEquals(HttpStatus.BAD_REQUEST, testMoreCharsName.getStatusCode());
+
+        /**
+         * Create ticket with null date crated
+         */
+        ResponseEntity<TicketDTO> testCreateDate = ticketController.createTicket(new TicketDTO(null, getAlphaNumericString(),getAlphaNumericString(),null, getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(), usersDTO, null, null));
+        assertEquals(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyy HH:mm:ss")), testCreateDate.getBody().getDateCreated());
+
+        /**
+         * Create ticket with null ticket type
+         */
+        ResponseEntity<TicketDTO> testTicketNullTicketType= ticketController.createTicket(new TicketDTO(null, getAlphaNumericString(), null, getRandomDate(), getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(), usersDTO, null, null));
+        assertEquals(HttpStatus.BAD_REQUEST, testTicketNullTicketType);
+
+        /**
+         * Create ticket with empty string ticket type
+         */
+        ResponseEntity<TicketDTO> testEmptyStringTicketType = ticketController.createTicket(new TicketDTO(null, getAlphaNumericString(), EMPTY_STRING, getRandomDate(), getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(), usersDTO, null, null));
+        assertEquals(HttpStatus.BAD_REQUEST, testEmptyStringTicketType.getStatusCode());
+
+        /**
+         * Create ticket with blank space ticket type
+         */
+        ResponseEntity<TicketDTO> testBlankSpaceTicketType = ticketController.createTicket(new TicketDTO(null, getAlphaNumericString(), BLANK_SPACE, getRandomDate(), getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(), usersDTO, null, null));
+        assertEquals(HttpStatus.BAD_REQUEST, testBlankSpaceTicketType.getStatusCode());
+
+        /**
+         * Create ticket with more than 100 characters in ticket type
+         */
+        ResponseEntity<TicketDTO> testMoreCharsTicketType = ticketController.createTicket(new TicketDTO(null, getAlphaNumericString(),MORE_CHARACTERS_THAN_100, getRandomDate(), getRandomDate(), getAlphaNumericString(), getAlphaNumericString(), getAlphaNumericString(), usersDTO, null, null));
+        assertEquals(HttpStatus.BAD_REQUEST, testMoreCharsTicketType.getStatusCode());
+    }
+
+    @Test
     public void testUpdateOfTicket()
     {
         ResponseEntity<TicketDTO> foundTicketBeforeUpdate = ticketController.getTicket(ticketDTOS.get(0).getId());
@@ -89,6 +187,23 @@ public class TicketControllerIT extends SpringBootTestEnvironment
 
         TicketDTO ticketAfterUpdate = foundTicketAfterUpdate.getBody();
         assertEquals(ticketBeforeUpdate.getName(), ticketAfterUpdate.getName());
+    }
+
+    @Test
+    public void testUpdateOfTicketNegative()
+    {
+        ResponseEntity<TicketDTO> foundTicketBeforeUpdate = ticketController.getTicket(ticketDTOS.get(0).getId());
+        assertNotNull(foundTicketBeforeUpdate);
+        assertEquals(HttpStatus.OK, foundTicketBeforeUpdate.getStatusCode());
+
+        TicketDTO ticketBeforeUpdate = foundTicketBeforeUpdate.getBody();
+        ticketBeforeUpdate.setName(ticketDTOS.get(1).getName());
+
+        /**
+         * Update ticket with an existing name
+         */
+        ResponseEntity<TicketDTO> requestUpdateTicket = ticketController.updateTicket(ticketBeforeUpdate.getId(), ticketBeforeUpdate);
+        assertEquals(HttpStatus.CONFLICT, requestUpdateTicket.getStatusCode());
     }
 
     @Test
@@ -117,6 +232,34 @@ public class TicketControllerIT extends SpringBootTestEnvironment
     }
 
     @Test
+    public void testGetTicketsForCreatedUserNegative()
+    {
+        /**
+         * Retrieve tickets created by user with an in-existent user id
+         */
+        ResponseEntity<List<TicketDTO>> ticketsCreatedByInexistentUser = ticketController.getAllTicketsCreatedByUser(Integer.MAX_VALUE);
+        assertEquals(HttpStatus.NOT_FOUND, ticketsCreatedByInexistentUser.getStatusCode());
+
+        /**
+         * Retrieve tickets created by user with a negative id
+         */
+        ResponseEntity<List<TicketDTO>>  ticketsCreatedByNegativeIdUser = ticketController.getAllTicketsCreatedByUser(Integer.MIN_VALUE);
+        assertEquals(HttpStatus.BAD_REQUEST, ticketsCreatedByNegativeIdUser.getStatusCode());
+
+        /**
+         * Retrieve tickets created by user with id value of zero
+         */
+        ResponseEntity<List<TicketDTO>>  ticketZeroId = ticketController.getAllTicketsCreatedByUser(INTEGER_ZERO);
+        assertEquals(HttpStatus.BAD_REQUEST, ticketZeroId.getStatusCode());
+
+        /**
+         * Retrieve tickets created by user with out of range Integer id value
+         */
+        ResponseEntity<List<TicketDTO>> ticketsForOutOfRangeIntegerUserId = ticketController.getAllTicketsCreatedByUser(OUT_OF_RANGE_VALUE);
+        assertEquals(HttpStatus.BAD_REQUEST, ticketsForOutOfRangeIntegerUserId);
+    }
+
+    @Test
     public void testGetTicketsForAssignedUser()
     {
         ResponseEntity<UsersDTO> user = userController.getUser(ticketDTOS.get(0).getAssignedTo().getId());
@@ -126,6 +269,34 @@ public class TicketControllerIT extends SpringBootTestEnvironment
 
         List<TicketDTO> ticket = ticketController.getAllTicketsAssignedToUser(user.getBody().getId()).getBody();
         assertNotNull(ticket.get(0).getName(), ticketDTOS.get(0).getName());
+    }
+
+    @Test
+    public void testGetTicketsForAssignedUserNegative()
+    {
+        /**
+         * Retrieve tickets assigned to user with an in-existent user id
+         */
+        ResponseEntity<List<TicketDTO>> ticketsAssignedToInexistentUser = ticketController.getAllTicketsAssignedToUser(Integer.MAX_VALUE);
+        assertEquals(HttpStatus.NOT_FOUND, ticketsAssignedToInexistentUser.getStatusCode());
+
+        /**
+         * Retrieve tickets assigned to user with a negative id
+         */
+        ResponseEntity<List<TicketDTO>> ticketsAssignedToNegativeIdUser = ticketController.getAllTicketsAssignedToUser(Integer.MIN_VALUE);
+        assertEquals(HttpStatus.BAD_REQUEST, ticketsAssignedToNegativeIdUser.getStatusCode());
+
+        /**
+         * Retrieve tickets assigned to user with id value of zero
+         */
+        ResponseEntity<List<TicketDTO>> ticketZeroId = ticketController.getAllTicketsAssignedToUser(INTEGER_ZERO);
+        assertEquals(HttpStatus.BAD_REQUEST, ticketZeroId.getStatusCode());
+
+        /**
+         * Retrieve tickets assigned to user with out of range Integer id value
+         */
+        ResponseEntity<List<TicketDTO>> ticketForOutOfRangeIntegerUserId = ticketController.getAllTicketsAssignedToUser(OUT_OF_RANGE_VALUE);
+        assertEquals(HttpStatus.BAD_REQUEST, ticketForOutOfRangeIntegerUserId);
     }
 
     @Test
