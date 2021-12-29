@@ -23,7 +23,11 @@
         <frontend-maven-plugin.version>1.12.0</frontend-maven-plugin.version>
         <swagger-maven-plugin.version>3.1.7</swagger-maven-plugin.version>
         <swagger-codegen-maven-plugin.version>2.4.7</swagger-codegen-maven-plugin.version>
-        <maven-assembly-plugin.version>3.1.1</maven-assembly-plugin.version>
+        <docker-maven-plugin.version>0.38.0</docker-maven-plugin.version>
+        <swagger-annotations.version>1.5.20</swagger-annotations.version>
+        <mysql-connector-java.version>8.0.27</mysql-connector-java.version>
+        <commons-lang3.version>3.5</commons-lang3.version>
+        <maven-failsafe-plugin.version>2.22.2</maven-failsafe-plugin.version>
 
         <swagger.spec.output>${project.build.directory}/swagger</swagger.spec.output>
         <swagger.ts.templates>${project.basedir}/src/templates/typescript-angular</swagger.ts.templates>
