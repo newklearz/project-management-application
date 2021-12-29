@@ -33,7 +33,7 @@
     <modules>
         <module>project-management-application-api</module>
         <module>project-management-application-app</module>
-<!--        <module>project-management-application-web</module>-->
+        <module>project-management-application-web</module>
         <module>packaging</module>
     </modules>
 

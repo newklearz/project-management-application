@@ -14,7 +14,7 @@ services:
     volumes:
       - ./data:/var/lib/mysql
 
-  pma:
+  back-end:
     image: pma-app:latest
     ports:
       - 8080:8080
@@ -22,3 +22,10 @@ services:
       - db
     environment:
       - spring.datasource.url=jdbc:mysql://db:3306/pms?enabledTLSProtocols=TLSv1.2
+
+  front-end:
+    image: pma-web:latest
+    depends_on:
+      - back-end
+    ports:
+      - 4200:80
