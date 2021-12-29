@@ -14,6 +14,8 @@ import {UserEditComponent} from './users/user-edit/user-edit.component';
 import {CanDeactivateGuard} from "./users/user-edit/can-deactivate-guard.service";
 import {UserServiceNotification} from "./users/user-service.notification";
 import {InterceptorService} from "./interceptor.service";
+import {BASE_PATH} from "../pma/api";
+import {environment} from "../environments/environment.prod";
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import {InterceptorService} from "./interceptor.service";
     ReactiveFormsModule
   ],
   providers: [UserService, UserServiceNotification, CanDeactivateGuard, {
+    provide: BASE_PATH, useValue: environment.API_BASE_PATH}, {
     provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true
   }],
   bootstrap: [AppComponent]
