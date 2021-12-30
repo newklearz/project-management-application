@@ -13,10 +13,19 @@ services:
       - 3306:3306
     volumes:
       - ./data:/var/lib/mysql
-      
-  # oracle-db:
-  #   image: store/oracle/database-enterprise:12.2.0.1-slim    
-  #   ports:
-  #     - 1522:1521
-  #   volumes:
-  #     - ./orcldata:/ORCL
+
+  back-end:
+    image: pma-app:latest
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    environment:
+      - spring.datasource.url=jdbc:mysql://db:3306/pms?enabledTLSProtocols=TLSv1.2
+
+  front-end:
+    image: pma-web:latest
+    depends_on:
+      - back-end
+    ports:
+      - 4200:80

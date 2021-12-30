@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "start-watch": "ng serve --watch",
-    "build:mvn": "ng build --output-path dist/META-INF/resources"
+    "build:mvn": "ng build --output-path dist/META-INF/resources",
+    "build": "ng build"
   },
   "private": true,
   "dependencies": {
